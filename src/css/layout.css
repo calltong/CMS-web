@@ -1,0 +1,24 @@
+
+.summary-img {
+	margin-left: 1px;
+  height: 140px;
+  width: 110px;
+}
+
+.slip-img {
+	margin: 1px;
+  min-height: 200px;
+  width: 100%;
+  border:2px solid transparent;;
+  border-color: #929290;
+}
+
+panel-info>.panel-heading {
+    color: #555555;
+    background-color: #A9CED3;
+    border-color: #0231A4;
+}
+
+.form-control[readonly] {
+  background-color: floralwhite;
+}

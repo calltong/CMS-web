@@ -1,0 +1,19 @@
+
+.panel-content {
+	margin-left: 10px;
+  margin-right: 10px;
+  border-color: #D0D1D0;
+}
+
+.panel-content > .panel-heading {
+  color: white;
+	background-color: #848584;
+}
+
+.panel-content > .panel-body {
+
+}
+
+.panel-content > .panel-footer {
+
+}

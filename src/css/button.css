@@ -1,0 +1,55 @@
+.btn-login {
+  color: white;
+  background-color: #8E8E8D;
+}
+
+.btn-normal {
+  color: white;
+  background-color: #8E8E8D;
+}
+
+.btn-save {
+  color: white;
+  background-color: #8E8E8D;
+  width: 120px;
+}
+
+.btn-close {
+  color: white;
+  background-color: #8E8E8D;
+  width: 100px;
+}
+
+.btn-create {
+  color: #555555;
+  background-color: #A9CED3;
+}
+
+.btn-add {
+  color: #555555;
+  background-color: #A8C8B1;
+}
+
+.btn-remove {
+  color: #555555;
+  background-color: #EC8F8C;
+}
+
+.btn-selected {
+  color: #555555;
+  background-color: #DAD8D8;
+}
+
+.btn-active-selected {
+  color: #555555;
+  background-color: #A9CED3;
+}
+
+.btn-active-selected:focus {
+  border-color: #0231A4;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #555555;
+    background-color: #A9CED3;
+}
