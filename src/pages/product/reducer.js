@@ -18,7 +18,7 @@ export const reducer = new Reducer({
   size: {
     index: 0,
     total: 1,
-    limit: 9,
+    limit: 8,
   },
   data_list: [],
   type_list: [],
@@ -120,14 +120,14 @@ reducer.register('PRODUCT_SAVE_ITEM', (state, action) => {
     let url = `${config.api.url}/${prefix}/${id}/edit`;
     http.put(url, {json, authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        browserHistory.push(`/ProductManager`);
+        browserHistory.push(`/ProductManager?page=${state.page.index}`);
       }
     });
   } else {
     let url = `${config.api.url}/${prefix}/create`;
     http.post(url, {json, authorization: true}).done(response => {
       if (response.statusCode === http.StatusCreated) {
-        browserHistory.push(`/ProductManager`);
+        browserHistory.push(`/ProductManager?page=${state.page.index}`);
       }
     });
   }

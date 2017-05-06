@@ -85,7 +85,7 @@ export class ProductInfo extends ReducerBase {
              check={state.check}/>
          </div>
 
-         <CompleteSection close={`/ProductManager`} save={this.onSave.bind(this)} />
+         <CompleteSection close={`/ProductManager?page=${ob.page.index}`} save={this.onSave.bind(this)} />
       </div>
     );
   }

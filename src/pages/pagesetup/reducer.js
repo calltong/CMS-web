@@ -117,7 +117,7 @@ reducer.register('PAGE_GEN_PAGE', (state, action) => {
   let url = `${config.api.url}/${prefix}/${id}/gencontent`;
   http.put(url, {authorization: true}).done(response => {
     if (response.statusCode === http.StatusOK) {
-      let data = response.body;
+      //let data = response.body;
     }
   });
 

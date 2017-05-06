@@ -17,3 +17,10 @@
 .panel-content > .panel-footer {
 
 }
+
+.product-img {
+	width: 50px;
+	height: 60px;
+	display: block;
+	margin: 0px auto;
+}

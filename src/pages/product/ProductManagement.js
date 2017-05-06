@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import ProductSearchBar from './ProductSearchBar';
 import EnButton from '../../forms/EnButton';
 import EnHeader from '../../forms/EnHeader';
+import EnImage from '../../forms/EnImage';
 import Paginator from '../../forms/Paginator';
 
 import {ReducerBase} from '../../ReducerBase';
@@ -29,7 +30,6 @@ export class ProductTable extends Component {
       return (<td key={item._id} className="col-md-1" style={{textAlign: 'center'}}>{item.name}</td>)
     });
 
-
     let list = data_list.map(item => {
       let stock_list = item.stock_list;
       let sizeData = [];
@@ -37,11 +37,10 @@ export class ProductTable extends Component {
       for(let size of sizes) {
         let found = stock_list.find(stock => {
           if (stock.size._id === size._id) {
-              return stock;
+            return stock;
           } else {
-              return undefined;
+            return undefined;
           }
-
         });
         if (found) {
           sizeData.push((<td key={size._id} style={{textAlign: 'center'}}>{found.quantity}</td>));
@@ -51,18 +50,19 @@ export class ProductTable extends Component {
       }
       return (
       <tr key={item._id}>
+        <td>
+          <EnImage src={item.image_list[0].data} className="product-img"/>
+        </td>
         <td>{item.name}</td>
         <td>{item.code}</td>
         <td>{item.price}</td>
         <td>{item.sale_price}</td>
         {sizeData}
         <td style={{textAlign: 'center'}}>
-          <Link to={`ProductManager/${item._id}/Edit`} className="btn btn-xs btn-default">
+          <Link to={`ProductManager/${item._id}/Edit`} className="btn btn-xs btn-default" style={{width:'50px'}}>
             <i className="fa fa-pencil" data-tip="edit"/> Edit
           </Link>
-        </td>
-        <td style={{textAlign: 'center'}}>
-          <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default">
+          <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default" style={{width:'50px'}}>
             <i className="fa fa-close" data-tip="delete"/> Del
           </EnButton>
         </td>
@@ -74,13 +74,14 @@ export class ProductTable extends Component {
       <table className="table table-bordered table-hover">
         <thead>
           <tr>
+            <th className="col-md-1">Pic.</th>
             <th className="col-md-5">Name</th>
             <th className="col-md-1">Code</th>
             <th className="col-md-1">Price</th>
             <th className="col-md-1">Sale</th>
             {sizeList}
             <th></th>
-            <th></th>
+
           </tr>
         </thead>
         <tbody>
@@ -94,8 +95,13 @@ export class ProductTable extends Component {
 export class ProductManagement extends ReducerBase {
 
   componentDidMount() {
-    store.update('PRODUCT_GET_FULL_LIST');
-    store.update('PRODUCT_GET_SIZE');
+    let page = this.props.params.page;
+    if (page) {
+      store.update('PRODUCT_GET_LIST', {index:page});
+    } else {
+      store.update('PRODUCT_GET_FULL_LIST');
+      store.update('PRODUCT_GET_SIZE');
+    }
   }
 
   handleNext() {
