@@ -16,12 +16,19 @@ export const reducer = new Reducer({
   },
   data_list: [],
   data: {
-      _id: undefined,
-      customer: '',
-      promotion: '',
-      total: 0,
-      product_list: [],
-      date : []
+    id: undefined,
+    items: [],
+    trackings: [],
+    account: {
+      email: '',
+    },
+    recipient: {
+      location: '',
+      name: '',
+      phone: '',
+      postcode: '',
+      province: '',
+    },
   },
   condition: 'Order',
 });
@@ -42,11 +49,11 @@ reducer.register('ORDER_GET_LIST', (state, action) => {
     state.condition = condition;
   }
 
-  let url = `${config.api.url}/${prefix}`;
+  let url = `${config.api.url}/v1/orders`;
   http.get(url, {authorization: true}).done(response => {
     if (response.statusCode === http.StatusOK) {
-      let data_list = response.body;
-      store.update('ORDER_STORE_LIST', {data_list});
+      let list = response.body.data;
+      store.update('ORDER_STORE_LIST', {list});
     }
   });
 
@@ -54,8 +61,8 @@ reducer.register('ORDER_GET_LIST', (state, action) => {
 });
 
 reducer.register('ORDER_STORE_LIST', (state, action) => {
-  let {data_list} = action.params;
-  state.data_list = data_list?data_list:[];
+  let {list} = action.params;
+  state.data_list = list?list:[];
 
   return state;
 });
@@ -69,14 +76,14 @@ reducer.register('ORDER_SAVE_ITEM', (state, action) => {
     let url = `${config.api.url}/${prefix}/${id}/edit`;
     http.put(url, {json, authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        browserHistory.push(`/OrderManager`);
+        browserHistory.push('/orders');
       }
     });
   } else {
     let url = `${config.api.url}/${prefix}/create`;
     http.post(url, {json, authorization: true}).done(response => {
       if (response.statusCode === http.StatusCreated) {
-        browserHistory.push(`/OrderManager`);
+        browserHistory.push('/orders');
       }
     });
   }
@@ -96,10 +103,10 @@ reducer.register('ORDER_REMOVE_ITEM', (state, action) => {
 
 reducer.register('ORDER_GET_ITEM', (state, action) => {
   let {id} = action.params;
-  let url = `${config.api.url}/${prefix}/${id}`;
+  let url = `${config.api.url}/v1/orders/${id}`;
   http.get(url).done(response => {
     if (response.statusCode === http.StatusOK) {
-      let data = response.body;
+      let data = response.body.data;
       store.update('ORDER_STORE_ITEM', {data});
     }
   });

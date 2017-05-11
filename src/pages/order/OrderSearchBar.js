@@ -12,7 +12,7 @@ export class OrderSearchBar extends React.Component {
     let order = store.getState().order;
     let condition = order.condition;
 
-    let data = ['Order', 'Payment', 'Sent', 'Completed', 'Reject'];
+    let data = ['Created', 'Planning', 'Quatation', 'Payment', 'Install', 'Completed'];
     let list = data.map(item => {
       return (
         <EnButton
@@ -27,7 +27,7 @@ export class OrderSearchBar extends React.Component {
       <div style={{marginBottom:4}}>
         {list}
       </div>
-    )
+    );
   }
 }
 

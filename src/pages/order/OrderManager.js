@@ -16,21 +16,22 @@ class OrderTable extends Component {
   render() {
     let data_list = this.props.data.data_list;
     let list = data_list.map(item => {
+      let index = item.trackings.length;
+      let tracking = item.trackings[index - 1];
       return (
-      <tr key={item._id}>
-        <td>{item.customer}</td>
-        <td>{item.date}</td>
-        <td>{item.total}</td>
-        <td>{item.promotion}</td>
+      <tr key={item.id}>
+        <td>{item.created_at}</td>
+        <td>{tracking.created_at}</td>
+        <td>{tracking.status}</td>
         <td style={{textAlign: 'center'}}>
           <div>
-            <Link to={`OrderManager/${item._id}/Info`} className="btn btn-xs btn-default">
+            <Link to={`orders/${item.id}`} className="btn btn-sm btn-default">
               <i className="fa fa-pencil" data-tip="edit"/> View
             </Link>
           </div>
         </td>
       </tr>
-      )
+    );
     });
 
 
@@ -38,11 +39,10 @@ class OrderTable extends Component {
       <table className="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Customer</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Promotion</th>
-            <th></th>
+            <th>Created</th>
+            <th>Last Update</th>
+            <th>Status</th>
+            <th/>
           </tr>
         </thead>
         <tbody>

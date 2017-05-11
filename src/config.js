@@ -19,7 +19,7 @@ class Config {
       };
     } else {
       this.api = {
-        url: 'http://localhost:3001',
+        url: 'http://localhost:3001/api',
       };
     }
   }

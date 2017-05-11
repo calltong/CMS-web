@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link  } from 'react-router';
+import { Link } from 'react-router';
 
 class SingleMenu extends React.Component {
   render() {
@@ -31,8 +31,8 @@ class MultiMenu extends React.Component {
     return (
       <li className="active">
         <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-          <i className="fa fa-fw fa-arrows-v"></i> {this.props.title}
-          <i className="fa fa-fw fa-caret-down"></i>
+          <i className="fa fa-fw fa-arrows-v"/> {this.props.title}
+          <i className="fa fa-fw fa-caret-down"/>
         </a>
         <ul id="demo" className="collapse in">
           {menuItems}
@@ -44,29 +44,21 @@ class MultiMenu extends React.Component {
 
 export class SideBar extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
+    super(props);
+    this.state = {
       active: '/Home',
     };
-   }
+  }
 
-   handleClick(title) {
-     this.setState({active: title});
-   }
+  handleClick(title) {
+    this.setState({active: title});
+  }
 
   render() {
     let menus = [
-      {title: 'Dashboard', icon: 'fa fa-fw fa-dashboard', route: '/Home'},
-      {title: 'Order', icon: 'fa fa-fw fa-usd', route: '/OrderManager'},
-      {title: 'Product Manager', icon: 'fa fa-fw fa-product-hunt', route: '/ProductManager'},
-      {title: 'Product Setting',
-        menus: [
-          {title: 'Create Product', icon: 'fa fa-fw fa-product-hunt', route: '/ProductManager/Create'},
-          {title: 'Type Manager', icon: 'fa fa-fw fa-product-hunt', route: '/TypeManager'},
-          {title: 'Size Manager', icon: 'fa fa-fw fa-product-hunt', route: '/SizeManager'},
-          {title: 'Color Manager', icon: 'fa fa-fw fa-product-hunt', route: '/ColorManager'},
-      ]},
-      {title: 'Page Manager', icon: 'fa fa-fw fa-dashboard', route: '/PageManager'},
+      {title: 'Dashboard', icon: 'fa fa-fw fa-dashboard', route: '/home'},
+      {title: 'Orders', icon: 'fa fa-fw fa-usd', route: '/orders'},
+      {title: 'Products', icon: 'fa fa-fw fa-product-hunt', route: '/products'},
     ];
     let menuItems = menus.map(item => {
       if (item.menus) {
@@ -94,9 +86,9 @@ export class SideBar extends Component {
 
     return (
       <div className="collapse navbar-collapse navbar-ex1-collapse">
-          <ul className="nav navbar-nav side-nav">
-              {menuItems}
-          </ul>
+        <ul className="nav navbar-nav side-nav">
+          {menuItems}
+        </ul>
       </div>
     );
   }
