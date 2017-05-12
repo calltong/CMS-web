@@ -1,6 +1,10 @@
 .btn-login {
-  color: white;
-  background-color: #8E8E8D;
+  margin-top: 10px;
+  width: 180px;
+  height: 40px;
+  color: black;
+  background-color: #E7F9E7;
+  border-color: grey;
 }
 
 .btn-normal {

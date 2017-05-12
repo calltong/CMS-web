@@ -226,7 +226,7 @@ export class BasicInfo extends ReducerBase {
           <div className="row">
             <div className="col-sm-6 col-md-6">
               <EnButton onClick={this.onInfoListAdd.bind(this)} className="btn btn-add" style={{marginTop:2}}>
-              Add Bullet
+                Add Bullet
               </EnButton>
               {infoList}
             </div>

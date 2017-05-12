@@ -59,7 +59,6 @@ export class Login extends Component {
               </div>
 
               <div className="panel-body">
-                {message}
                 <div className="form-group">
                   <EnText ref="username" placeholder="username..." onKeyPress={this.onKeyPress.bind(this)}/>
                 </div>
@@ -67,7 +66,7 @@ export class Login extends Component {
                   <EnText type="password" ref="password"
                     placeholder="password..." onKeyPress={this.onKeyPress.bind(this)}/>
                 </div>
-                <EnButton css="btn-default btn-login" onClick={this.onLogin.bind(this)}>
+                <EnButton className="btn btn-login pull-right" onClick={this.onLogin.bind(this)}>
                   <i className="fa fa-sign-in"/> Login
                 </EnButton>
               </div>

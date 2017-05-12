@@ -27,14 +27,14 @@ export class ProductTable extends Component {
     let data_list = data.data_list;
     let sizes = data.size_list.slice(indexColsize, colsize);
     let sizeList = sizes.map(item => {
-      return (<td key={item._id} className="col-md-1" style={{textAlign: 'center'}}>{item.name}</td>)
+      return (<td key={item._id} className="col-md-1" style={{textAlign: 'center'}}>{item.name}</td>);
     });
 
     let list = data_list.map(item => {
       let stock_list = item.stock_list;
       let sizeData = [];
 
-      for(let size of sizes) {
+      for (let size of sizes) {
         let found = stock_list.find(stock => {
           if (stock.size._id === size._id) {
             return stock;
@@ -67,7 +67,7 @@ export class ProductTable extends Component {
           </EnButton>
         </td>
       </tr>
-      )
+    );
     });
 
     return (
@@ -80,7 +80,7 @@ export class ProductTable extends Component {
             <th className="col-md-1">Price</th>
             <th className="col-md-1">Sale</th>
             {sizeList}
-            <th></th>
+            <th/>
 
           </tr>
         </thead>

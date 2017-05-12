@@ -49,11 +49,14 @@ export class ProductInfo extends ReducerBase {
          <EnHeader name="Product Information"/>
          <div className="row">
            <ul className="nav nav-pills">
-             <li className="active"><a href="#Information" data-toggle="tab">Information</a>
+             <li className="active">
+              <a href="#Information" data-toggle="tab">Information</a>
              </li>
-             <li><a href="#InformationEng" data-toggle="tab">English Information</a>
+             <li>
+              <a href="#InformationEng" data-toggle="tab">English Information</a>
              </li>
-             <li><a href="#Stock" data-toggle="tab">Stock</a>
+             <li>
+              <a href="#Stock" data-toggle="tab">Stock</a>
              </li>
            </ul>
 

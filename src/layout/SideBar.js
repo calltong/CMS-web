@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link  } from 'react-router';
+import { Link } from 'react-router';
 
 class SingleMenu extends React.Component {
   render() {
@@ -31,8 +31,8 @@ class MultiMenu extends React.Component {
     return (
       <li className="active">
         <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-          <i className="fa fa-fw fa-arrows-v"></i> {this.props.title}
-          <i className="fa fa-fw fa-caret-down"></i>
+          <i className="fa fa-fw fa-arrows-v"/> {this.props.title}
+          <i className="fa fa-fw fa-caret-down"/>
         </a>
         <ul id="demo" className="collapse in">
           {menuItems}
@@ -44,15 +44,13 @@ class MultiMenu extends React.Component {
 
 export class SideBar extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-      active: '/Home',
-    };
-   }
+    super(props);
+    this.state = {active: '/Home'};
+  }
 
-   handleClick(title) {
-     this.setState({active: title});
-   }
+  handleClick(title) {
+    this.setState({active: title});
+  }
 
   render() {
     let menus = [
@@ -65,7 +63,7 @@ export class SideBar extends Component {
           {title: 'Type Manager', icon: 'fa fa-fw fa-product-hunt', route: '/TypeManager'},
           {title: 'Size Manager', icon: 'fa fa-fw fa-product-hunt', route: '/SizeManager'},
           {title: 'Color Manager', icon: 'fa fa-fw fa-product-hunt', route: '/ColorManager'},
-      ]},
+        ]},
       {title: 'Page Manager', icon: 'fa fa-fw fa-dashboard', route: '/PageManager'},
     ];
     let menuItems = menus.map(item => {
