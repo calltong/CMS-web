@@ -3,7 +3,7 @@ class Config {
   constructor() {
 
     this.api = {
-      url: 'http://localhost:3001',
+      url: 'http://localhost:8081',
     };
 
     this.cookie = {
@@ -15,11 +15,11 @@ class Config {
     console.log('host:', host);
     if (host.includes('139.59.109.169')) {
       this.api = {
-        url: 'http://139.59.109.169:3001',
+        url: 'http://139.59.109.169:8081',
       };
     } else {
       this.api = {
-        url: 'http://localhost:3001',
+        url: 'http://localhost:8081',
       };
     }
   }

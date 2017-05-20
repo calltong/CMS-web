@@ -58,7 +58,7 @@ export default class PageContent extends React.Component {
           <div className="col-md-3">
             <EnText
               placeholder="Enter type..."
-              value={item.type  || ''}
+              value={item.type}
               onChange={this.typeChange.bind(this, index)} />
           </div>
 
@@ -76,32 +76,32 @@ export default class PageContent extends React.Component {
         </div>
       );
     });
-    console.log('content:', this.state.content, 'index:', this.state.index);
-    let content = function(content, save) {
-      if (content) {
-        switch (content.type) {
+
+    let content = function(cont, save) {
+      if (cont) {
+        switch (cont.type) {
           case 'slide':
             return (
               <div className="row" style={{marginTop:10}}>
-                <SlideContent ref="content" save={save} data={content}/>
+                <SlideContent ref="content" save={save} data={cont}/>
               </div>
             );
           case 'modern':
             return (
               <div className="row" style={{marginTop:10}}>
-                <ModernContent ref="content" save={save} data={content}/>
+                <ModernContent ref="content" save={save} data={cont}/>
               </div>
             );
           case 'category':
             return (
               <div className="row" style={{marginTop:10}}>
-                <CategoryContent ref="content" save={save} data={content}/>
+                <CategoryContent ref="content" save={save} data={cont}/>
               </div>
             );
           case 'block':
             return (
               <div className="row" style={{marginTop:10}}>
-                <BlockContent ref="content" save={save} data={content}/>
+                <BlockContent ref="content" save={save} data={cont}/>
               </div>
             );
 
@@ -147,6 +147,6 @@ export default class PageContent extends React.Component {
 
         </div>
       </div>
-    )
+    );
   }
 }

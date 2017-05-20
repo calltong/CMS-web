@@ -6,7 +6,6 @@ import EnButton from '../../forms/EnButton';
 export default class SlideContent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Slide Start:', this.props.data);
     if (this.props.data.data) {
       this.state = this.props.data;
     } else {
@@ -15,7 +14,7 @@ export default class SlideContent extends React.Component {
         data: {
           name: '',
           list: [],
-        }
+        },
       };
     }
   }
@@ -55,17 +54,17 @@ export default class SlideContent extends React.Component {
       index++;
       return (
         <div className="row" key={index} style={{marginTop:'5px'}}>
-          <div className="col-md-2">
+          <div className="col-md-6">
             <EnText
               placeholder="Enter type..."
-              value={item.preview  || ''}
+              value={item.preview}
               onChange={this.previewChange.bind(this, index)} />
           </div>
 
-          <div className="col-md-7">
+          <div className="col-md-4">
             <EnText
               placeholder="Enter link..."
-              value={item.value  || ''}
+              value={item.value}
               onChange={this.valueChange.bind(this, index)} />
           </div>
 
@@ -85,11 +84,11 @@ export default class SlideContent extends React.Component {
         <div className="panel-body">
 
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label>Preview</label>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label>Link</label>
             </div>
           </div>
@@ -106,6 +105,6 @@ export default class SlideContent extends React.Component {
 
         </div>
       </div>
-    )
+    );
   }
 }

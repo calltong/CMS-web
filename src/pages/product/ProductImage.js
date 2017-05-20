@@ -53,7 +53,7 @@ export class ProductImage extends React.Component {
 
       return (
         <div className="col-md-2" key={index}>
-          <EnImageSelector width="160" height="180"
+          <EnImageSelector width="160" height="205"
             src={item.data}
             onDrop={this.onIndexDropImage.bind(this, index)}/>
 

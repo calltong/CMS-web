@@ -6,7 +6,6 @@ import EnButton from '../../forms/EnButton';
 export default class BlockContent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Block Start:', this.props.data);
     if (this.props.data.data) {
       this.state = this.props.data;
     } else {
@@ -15,7 +14,7 @@ export default class BlockContent extends React.Component {
         data: {
           name: '',
           list: [],
-        }
+        },
       };
     }
   }
@@ -64,14 +63,14 @@ export default class BlockContent extends React.Component {
           <div className="col-md-5">
             <EnText
               placeholder="Enter type..."
-              value={item.preview  || ''}
+              value={item.preview}
               onChange={this.previewChange.bind(this, index)} />
           </div>
 
           <div className="col-md-5">
             <EnText
               placeholder="Enter link..."
-              value={item.value  || ''}
+              value={item.value}
               onChange={this.valueChange.bind(this, index)} />
           </div>
 
