@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {browserHistory} from 'react-router';
-import cookie from 'react-cookie';
+//import cookie from 'react-cookie';
 
-import {config} from '../config';
+//import {config} from '../config';
 
-import {http} from '../utility/http';
+//import {http} from '../utility/http';
 import EnButton from '../forms/EnButton';
 import EnText from '../forms/EnText';
 
 export class Login extends Component {
 
   componentDidMount() {
+    /*
     let token = cookie.load('mtoken');
     if (token) {
       let url = `${config.api.url}/tokenverify`;
@@ -20,9 +21,12 @@ export class Login extends Component {
         }
       });
     }
+    */
   }
 
   onLogin() {
+    browserHistory.push('/home');
+    /*
     let username = this.refs.username.value();
     let password = this.refs.password.value();
     let params = {username, password};
@@ -35,7 +39,7 @@ export class Login extends Component {
         browserHistory.push('/Home');
       }
     });
-
+    */
   }
 
   onKeyPress(event) {
@@ -45,7 +49,7 @@ export class Login extends Component {
   }
 
   render() {
-    let message = 'Login to The Hex Store';
+    let message = 'Login to SCG Content Management System';
     return (
       <div className="container-fluid">
         <div className="row" style={{marginTop: '15%'}}>

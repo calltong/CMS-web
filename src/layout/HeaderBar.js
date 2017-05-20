@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
 
 export class HeaderBar extends Component {
 
   render() {
-    var name = "Seocy";
+    let name = 'SCG Content Management System';
     return (
       <div>
         <div className="navbar-header">
