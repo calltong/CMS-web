@@ -45,13 +45,9 @@ class MultiMenu extends React.Component {
 export class SideBar extends Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
-    this.state = {active: '/Home'};
-=======
     this.state = {
       active: '/Home',
     };
->>>>>>> f5522238d95fa47c0193dbc232e0d1bba145893e
   }
 
   handleClick(title) {
