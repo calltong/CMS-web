@@ -11,7 +11,7 @@ export class Home extends Component {
                 </h1>
                 <ol className="breadcrumb">
                     <li className="active">
-                        <i className="fa fa-dashboard"></i> Dashboard
+                        <i className="fa fa-dashboard"/> Dashboard
                     </li>
                 </ol>
             </div>

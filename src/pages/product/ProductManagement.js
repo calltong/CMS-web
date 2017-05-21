@@ -48,10 +48,15 @@ export class ProductTable extends Component {
           sizeData.push((<td key={size._id} style={{textAlign: 'center'}}>-</td>));
         }
       }
+
+      let img = '';
+      if (item.image_list.length > 0) {
+        img = item.image_list[0].data;
+      }
       return (
       <tr key={item._id}>
         <td>
-          <EnImage src={item.image_list[0].data} className="product-img"/>
+          <EnImage src={img} className="product-img"/>
         </td>
         <td>{item.name}</td>
         <td>{item.code}</td>
@@ -95,7 +100,7 @@ export class ProductTable extends Component {
 export class ProductManagement extends ReducerBase {
 
   componentDidMount() {
-    let page = this.props.params.page;
+    let page = this.props.location.query.page;
     if (page) {
       store.update('PRODUCT_GET_LIST', {index:page});
     } else {

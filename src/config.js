@@ -19,7 +19,8 @@ class Config {
       };
     } else {
       this.api = {
-        url: 'http://localhost:8081',
+        url: 'http://139.59.109.169:8081',
+        //url: 'http://localhost:8081',
       };
     }
   }

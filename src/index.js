@@ -49,7 +49,7 @@ function checkAuthentication(state, replace) {
     http.put(url, {json: {token: token}}, false).done(response => {
       done = true;
       if (response.statusCode === http.StatusOK) {
-        //browserHistory.push('/Home');
+        browserHistory.push('/Home');
         accessRight = true;
       } else {
         browserHistory.push('/Login');
@@ -98,6 +98,5 @@ ReactDOM.render((
          <Route path="OrderManager/:id/Info" component={OrderInfo} />
 
       </Route>
-   </Router>
-
-), document.getElementById('root'))
+   </Router>)
+   , document.getElementById('root'));

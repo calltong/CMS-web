@@ -24,31 +24,31 @@ export const reducer = new Reducer({
   type_list: [],
   size_list: [],
   data: {
-      _id: '',
+    _id: '',
+    name: '',
+    type_id: 0,
+    information: {
+      value: '',
+      list: [],
+    },
+    price: 990,
+    sale_price:690,
+    image: '',
+    status: '',
+    video: '',
+    last_update: 0,
+    image_list: [],
+    color_list: [],
+    tag_list: [],
+    stock_list: [],
+    connected_list: [],
+    lang_eng: {
       name: '',
-      type_id: 0,
       information: {
         value: '',
         list: [],
       },
-      price: 990,
-      sale_price:690,
-      image: '',
-      status: '',
-      video: '',
-      last_update: 0,
-      image_list: [],
-      color_list: [],
-      tag_list: [],
-      stock_list: [],
-      connected_list: [],
-      lang_eng: {
-        name: '',
-        information: {
-          value: '',
-          list: [],
-        },
-      }
+    },
   },
   image_list:[],
 });
@@ -78,7 +78,6 @@ reducer.register('PRODUCT_GET_FULL_LIST', (state, action) => {
 
 reducer.register('PRODUCT_GET_LIST', (state, action) => {
   let {index} = action.params;
-
   if (index) {
     state.page.index = index;
   } else {
