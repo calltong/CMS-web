@@ -141,7 +141,7 @@ reducer.register('PRODUCT_ADD_IMAGE', (state, action) => {
     data: data,
     width: width,
     height: height,
-  }
+  };
   state.data.image_list.push(image);
 
   return state;
@@ -154,7 +154,7 @@ reducer.register('PRODUCT_EDIT_IMAGE', (state, action) => {
     data: data,
     width: width,
     height: height,
-  }
+  };
   state.data.image_list[index] = image;
 
   return state;

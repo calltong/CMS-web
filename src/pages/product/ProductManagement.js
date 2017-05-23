@@ -132,7 +132,8 @@ export class ProductManagement extends ReducerBase {
   render() {
     let ob = store.getState().product;
     let page = ob.page;
-    let total = Math.round(page.total / page.limit);
+    let num = page.total / page.limit;
+    let total = Math.ceil(num);
     if (total <= 1) {
       total = 1;
     }
