@@ -3,6 +3,8 @@ import TagsInput from 'react-tagsinput';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
+import {manager} from '../../utility/Manager';
 
 import EnText from '../../forms/EnText';
 import EnNumberText from '../../forms/EnNumberText';
@@ -12,86 +14,98 @@ import EnListBox from '../../forms/EnListBox';
 
 export class BasicInfo extends ReducerBase {
 
+  codeGenerate() {
+    let data = this.data;
+    data.code = manager.GenerateId();
+    actions.product.setItem(data);
+  }
+
   codeChange(event) {
     let data = this.data;
     data.code = event.target.value;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   nameChange(event) {
     let data = this.data;
     data.name = event.target.value;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   infoChange(event) {
     let data = this.data;
     data.information.value = event.target.value;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
+  }
+
+  contentChange(event) {
+    let data = this.data;
+    data.information.package_content = event.target.value;
+    actions.product.setItem(data);
   }
 
   priceChange(event) {
     let data = this.data;
     let val = parseInt(event.target.value, 10);
     data.price = val? val: 0;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   salePriceChange(event) {
     let data = this.data;
     let val = parseInt(event.target.value, 10);
     data.sale_price = val? val: 0;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   typeChange(event) {
     let data = this.data;
     data.type_id = event.target.value;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   tagsChange(list) {
     let data = this.data;
     data.tag_list = list;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   colorsChange(list) {
     let data = this.data;
     data.color_list = list;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   videoChange(event) {
     let data = this.data;
     data.video = event.target.value;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem({data});
   }
 
   infoListChange(index, event) {
     let data = this.data;
     data.information.list[index] = event.target.value;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   onInfoListAdd() {
     let data = this.data;
     data.information.list.push('');
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   onInfoListDelete(index) {
     let data = this.data;
     data.information.list.splice(index, 1);
+    actions.product.setItem(data);
   }
 
   render() {
-    let ob = store.getState().product;
-    let data = ob.data;
+    let product = store.getState().product;
+    let data = product.data;
     this.data = data;
-    let check = this.props.check;
-    let typeList = ob.type_list.map(item => {
-      return {id:item._id, text:item.name};
+    let typeList = product.type_list.map(item => {
+      return {id: item._id, text: item.name};
     });
 
     let index = 0;
@@ -109,6 +123,7 @@ export class BasicInfo extends ReducerBase {
         </div>
       );
     });
+
     return (
       <div className="panel panel-default">
         <div className="panel-body">
@@ -120,10 +135,12 @@ export class BasicInfo extends ReducerBase {
                 <div className="form-group input-group">
                   <EnText
                     placeholder="Enter code..."
-                    value={data.code  || ''}
+                    value={data.code || ''}
                     onChange={this.codeChange.bind(this)} />
                   <span className="input-group-btn">
-                    <EnButton className="btn btn-default" type="button">
+                    <EnButton
+                      className="btn btn-default" type="button"
+                      onClick={this.codeGenerate.bind(this)} >
                       <i className="fa fa-search"> Generate</i>
                     </EnButton>
                   </span>
@@ -160,11 +177,11 @@ export class BasicInfo extends ReducerBase {
 
           <div className="row">
             <div className="col-sm-6 col-md-6">
-              <div className={check.name? "form-group has-error": "form-group"} >
+              <div className={false? 'form-group has-error': 'form-group'} >
                 <label>Name</label>
                 <EnText
                   placeholder="Enter Name..."
-                  value={data.name  || ''}
+                  value={data.name}
                   onChange={this.nameChange.bind(this)} />
               </div>
 
@@ -185,7 +202,6 @@ export class BasicInfo extends ReducerBase {
                   value={data.type_id}
                   data={typeList}
                   onSelect={this.typeChange.bind(this)}/>
-
               </div>
 
               <div className="form-group">
@@ -216,9 +232,20 @@ export class BasicInfo extends ReducerBase {
                 <label>Information</label>
                 <EnTextArea
                   placeholder="Enter Information..."
-                  rows="2"
+                  rows="4"
                   value={data.information.value}
                   onChange={this.infoChange.bind(this)}/>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-6">
+              <div className="form-group">
+                <label>Product in Box</label>
+                <EnTextArea
+                  placeholder="Enter Content..."
+                  rows="4"
+                  value={data.information.package_content}
+                  onChange={this.contentChange.bind(this)}/>
               </div>
             </div>
           </div>
@@ -231,10 +258,9 @@ export class BasicInfo extends ReducerBase {
               {infoList}
             </div>
           </div>
-
         </div>
       </div>
-    )
+    );
   }
 }
 

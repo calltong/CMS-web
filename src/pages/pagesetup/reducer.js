@@ -15,20 +15,20 @@ export const reducer = new Reducer({
   },
   data_list: [],
   data: {
-      _id: undefined,
-      name: '',
-      status: '',
-      updated: '',
-      information: {
-        company: '',
-        detail: '',
-        address: '',
-        mobile: '',
-        email: '',
-      },
-      menu_list: [],
-      social_list: [],
-      content_list: [],
+    _id: undefined,
+    name: '',
+    status: '',
+    updated: '',
+    information: {
+      company: '',
+      detail: '',
+      address: '',
+      mobile: '',
+      email: '',
+    },
+    menu_list: [],
+    social_list: [],
+    content_list: [],
   },
   content: {
     type: '',
@@ -68,14 +68,14 @@ reducer.register('PAGE_SAVE_ITEM', (state, action) => {
     let url = `${config.api.url}/${prefix}/${id}/edit`;
     http.put(url, {json:data, authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        browserHistory.push(`/PageManager`);
+        browserHistory.push('/PageManager');
       }
     });
   } else {
     let url = `${config.api.url}/${prefix}/create`;
     http.post(url, {json:data, authorization: true}).done(response => {
       if (response.statusCode === http.StatusCreated) {
-        browserHistory.push(`/PageManager`);
+        browserHistory.push('/PageManager');
       }
     });
   }

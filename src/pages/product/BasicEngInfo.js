@@ -94,7 +94,7 @@ export class BasicEngInfo extends Component {
 
         </div>
       </div>
-    )
+    );
   }
 }
 

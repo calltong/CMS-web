@@ -1,8 +1,7 @@
 import React from 'react';
 
-import {store} from '../../store';
-//import {actions} from './reducer';
-
+//import {store} from '../../store';
+import {actions} from '../../actions/Action';
 import EnImageSelector from '../../forms/EnImageSelector';
 import EnButton from '../../forms/EnButton';
 
@@ -15,7 +14,8 @@ export class ProductImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        store.update('PRODUCT_ADD_IMAGE', {data, width:this.width, height:this.height});
+        actions.product.addImage(data, this.width, this.height);
+        //store.update('PRODUCT_ADD_IMAGE', {data, width:this.width, height:this.height});
       };
     };
     reader.readAsDataURL(files[0]);
@@ -30,19 +30,20 @@ export class ProductImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        store.update('PRODUCT_EDIT_IMAGE', {index, data, width:this.width, height:this.height});
+        actions.product.editImage(index, data, this.width, this.height);
+        //store.update('PRODUCT_EDIT_IMAGE', {index, data, width: this.width, height: this.height});
       };
     };
     reader.readAsDataURL(files[0]);
   }
 
   onRemove(index) {
-    store.update('PRODUCT_REMOVE_IMAGE', {index});
+    actions.product.removeImage(index);
+    //store.update('PRODUCT_REMOVE_IMAGE', {index});
   }
 
   render() {
-    //let ob = store.getState().product;
-    let data = this.props.data;//ob.data;
+    let data = this.props.data;
     let index = -1;
     let list = data.image_list.map(item => {
       index++;
@@ -53,14 +54,14 @@ export class ProductImage extends React.Component {
 
       return (
         <div className="col-md-2" key={index}>
-          <EnImageSelector width="160" height="205"
+          <EnImageSelector height="208" width="160"
             src={item.data}
             onDrop={this.onIndexDropImage.bind(this, index)}/>
 
           <EnButton
             className="btn btn-remove"
             onClick={this.onRemove.bind(this, index)}
-            style={{marginTop: 4,marginBottom: 4}}>
+            style={{marginTop: 4, marginBottom: 4}}>
             <i className="fa fa-close" data-tip="delete"/> Remove
           </EnButton>
           <p>{note}</p>
@@ -70,13 +71,13 @@ export class ProductImage extends React.Component {
 
     return (
       <div className="panel panel-info">
-        <div className="panel-heading">Image 4x3</div>
+        <div className="panel-heading">Image 13x10</div>
         <div className="panel-body">
           <div className="row">
             {list}
             <div className="col-md-2">
               <div className="form-group">
-                <EnImageSelector width="160" height="180"
+                <EnImageSelector height="208" width="160"
                   onDrop={this.onDropImage.bind(this)}/>
 
               </div>
@@ -84,7 +85,7 @@ export class ProductImage extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

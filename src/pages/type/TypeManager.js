@@ -3,15 +3,15 @@ import {Link} from 'react-router';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import CreateSection from '../../forms/CreateSection';
 import EnButton from '../../forms/EnButton';
 import EnHeader from '../../forms/EnHeader';
 
 class TypeTable extends Component {
-
   onDelete(id) {
-    store.update('TYPE_REMOVE_ITEM', {id});
+    actions.type.remove(id);
   }
 
   render() {
@@ -33,8 +33,8 @@ class TypeTable extends Component {
             </EnButton>
           </td>
         </tr>
-        )
-      });
+      );
+    });
 
     return (
       <table className="table table-bordered table-hover">
@@ -43,8 +43,8 @@ class TypeTable extends Component {
             <th>Name</th>
             <th>Name (Eng)</th>
             <th>Default Tags</th>
-            <th className="col-md-1"></th>
-            <th className="col-md-1"></th>
+            <th className="col-md-1" />
+            <th className="col-md-1" />
           </tr>
         </thead>
         <tbody>
@@ -56,9 +56,8 @@ class TypeTable extends Component {
 }
 
 export class TypeManager extends ReducerBase {
-
   componentDidMount() {
-    store.update('TYPE_GET_LIST');
+    actions.type.getList();
   }
 
   render() {
@@ -69,15 +68,14 @@ export class TypeManager extends ReducerBase {
 
         <div className="row">
           <div className="col-md-8">
-            <CreateSection create={`/TypeManager/Create`} />
+            <CreateSection create={'/TypeManager/Create'} />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8">
             <div className="table-responsive">
-              <TypeTable
-                data={state.type}/>
+              <TypeTable data={state.type}/>
             </div>
           </div>
         </div>

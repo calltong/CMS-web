@@ -6,14 +6,22 @@ import EnButton from '../../forms/EnButton';
 import EnHeader from '../../forms/EnHeader';
 import EnImage from '../../forms/EnImage';
 import Paginator from '../../forms/Paginator';
+import MessageThai from '../../common/Message';
+import MessageBox from '../../forms/EnMessageBox';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 export class ProductTable extends Component {
-
   onDelete(id) {
-    store.update('PRODUCT_REMOVE_ITEM', {id});
+    MessageBox.displayConfirm(
+      MessageThai.title.confirm,
+      MessageThai.confirm.remove,
+      function() {
+        actions.product.remove(id);
+      });
+
   }
 
   render() {
@@ -67,6 +75,8 @@ export class ProductTable extends Component {
           <Link to={`ProductManager/${item._id}/Edit`} className="btn btn-xs btn-default" style={{width:'50px'}}>
             <i className="fa fa-pencil" data-tip="edit"/> Edit
           </Link>
+        </td>
+        <td style={{textAlign: 'center'}}>
           <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default" style={{width:'50px'}}>
             <i className="fa fa-close" data-tip="delete"/> Del
           </EnButton>
@@ -86,7 +96,7 @@ export class ProductTable extends Component {
             <th className="col-md-1">Sale</th>
             {sizeList}
             <th/>
-
+            <th/>
           </tr>
         </thead>
         <tbody>
@@ -102,36 +112,36 @@ export class ProductManagement extends ReducerBase {
   componentDidMount() {
     let page = this.props.location.query.page;
     if (page) {
-      store.update('PRODUCT_GET_LIST', {index:page});
+      actions.product.getList(page);
     } else {
-      store.update('PRODUCT_GET_FULL_LIST');
-      store.update('PRODUCT_GET_SIZE');
+      actions.product.getSizeList();
+      actions.product.getCountAndList(1);
     }
   }
 
   handleNext() {
-    let state = store.getState().product;
-    let index = state.page.index + 1;
-    if (index <= state.page.total) {
-      store.update('PRODUCT_GET_LIST', {index:index});
+    let product = store.getState().product;
+    let index = product.page.index + 1;
+    if (index <= product.page.total) {
+      actions.product.getList(index);
     }
   }
 
   handlePrev() {
-    let state = store.getState().product;
-    let index = state.page.index - 1;
+    let product = store.getState().product;
+    let index = product.page.index - 1;
     if (index >= 1) {
-      store.update('PRODUCT_GET_LIST', {index:index});
+      actions.product.getList(index);
     }
   }
 
   handleJump(index) {
-    store.update('PRODUCT_GET_LIST', {index:index});
+    actions.product.getList(index);
   }
 
   render() {
-    let ob = store.getState().product;
-    let page = ob.page;
+    let product = store.getState().product;
+    let page = product.page;
     let num = page.total / page.limit;
     let total = Math.ceil(num);
     if (total <= 1) {
@@ -145,7 +155,7 @@ export class ProductManagement extends ReducerBase {
          <div className="row" style={{marginTop:4}}>
            <div className="col-md-12">
              <div className="table-responsive">
-               <ProductTable data={ob}/>
+               <ProductTable data={product}/>
 
                <Paginator display={5} pages={total} current={page.index}
                 onNext={this.handleNext.bind(this)}

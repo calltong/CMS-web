@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import {store} from '../../store';
+//import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import MessageThai from '../../common/Message';
-
 import MessageBox from '../../forms/EnMessageBox';
 import EnListBox from '../../forms/EnListBox';
 import EnNumberText from '../../forms/EnNumberText';
@@ -27,10 +27,10 @@ export class ProductStock extends Component {
       MessageBox.display(
         MessageThai.title.warning,
         MessageThai.warning.duplicate);
-      store.update('PRODUCT_REFRESH');
+      actions.product.refresh();
     } else {
       data.stock_list.push({size:size, quantity: 0});
-      store.update('PRODUCT_STORE_ITEM', {data: data});
+      actions.product.setItem(data);
     }
   }
 
@@ -50,12 +50,10 @@ export class ProductStock extends Component {
       MessageBox.display(
         MessageThai.title.warning,
         MessageThai.warning.duplicate);
-      store.update('PRODUCT_REFRESH');
+      actions.product.refresh();
     } else {
-      //let stock_list = data.stock_list;
       data.stock_list[index].size = size;
-      //data.stock_list = stock_list;
-      store.update('PRODUCT_STORE_ITEM', {data: data});
+      actions.product.setItem(data);
     }
   }
 
@@ -66,7 +64,7 @@ export class ProductStock extends Component {
     let val = parseInt(value, 10);
     stock_list[index].quantity = val? val: 0;
     data.stock_list = stock_list;
-    store.update('PRODUCT_STORE_ITEM', {data: data});
+    actions.product.setItem(data);
   }
 
   onDelete(index) {
@@ -76,34 +74,35 @@ export class ProductStock extends Component {
       MessageThai.confirm.remove,
       function() {
         data.stock_list.splice(index, 1);
-        store.update('PRODUCT_STORE_ITEM', {data: data});
+        actions.product.setItem(data);
       });
   }
 
   render() {
     let data = this.props.data;
     let sizeList = this.props.size_list.map(item => {
-      return {id:item._id, text:item.name};
+      return {id: item._id, text: item.name};
     });
 
     let list = data.stock_list.map((item, index) => {
-    let id = item.size._id;
-    return (
+      let id = item.size._id;
+      return (
       <tr key={id}>
-        <td><EnListBox
+        <td>
+          <EnListBox
             value={id}
             data={sizeList}
             onSelect={this.sizeChange.bind(this, index)}/></td>
-        <td><EnNumberText
-          value={item.quantity}
-          onChange={this.quantityChange.bind(this, index)}/></td>
+        <td>
+          <EnNumberText
+            value={item.quantity}
+            onChange={this.quantityChange.bind(this, index)}/></td>
         <td style={{textAlign: 'center'}}>
             <EnButton onClick={this.onDelete.bind(this, index)} className="btn btn-default">
               <i className="fa fa-close" data-tip="delete"/> Delete
             </EnButton>
         </td>
-      </tr>
-      )
+      </tr>);
     });
 
     return (
@@ -117,7 +116,7 @@ export class ProductStock extends Component {
                 <tr>
                   <th className="col-md-2">Size</th>
                   <th className="col-md-2">Quantity</th>
-                  <th> </th>
+                  <th/>
                 </tr>
               </thead>
               <tbody>
@@ -128,8 +127,8 @@ export class ProductStock extends Component {
                       data={sizeList}
                       onSelect={this.sizeAdd.bind(this)}/>
                   </td>
-                  <td> </td>
-                  <td> </td>
+                  <td/>
+                  <td/>
                 </tr>
               </tbody>
             </table>
@@ -138,7 +137,7 @@ export class ProductStock extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

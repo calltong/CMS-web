@@ -22,7 +22,7 @@ export class CompleteSection extends React.Component {
         </div>
       </div>
     </div>
-    )
+  );
   }
 }
 

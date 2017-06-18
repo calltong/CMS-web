@@ -3,15 +3,15 @@ import {Link} from 'react-router';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import CreateSection from '../../forms/CreateSection';
 import EnButton from '../../forms/EnButton';
 import EnHeader from '../../forms/EnHeader';
 
 class SizeTable extends Component {
-
   onDelete(id) {
-    store.update('SIZE_GET_LIST');
+    actions.size.remove(id);
   }
 
   render() {
@@ -21,9 +21,6 @@ class SizeTable extends Component {
       <tr key={item._id}>
         <td>{item.code}</td>
         <td>{item.name}</td>
-        <td>{item.tag_list.map(tag => {
-            return `${tag} `;
-          })}</td>
         <td style={{textAlign: 'center'}}>
           <Link to={`SizeManager/${item._id}/Edit`} className="btn btn-xs btn-default">
             <i className="fa fa-pencil" data-tip="edit"/> Edit
@@ -34,10 +31,8 @@ class SizeTable extends Component {
             <i className="fa fa-close" data-tip="delete"/> Del
           </EnButton>
         </td>
-      </tr>
-      )
+      </tr>);
     });
-
 
     return (
       <table className="table table-bordered table-hover">
@@ -45,9 +40,8 @@ class SizeTable extends Component {
           <tr>
             <th>Code</th>
             <th>Name</th>
-            <th>Default Tags</th>
-            <th className="col-md-1"></th>
-            <th className="col-md-1"></th>
+            <th className="col-md-1" />
+            <th className="col-md-1" />
           </tr>
         </thead>
         <tbody>
@@ -60,25 +54,34 @@ class SizeTable extends Component {
 
 export class SizeManager extends ReducerBase {
   componentDidMount() {
-    store.update('SIZE_GET_LIST');
+    actions.size.getList();
+  }
+
+  updateSize() {
+    actions.product.updateSize();
   }
 
   render() {
-    let ob = store.getState().size;
+    let size = store.getState().size;
     return (
       <div className="container-fluid">
         <EnHeader name="Size Manager"/>
 
         <div className="row">
-          <div className="col-md-8">
-            <CreateSection create={`/SizeManager/Create`} />
+          <div className="col-md-2">
+            <EnButton className="btn btn-create" onClick={this.updateSize.bind(this)}>
+              Update Size on Product
+            </EnButton>
+          </div>
+          <div className="col-md-6">
+            <CreateSection create={'/SizeManager/Create'} />
           </div>
         </div>
 
         <div className="row">
           <div className="col-lg-8">
             <div className="table-responsive">
-              <SizeTable data={ob}/>
+              <SizeTable data={size}/>
             </div>
           </div>
         </div>

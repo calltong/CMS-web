@@ -22,7 +22,7 @@ export default class ProductSearchBar extends ReducerBase {
     return (
       <div className="row">
         <div className="col-md-1">
-          <Link to={`/ProductManager/Create`} className="btn btn-create" >
+          <Link to={'/ProductManager/Create'} className="btn btn-create" >
             <i className="fa fa-plus"/> Create</Link>
         </div>
         <div className="col-md-2">

@@ -13,14 +13,14 @@ class Config {
 
   setup(host) {
     console.log('host:', host);
-    if (host.includes('139.59.109.169')) {
+    if (host.includes('localhost')) {
       this.api = {
+        //url: 'http://localhost:8081',
         url: 'http://139.59.109.169:8081',
       };
     } else {
       this.api = {
         url: 'http://139.59.109.169:8081',
-        //url: 'http://localhost:8081',
       };
     }
   }

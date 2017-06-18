@@ -3,6 +3,7 @@ import TagsInput from 'react-tagsinput';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import CompleteSection from '../../forms/CompleteSection';
 import EnText from '../../forms/EnText';
@@ -13,13 +14,15 @@ class Information extends Component {
   nameChange(event) {
     let data = this.props.data;
     data.name = event.target.value;
-    store.update('TYPE_STORE_ITEM', {data: data});
+    actions.type.setItem(data);
+    //store.update('TYPE_STORE_ITEM', {data: data});
   }
 
   tagsChange(tag_list) {
     let data = this.props.data;
     data.tag_list = tag_list;
-    store.update('TYPE_STORE_ITEM', {data: data});
+    actions.type.setItem(data);
+    //store.update('TYPE_STORE_ITEM', {data: data});
   }
 
   render() {
@@ -28,7 +31,7 @@ class Information extends Component {
 
     return (
     <div>
-      <div className={check.name? "form-group has-error": "form-group"}>
+      <div className={check.name? 'form-group has-error': 'form-group'}>
         <label>Name</label>
         <EnText
           placeholder="Enter name..."
@@ -45,7 +48,7 @@ class Information extends Component {
       </div>
 
     </div>
-    )
+  );
   }
 }
 
@@ -54,7 +57,8 @@ class InformationEnglish extends Component {
   nameChange(event) {
     let data = this.props.data;
     data.lang_eng.name = event.target.value;
-    store.update('TYPE_STORE_ITEM', {data: data});
+    actions.type.setItem(data);
+    //store.update('TYPE_STORE_ITEM', {data: data});
   }
 
   render() {
@@ -69,7 +73,44 @@ class InformationEnglish extends Component {
           onChange={this.nameChange.bind(this)} />
       </div>
     </div>
-    )
+  );
+  }
+}
+
+class EcommerceLazada extends Component {
+
+  idChange(event) {
+    let data = this.props.data;
+    data.ecommerce.lazada.category_id = +event.target.value;
+    actions.type.setItem(data);
+  }
+
+  modelChange(event) {
+    let data = this.props.data;
+    data.ecommerce.lazada.model = event.target.value;
+    actions.type.setItem(data);
+  }
+
+  render() {
+    let data = this.props.data;
+    return (
+    <div>
+      <div className="form-group">
+        <label>Category</label>
+        <EnText
+          placeholder="Enter name..."
+          value={data.ecommerce.lazada.category_id}
+          onChange={this.idChange.bind(this)} />
+      </div>
+      <div className="form-group">
+        <label>Model</label>
+        <EnText
+          placeholder="Enter name..."
+          value={data.ecommerce.lazada.model}
+          onChange={this.modelChange.bind(this)} />
+      </div>
+    </div>
+  );
   }
 }
 
@@ -84,9 +125,9 @@ export class TypeInfo extends ReducerBase {
   componentDidMount() {
     let id = this.props.params.id;
     if (id) {
-      store.update('TYPE_GET_ITEM', {id});
+      actions.type.getItem(id);
     } else {
-      store.update('TYPE_RESET_ITEM');
+      actions.type.resetItem();
     }
   }
 
@@ -96,13 +137,14 @@ export class TypeInfo extends ReducerBase {
       this.state.check = true;
       this.setState(this.state);
     } else {
-      store.update('TYPE_SAVE_ITEM');
+      actions.type.saveItem();
+      //store.update('TYPE_SAVE_ITEM');
     }
   }
 
   render() {
     let state = this.state;
-    let ob = store.getState().type;
+    let type = store.getState().type;
     return (
       <div className="container-fluid">
         <EnHeader name="Type Information"/>
@@ -112,7 +154,7 @@ export class TypeInfo extends ReducerBase {
               <div className="panel-heading">Information</div>
               <div className="panel-body">
                 <Information
-                  data={ob.data}
+                  data={type.data}
                   check={state.check}/>
               </div>
             </div>
@@ -123,14 +165,27 @@ export class TypeInfo extends ReducerBase {
               <div className="panel-heading">English Information</div>
               <div className="panel-body">
                 <InformationEnglish
-                  data={ob.data}
+                  data={type.data}
                   check={state.check}/>
               </div>
             </div>
           </div>
        </div>
 
-       <CompleteSection close={`/TypeManager`} save={this.onSave.bind(this)} />
+       <div className="row">
+         <div className="col-md-6">
+           <div className="panel panel-default">
+             <div className="panel-heading">Lazada</div>
+             <div className="panel-body">
+               <EcommerceLazada
+                 data={type.data} />
+             </div>
+           </div>
+         </div>
+
+      </div>
+
+       <CompleteSection close={'/TypeManager'} save={this.onSave.bind(this)} />
      </div>
     );
   }
