@@ -102,6 +102,7 @@ export class BasicInfo extends ReducerBase {
 
   render() {
     let product = store.getState().product;
+    let ecommerce = product.ecommerce;
     let data = product.data;
     this.data = data;
     let typeList = product.type_list.map(item => {
@@ -136,6 +137,7 @@ export class BasicInfo extends ReducerBase {
                   <EnText
                     placeholder="Enter code..."
                     value={data.code || ''}
+                    readOnly={ecommerce.lazada || ecommerce.street}
                     onChange={this.codeChange.bind(this)} />
                   <span className="input-group-btn">
                     <EnButton

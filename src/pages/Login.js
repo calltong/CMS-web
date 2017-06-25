@@ -32,7 +32,7 @@ export class Login extends Component {
         let data = response.body;
         cookie.save('mtoken', data.token);
         cookie.save('btoken', `Bearer ${data.token}`);
-        browserHistory.push('/Home');
+        //browserHistory.push('/Home');
       }
     });
   }

@@ -5,7 +5,10 @@ function resolve(promise) {
   return {
     done: (callback) => {
       promise.done(response => {
-        response.body = JSON.parse(response.body);
+        let body = response.body;
+        if (body !== null) {
+          response.body = JSON.parse(response.body);
+        }
         callback(response);
       }, (err) => {
         console.log('error:', err);

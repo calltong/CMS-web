@@ -16,6 +16,10 @@ export const reducer = new Reducer({
   data_list: [],
   type_list: [],
   size_list: [],
+  message: {
+    type: '',
+    text: '',
+  },
   data: {
     _id: '',
     name: '',
@@ -46,6 +50,10 @@ export const reducer = new Reducer({
       },
     },
   },
+  ecommerce: {
+    lazada: false,
+    street: false,
+  },
 });
 
 reducer.register('PRODUCT_RESET', (state, action) => {
@@ -55,6 +63,7 @@ reducer.register('PRODUCT_RESET', (state, action) => {
 
 reducer.register('PRODUCT_RESET_ITEM', (state, action) => {
   state.data = _.cloneDeep(reducer.initial.data);
+  state.ecommerce = _.cloneDeep(reducer.initial.ecommerce);
   return state;
 });
 
@@ -106,6 +115,28 @@ reducer.register('PRODUCT_STORE_SIZE', (state, action) => {
 });
 
 reducer.register('PRODUCT_REFRESH', (state, action) => {
+  return state;
+});
+
+reducer.register('PRODUCT_CHECK_LAZADA', (state, action) => {
+  let {lazada, street} = action.params;
+  if (lazada) {
+    state.ecommerce.lazada = lazada;
+  }
+
+  if (street) {
+    state.ecommerce.street = street;
+  }
+
+  return state;
+});
+
+reducer.register('PRODUCT_SET_MASSAGE', (state, action) => {
+  let {type, text} = action.params;
+  state.message = {
+    type,
+    text,
+  };
   return state;
 });
 

@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
+import {manager} from '../../utility/Manager';
 
 //import CompleteSection from '../../forms/CompleteSection';
 import EnHeader from '../../forms/EnHeader';
@@ -14,6 +15,7 @@ import ProductSquareImage from './ProductSquareImage';
 import BasicEngInfo from './BasicEngInfo';
 import ProductStock from './ProductStock';
 import EnButton from '../../forms/EnButton';
+import LoadingWindow from '../../forms/LoadingWindow';
 
 export class ProductInfo extends ReducerBase {
 
@@ -23,6 +25,7 @@ export class ProductInfo extends ReducerBase {
     let id = this.props.params.id;
     if (id) {
       actions.product.getItem(id);
+      actions.ecommerce.checkOnLazada(id);
     } else {
       actions.product.resetItem();
     }
@@ -31,56 +34,73 @@ export class ProductInfo extends ReducerBase {
   onSave() {
     let ob = store.getState().product;
     if (ob.data.name === '' || ob.data.type_id === 0) {
-
       this.setState(this.state);
     } else {
+      manager.DisplayPanel('#Loading');
       actions.product.saveItem();
     }
   }
 
   onLazadaUpdate() {
+    manager.DisplayPanel('#Loading');
     actions.ecommerce.updateLazada(this.props.params.id);
   }
 
   onLazadaQuantityUpdate() {
+    manager.DisplayPanel('#Loading');
     actions.ecommerce.updateQuantityLazada(this.props.params.id);
   }
 
   onLazadaImageUpdate() {
+    manager.DisplayPanel('#Loading');
     actions.ecommerce.updateImageLazada(this.props.params.id);
   }
 
   render() {
     let product = store.getState().product;
+    let message = product.message;
 
+    let ecommerce = product.ecommerce;
+    let cssLazadaAction = ecommerce.lazada ? 'btn btn-action dropdown-toggle' : 'btn btn-action-alert dropdown-toggle';
     return (
       <div className="container">
         <EnHeader name="Product Information"/>
         <div className="row">
-          <div className="col-md-8">
-            <EnButton className="btn btn-save" onClick={this.onLazadaUpdate.bind(this)}>
-              Lazada Update
+          <div className="col-md-2">
+            <EnButton className="btn btn-action" onClick={this.onSave.bind(this)} style={{marginLeft:4}}>
+            Save
             </EnButton>
-            <EnButton className="btn btn-save" onClick={this.onLazadaQuantityUpdate.bind(this)} style={{marginLeft:4}}>
-              Lazada Quantity
-            </EnButton>
-            <EnButton className="btn btn-save" onClick={this.onLazadaImageUpdate.bind(this)} style={{marginLeft:4}}>
-              Lazada Image
-            </EnButton>
-         </div>
-         <div className="col-md-4">
-           <div className="text-right">
-             <Link to={`/ProductManager?page=${product.page.index}`} className="btn btn-close">
-               Close
-             </Link>
-             <EnButton className="btn btn-save" onClick={this.onSave.bind(this)} style={{marginLeft:4}}>
-               Save
-             </EnButton>
           </div>
-        </div>
+          <div className="col-md-2">
+            <div className="dropdown">
+              <button className={cssLazadaAction}
+                type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                Lazada <span className="caret" />
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a onClick={this.onLazadaUpdate.bind(this)}>Update Information</a></li>
+                <li><a onClick={this.onLazadaQuantityUpdate.bind(this)}>Update Quantity&Price</a></li>
+                <li><a onClick={this.onLazadaImageUpdate.bind(this)}>Update Images</a></li>
+                <li role="separator" className="divider"/>
+                <li><a href="#">Active/Unactive</a></li>
+              </ul>
+            </div>
+         </div>
+         <div className="col-md-2">
+           <Link to={`/ProductManager?page=${product.page.index}`} className="btn btn-action">
+           Close
+           </Link>
+         </div>
       </div>
 
       <hr/>
+
+      <div className={message.type==='error' ? 'alert alert-danger' : 'alert alert-success'}
+        style={{display: message.type=== '' ? 'none': ''}}
+        role="alert">
+        {message.text}
+      </div>
 
       <div className="row">
         <ul className="nav nav-pills">
@@ -98,7 +118,6 @@ export class ProductInfo extends ReducerBase {
         <hr/>
 
         <div className="tab-content">
-
           <div id="Information" className="tab-pane in active">
             <BasicInfo/>
           </div>
@@ -120,6 +139,7 @@ export class ProductInfo extends ReducerBase {
       <ProductSquareImage data={product.data} />
     </div>
 
+    <LoadingWindow/>
   </div>
     );
   }

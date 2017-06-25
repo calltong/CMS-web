@@ -1,7 +1,9 @@
+import {browserHistory} from 'react-router';
+
 import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
-import {browserHistory} from 'react-router';
+import {manager} from '../utility/Manager';
 
 export class ProductAction {
   getTypeList(load) {
@@ -36,6 +38,14 @@ export class ProductAction {
 
   resetItem() {
     store.update('PRODUCT_RESET_ITEM');
+  }
+
+  clearMessage() {
+    store.update('PRODUCT_SET_MASSAGE', {type: '', text: ''});
+  }
+
+  setMessage(type, message) {
+    store.update('PRODUCT_SET_MASSAGE', {type: type, text: message});
   }
 
   getCountAndList(index) {
@@ -78,15 +88,13 @@ export class ProductAction {
     http.get(url).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
-        if (!data.image_square_list) {
-          data.image_square_list = [];
-        }
-        store.update('PRODUCT_STORE_ITEM', {data});
+        this.setItem(data);
       }
     });
   }
 
   saveItem() {
+    this.clearMessage();
     let product = store.getState().product;
     let data = product.data;
     let json = data;
@@ -95,15 +103,25 @@ export class ProductAction {
     if (id) {
       let url = `${config.api.url}/product/${id}/edit`;
       http.put(url, {json, authorization: true}).done(response => {
+        manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusOK) {
-          browserHistory.push(`/ProductManager?page=${product.page.index}`);
+          this.setMessage('info', 'Completed');
+          //browserHistory.push(`/ProductManager?page=${product.page.index}`);
+        } else {
+          this.setMessage('error', 'Not Completed');
         }
       });
     } else {
       let url = `${config.api.url}/product/create`;
       http.post(url, {json, authorization: true}).done(response => {
+        manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusCreated) {
+          this.setMessage('info', 'Completed');
+          id = response.body._id;
+          //browserHistory.push(`/ProductManager/${id}/Edit`);
           browserHistory.push(`/ProductManager?page=${product.page.index}`);
+        } else {
+          this.setMessage('error', 'Not Completed');
         }
       });
     }

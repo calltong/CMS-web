@@ -3,6 +3,7 @@ import './css/admin.css';
 import './css/button.css';
 import './css/layout.css';
 import './css/page.css';
+import './css/window.css';
 import './css/plugins/morris.css';
 import 'font-awesome/css/font-awesome.css';
 import 'react-tagsinput/react-tagsinput.css';
@@ -37,6 +38,10 @@ import OrderInfo from './pages/order/OrderInfo';
 import PageManager from './pages/pagesetup/PageManager';
 import PageInfo from './pages/pagesetup/PageInfo';
 
+import $ from 'jquery';
+window.jQuery = $;
+require('bootstrap');
+
 config.setup(window.location.host);
 
 let accessRight = false;
@@ -49,7 +54,7 @@ function checkAuthentication(state, replace) {
     http.put(url, {json: {token: token}}, false).done(response => {
       done = true;
       if (response.statusCode === http.StatusOK) {
-        browserHistory.push('/Home');
+        //browserHistory.push('/Home');
         accessRight = true;
       } else {
         browserHistory.push('/Login');

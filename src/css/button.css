@@ -7,36 +7,60 @@
   border-color: grey;
 }
 
+.btn-action {
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.btn-action:hover {
+  color: white;
+  background-color: #3F3F3F;
+}
+
+.btn-action-alert {
+  color: black;
+  background-color: white;
+  border: 1px solid #CE0303;
+  width: 100%;
+}
+
 .btn-normal {
   color: white;
   background-color: #8E8E8D;
 }
 
 .btn-save {
-  color: white;
-  background-color: #8E8E8D;
-  width: 120px;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  width: 100px;
 }
 
 .btn-close {
-  color: white;
-  background-color: #8E8E8D;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
   width: 100px;
 }
 
 .btn-create {
-  color: #555555;
+  color: black;
   background-color: #A9CED3;
+  border: 1px solid #555555;
 }
 
 .btn-add {
-  color: #555555;
+  color: black;
   background-color: #A8C8B1;
+  border: 1px solid #555555;
 }
 
 .btn-remove {
-  color: #555555;
+  color: black;
   background-color: #EC8F8C;
+  border: 1px solid #555555;
 }
 
 .btn-selected {

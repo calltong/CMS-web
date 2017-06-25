@@ -18,7 +18,6 @@ export default class AddressBox extends Component {
 
   render() {
     let data = this.props.data;
-
     let css = {
       label: 'control-label col-md-3',
       control: 'col-md-8',
@@ -78,5 +77,4 @@ export default class AddressBox extends Component {
       </div>
     );
   }
-
 }
