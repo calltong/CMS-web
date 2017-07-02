@@ -1,90 +1,81 @@
 import React from 'react';
-import {Link} from 'react-router';
 import {ReducerBase} from '../../ReducerBase';
-//import CompleteSection from '../../forms/CompleteSection';
+
 import EnHeader from '../../forms/EnHeader';
 import MainInfo from './MainInfo';
 import MenuInfo from './MenuInfo';
-import SocialInfo from './SocialInfo';
 import PageContent from './PageContent';
 
-
-import EnButton from '../../forms/EnButton';
-
+import SaveButton from '../../forms/SaveButton';
+import CloseButton from '../../forms/CloseButton';
+import BuildButton from '../../forms/BuildButton';
+import ResetButton from '../../forms/ResetButton';
 
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 export class PageInfo extends ReducerBase {
 
   componentDidMount() {
     let id = this.props.params.id;
     if (id) {
-      store.update('PAGE_GET_ITEM', {id});
+      actions.page.getItem(id);
     } else {
-      store.update('PAGE_RESET');
+      actions.page.reset();
     }
   }
 
   onSave() {
-    store.update('PAGE_SAVE_ITEM');
+    actions.page.saveItem();
+    //store.update('PAGE_SAVE_ITEM');
   }
 
-  onGenerate() {
-    let id = this.props.params.id;
-    store.update('PAGE_GEN_PAGE', {id});
+  onBuild() {
+    //let id = this.props.params.id;
+    //store.update('PAGE_GEN_PAGE', {id});
+  }
+
+  onReset() {
+    //let id = this.props.params.id;
+    //store.update('PAGE_GEN_PAGE', {id});
   }
 
   render() {
-    let ob = store.getState().page;
+    let data = store.getState().page.data;
     return (
       <div className="container-fluid">
         <EnHeader name="Page Information"/>
-        <div className="row">
-          <div className="col-md-12">
-            <MainInfo data={ob.data}/>
-          </div>
-        </div>
 
         <div className="row">
           <div className="col-md-12">
-            <ul className="nav nav-pills">
-              <li className="active"><a href="#Content" data-toggle="tab">Content</a></li>
-              <li><a href="#Menu" data-toggle="tab">Menu</a></li>
-              <li><a href="#Social" data-toggle="tab">Social</a></li>
-            </ul>
+            <BuildButton onClick={this.onBuild.bind(this)} />
 
-            <hr/>
+            <SaveButton onClick={this.onSave.bind(this)} />
 
-            <div className="tab-content">
-              <div id="Content" className="tab-pane in active">
-                <PageContent data={ob.data}/>
-              </div>
+            <ResetButton onClick={this.onReset.bind(this)} />
 
-              <div id="Menu" className="tab-pane">
-                <MenuInfo data={ob.data}/>
-              </div>
-
-              <div id="Social" className="tab-pane">
-                <SocialInfo data={ob.data}/>
-              </div>
-            </div>
+            <CloseButton to={'/PageManager'} />
           </div>
         </div>
-
         <hr/>
-        <div className="row">
-          <div className="col-md-offset-8 col-md-4">
-            <div className="text-right">
-              <EnButton className="btn btn-save btn-lg" onClick={this.onGenerate.bind(this)} style={{marginLeft:4}}>
-                Generate
-              </EnButton>
-              <Link to={`/PageManager`} className="btn btn-close btn-lg" style={{marginLeft:4}}>
-                Close
-              </Link>
-              <EnButton className="btn btn-save btn-lg" onClick={this.onSave.bind(this)} style={{marginLeft:4}}>
-                Save
-              </EnButton>
-            </div>
+
+        <ul className="nav nav-pills">
+          <li className="active"><a href="#Information" data-toggle="tab">Information</a></li>
+          <li><a href="#Menu" data-toggle="tab">Menu</a></li>
+          <li><a href="#Content" data-toggle="tab">Content</a></li>
+        </ul>
+
+        <div className="tab-content" style={{marginTop: '5px'}}>
+          <div id="Information" className="tab-pane in active">
+            <MainInfo data={data}/>
+          </div>
+
+          <div id="Menu" className="tab-pane">
+            <MenuInfo data={data}/>
+          </div>
+
+          <div id="Content" className="tab-pane">
+            <PageContent data={data}/>
           </div>
         </div>
 

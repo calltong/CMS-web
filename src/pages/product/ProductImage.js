@@ -54,7 +54,7 @@ export class ProductImage extends React.Component {
 
       return (
         <div className="col-md-2" key={index}>
-          <EnImageSelector height="208" width="160"
+          <EnImageSelector height="224" width="160"
             src={item.data}
             onDrop={this.onIndexDropImage.bind(this, index)}/>
 
@@ -71,13 +71,13 @@ export class ProductImage extends React.Component {
 
     return (
       <div className="panel panel-info">
-        <div className="panel-heading">Image 13x10</div>
+        <div className="panel-heading">Image 14x10</div>
         <div className="panel-body">
           <div className="row">
             {list}
             <div className="col-md-2">
               <div className="form-group">
-                <EnImageSelector height="208" width="160"
+                <EnImageSelector height="224" width="160"
                   onDrop={this.onDropImage.bind(this)}/>
 
               </div>

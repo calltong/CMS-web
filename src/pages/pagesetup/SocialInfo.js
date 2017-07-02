@@ -1,7 +1,8 @@
 import React from 'react';
 
 import EnText from '../../forms/EnText';
-import EnButton from '../../forms/EnButton';
+import AddButton from '../../forms/AddButton';
+import RemoveButton from '../../forms/RemoveButton';
 
 export default class SocialInfo extends React.Component {
 
@@ -31,54 +32,46 @@ export default class SocialInfo extends React.Component {
           <div className="col-md-3">
             <EnText
               placeholder="Enter name..."
-              value={item.name  || ''}
+              value={item.name || ''}
               onChange={this.nameChange.bind(this, index)} />
           </div>
 
           <div className="col-md-7">
             <EnText
               placeholder="Enter link..."
-              value={item.url  || ''}
+              value={item.url || ''}
               onChange={this.urlChange.bind(this, index)} />
           </div>
 
           <div className="col-md-2">
-            <EnButton className="btn btn-remove" onClick={this.onRemove.bind(this, index)}>
-              Remove
-            </EnButton>
+            <RemoveButton onClick={this.onRemove.bind(this, index)} />
           </div>
         </div>
       );
     });
     return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          Social List
+      <div style={{marginTop: '20px'}}>
+        Social List
+        <hr className="header-line"/>
+
+        <div className="row">
+          <div className="col-md-3">
+            <label>Name</label>
+          </div>
+
+          <div className="col-md-7">
+            <label>Link</label>
+          </div>
         </div>
-        <div className="panel-body">
 
-          <div className="row">
-            <div className="col-md-3">
-              <label>Name</label>
-            </div>
+        {list}
 
-            <div className="col-md-7">
-              <label>Link</label>
-            </div>
+        <div className="row" >
+          <div className="col-md-3">
+            <AddButton onClick={this.onAdd.bind(this)} style={{marginTop: 4, width:100}} />
           </div>
-
-          {list}
-
-          <div className="row" >
-            <div className="col-md-3">
-              <EnButton className="btn btn-add" onClick={this.onAdd.bind(this)} style={{marginTop:'10px', width:100}}>
-                Add
-              </EnButton>
-            </div>
-          </div>
-
         </div>
       </div>
-    )
+    );
   }
 }

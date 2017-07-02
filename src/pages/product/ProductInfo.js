@@ -6,8 +6,9 @@ import {store} from '../../store';
 import {actions} from '../../actions/Action';
 import {manager} from '../../utility/Manager';
 
-//import CompleteSection from '../../forms/CompleteSection';
 import EnHeader from '../../forms/EnHeader';
+import SaveButton from '../../forms/SaveButton';
+import CloseButton from '../../forms/CloseButton';
 
 import BasicInfo from './BasicInfo';
 import ProductImage from './ProductImage';
@@ -20,8 +21,6 @@ import LoadingWindow from '../../forms/LoadingWindow';
 export class ProductInfo extends ReducerBase {
 
   componentDidMount() {
-    actions.product.getTypeList();
-    actions.product.getSizeList();
     let id = this.props.params.id;
     if (id) {
       actions.product.getItem(id);
@@ -61,24 +60,24 @@ export class ProductInfo extends ReducerBase {
     let message = product.message;
 
     let ecommerce = product.ecommerce;
-    let cssLazadaAction = ecommerce.lazada ? 'btn btn-action dropdown-toggle' : 'btn btn-action-alert dropdown-toggle';
+    let cssLazadaAction = ecommerce.lazada ? 'btn btn-menu btn-action dropdown-toggle' : 'btn btn-menu btn-action-alert dropdown-toggle';
     return (
       <div className="container">
         <EnHeader name="Product Information"/>
-        <div className="row">
-          <div className="col-md-2">
-            <EnButton className="btn btn-action" onClick={this.onSave.bind(this)} style={{marginLeft:4}}>
-            Save
-            </EnButton>
-          </div>
-          <div className="col-md-2">
+        <form className="form-inline">
+          <SaveButton onClick={this.onSave.bind(this)} />
+          <CloseButton to={`/ProductManager?page=${product.page.index}`} />
+
+          <div className="form-group">
             <div className="dropdown">
-              <button className={cssLazadaAction}
-                type="button" id="dropdownMenu1" data-toggle="dropdown"
+              <button
+                className={cssLazadaAction}
+                type="button" id="dropdownLazada" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="true">
                 Lazada <span className="caret" />
               </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+              <ul className="dropdown-menu" aria-labelledby="dropdownLazada">
                 <li><a onClick={this.onLazadaUpdate.bind(this)}>Update Information</a></li>
                 <li><a onClick={this.onLazadaQuantityUpdate.bind(this)}>Update Quantity&Price</a></li>
                 <li><a onClick={this.onLazadaImageUpdate.bind(this)}>Update Images</a></li>
@@ -86,13 +85,9 @@ export class ProductInfo extends ReducerBase {
                 <li><a href="#">Active/Unactive</a></li>
               </ul>
             </div>
-         </div>
-         <div className="col-md-2">
-           <Link to={`/ProductManager?page=${product.page.index}`} className="btn btn-action">
-           Close
-           </Link>
-         </div>
-      </div>
+          </div>
+
+       </form>
 
       <hr/>
 
@@ -125,6 +120,7 @@ export class ProductInfo extends ReducerBase {
           <div id="InformationEng" className="tab-pane" style={{paddingBottom: 10}}>
             <BasicEngInfo data={product.data} />
           </div>
+
           <div id="Stock" className="tab-pane">
             <ProductStock data={product.data} size_list={product.size_list} />
           </div>

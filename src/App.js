@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import HeaderBar from './layout/HeaderBar';
 import SideBar from './layout/SideBar';
 
+import {actions} from './actions/Action';
+
 class App extends Component {
+  componentDidMount() {
+    actions.product.getTypeList();
+    actions.product.getSizeList();
+  }
   /*
   componentWillMount() {
       console.log('Component WILL MOUNT!')

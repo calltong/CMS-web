@@ -6,7 +6,7 @@ export class EnListBox extends Component {
   render() {
     return (
         <Select2
-          className="form-control"
+          className={`form-control ${this.props.css}`}
           defaultValue={this.props.value}
           data={this.props.data}
           options={

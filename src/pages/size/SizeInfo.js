@@ -108,6 +108,8 @@ export class SizeInfo extends ReducerBase {
     return (
       <div className="container-fluid">
         <EnHeader name="Size Information"/>
+        <CompleteSection close={'/SizeManager'} save={this.onSave.bind(this)} />
+        
         <div className="row">
           <div className="col-md-6 col-lg-6">
             <Information
@@ -120,7 +122,6 @@ export class SizeInfo extends ReducerBase {
           </div>
         </div>
 
-        <CompleteSection close={'/SizeManager'} save={this.onSave.bind(this)} />
       </div>
     );
   }

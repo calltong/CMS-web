@@ -16,5 +16,4 @@ export class ReducerBase extends Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
-
 }

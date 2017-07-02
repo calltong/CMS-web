@@ -1,32 +1,44 @@
 import React from 'react';
 
 import {store} from '../../store';
+import EnListBox from '../../forms/EnListBox';
 import EnButton from '../../forms/EnButton';
 
 export class OrderSearchBar extends React.Component {
+  typeChange(event) {
+    //let index = event.target.value;
+
+  }
+
   onFind(condition) {
     store.update('ORDER_GET_LIST', {condition});
   }
 
   render() {
-    let order = store.getState().order;
-    let condition = order.condition;
+    //let order = store.getState().order;
+    //let condition = order.condition;
 
     let data = ['Created', 'Planning', 'Quatation', 'Payment', 'Install', 'Completed'];
-    let list = data.map(item => {
-      return (
-        <EnButton
-          key={item}
-          onClick={this.onFind.bind(this, item)}
-          className={condition===item? 'btn btn-active-selected': 'btn btn-selected'} style={{marginRight:2, width:120}}>
-          {item}
-        </EnButton>
+    let index = 1;
+    let list = [{id: 0, text: 'เลือกสถานะ'}];
+    for (let item of data) {
+      list.push(
+        {id: index++, text: item}
       );
-    });
+    }
     return (
-      <div style={{marginBottom:4}}>
-        {list}
-      </div>
+      <form className="form-inline">
+        <EnListBox
+          value={0}
+          data={list}
+          onSelect={this.typeChange.bind(this)}/>
+
+        <input className="form-control" placeholder="Enter Code" style={{marginLeft:'4px', marginRight:'4px'}}/>
+
+        <EnButton className="btn btn-menu btn-normal" style={{marginRight:'4px'}}>
+          <i className="fa fa-search" /> Find
+        </EnButton>
+      </form>
     );
   }
 }

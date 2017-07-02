@@ -4,8 +4,10 @@ import {Link} from 'react-router';
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 
-import CreateSection from '../../forms/CreateSection';
+import CreateButton from '../../forms/CreateButton';
 import EnButton from '../../forms/EnButton';
+import TableEditBtn from '../../forms/TableEditBtn';
+import TableRemoveBtn from '../../forms/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
 
 
@@ -21,17 +23,13 @@ class ColorTable extends Component {
       <tr key={item._id}>
         <td>{item.name}</td>
         <td style={{textAlign: 'center'}}>
-          <Link to={`ColorManager/${item._id}/Edit`} className="btn btn-xs btn-default">
-            <i className="fa fa-pencil" data-tip="edit"/> Edit
-          </Link>        
+          <TableEditBtn to={`ColorManager/${item._id}/Edit`} />
         </td>
         <td style={{textAlign: 'center'}}>
-          <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default">
-            <i className="fa fa-close" data-tip="delete"/> Del
-          </EnButton>
+          <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
         </td>
       </tr>
-      )
+    );
     });
 
 
@@ -40,8 +38,8 @@ class ColorTable extends Component {
         <thead>
           <tr>
             <th>Name</th>
-            <th className="col-md-1"></th>
-            <th className="col-md-1"></th>
+            <th className="col-md-1"/>
+            <th className="col-md-1"/>
           </tr>
         </thead>
         <tbody>
@@ -59,23 +57,21 @@ export class ColorManager extends ReducerBase {
   }
 
   render() {
-    let state = store.getState();
+    let data = store.getState().color;
     return (
       <div className="container-fluid">
         <EnHeader name="Color Manager"/>
 
         <div className="row">
           <div className="col-md-5">
-            <CreateSection create={`/ColorManager/Create`} />
+            <CreateButton to={'/ColorManager/Create'} />
           </div>
         </div>
 
         <div className="row">
           <div className="col-lg-5">
-            <div className="table-responsive">
-              <ColorTable
-                data={state.color}
-                />
+            <div className="table-responsive" style={{marginTop: 4}}>
+              <ColorTable data={data} />
             </div>
           </div>
         </div>

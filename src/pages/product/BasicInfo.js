@@ -10,6 +10,8 @@ import EnText from '../../forms/EnText';
 import EnNumberText from '../../forms/EnNumberText';
 import EnTextArea from '../../forms/EnTextArea';
 import EnButton from '../../forms/EnButton';
+import AddButton from '../../forms/AddButton';
+import RemoveButton from '../../forms/RemoveButton';
 import EnListBox from '../../forms/EnListBox';
 
 export class BasicInfo extends ReducerBase {
@@ -119,7 +121,7 @@ export class BasicInfo extends ReducerBase {
               onChange={this.infoListChange.bind(this, index)} />
           </div>
           <div className="col-sm-2 col-md-2">
-            <EnButton onClick={this.onInfoListDelete.bind(this, index++)} className="btn btn-remove">Del</EnButton>
+            <RemoveButton onClick={this.onInfoListDelete.bind(this, index++)}/>
           </div>
         </div>
       );
@@ -254,9 +256,7 @@ export class BasicInfo extends ReducerBase {
 
           <div className="row">
             <div className="col-sm-6 col-md-6">
-              <EnButton onClick={this.onInfoListAdd.bind(this)} className="btn btn-add" style={{marginTop:2}}>
-                Add Bullet
-              </EnButton>
+              <AddButton onClick={this.onInfoListAdd.bind(this)} style={{marginTop:4, width:100}}/>
               {infoList}
             </div>
           </div>

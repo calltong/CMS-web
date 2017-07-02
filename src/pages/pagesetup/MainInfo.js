@@ -2,7 +2,7 @@ import React from 'react';
 
 import EnText from '../../forms/EnText';
 import EnTextArea from '../../forms/EnTextArea';
-
+import SocialInfo from './SocialInfo';
 
 export default class MainInfo extends React.Component {
 
@@ -23,7 +23,7 @@ export default class MainInfo extends React.Component {
                 <label>Name</label>
                 <EnText
                   placeholder="Enter name..."
-                  value={data.name  || ''}
+                  value={data.name || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
@@ -33,7 +33,7 @@ export default class MainInfo extends React.Component {
                 <label>Company</label>
                 <EnText
                   placeholder="Enter company..."
-                  value={info.company  || ''}
+                  value={info.company || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
@@ -42,7 +42,7 @@ export default class MainInfo extends React.Component {
               <div className="form-group">
                 <label>Status</label>
                 <EnText
-                  value={data.status  || ''}
+                  value={data.status || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
@@ -51,7 +51,7 @@ export default class MainInfo extends React.Component {
               <div className="form-group">
                 <label>Updated</label>
                 <EnText
-                  value={data.updated  || ''}
+                  value={data.updated || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
@@ -63,7 +63,7 @@ export default class MainInfo extends React.Component {
                 <label>Mobile</label>
                 <EnText
                   placeholder="Enter mobile..."
-                  value={info.mobile  || ''}
+                  value={info.mobile || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
@@ -73,7 +73,7 @@ export default class MainInfo extends React.Component {
                 <label>Email</label>
                 <EnText
                   placeholder="Enter email..."
-                  value={info.email  || ''}
+                  value={info.email || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
@@ -86,7 +86,7 @@ export default class MainInfo extends React.Component {
                 <EnTextArea
                   placeholder="Enter detail..."
                   rows="4"
-                  value={info.detail  || ''}
+                  value={info.detail || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
@@ -97,14 +97,16 @@ export default class MainInfo extends React.Component {
                 <EnTextArea
                   placeholder="Enter address..."
                   rows="4"
-                  value={info.address  || ''}
+                  value={info.address || ''}
                   onChange={this.nameChange.bind(this)} />
               </div>
             </div>
           </div>
 
+          <SocialInfo data={data}/>
+
         </div>
       </div>
-    )
+    );
   }
 }

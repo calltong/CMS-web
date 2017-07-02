@@ -3,32 +3,40 @@
   width: 180px;
   height: 40px;
   color: black;
-  background-color: #E7F9E7;
-  border-color: grey;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.btn-login:hover {
+  background-color: #FFFFF2;
 }
 
 .btn-action {
   color: black;
   background-color: white;
   border: 1px solid black;
-  width: 100%;
 }
 
 .btn-action:hover {
   color: white;
-  background-color: #3F3F3F;
+  background-color: #FFFFF2;
 }
 
 .btn-action-alert {
   color: black;
   background-color: white;
   border: 1px solid #CE0303;
-  width: 100%;
 }
 
 .btn-normal {
-  color: white;
-  background-color: #8E8E8D;
+  color: black;
+  background-color: white;
+  border: 1px solid #555555;
+}
+
+.btn-normal:hover {
+  background-color: #FFFFF2;
+  border: 1px solid black;
 }
 
 .btn-save {
@@ -38,6 +46,11 @@
   width: 100px;
 }
 
+.btn-save:hover {
+  background-color: #FFFFF2;
+  border: 1px solid black;
+}
+
 .btn-close {
   color: black;
   background-color: white;
@@ -45,36 +58,67 @@
   width: 100px;
 }
 
+.btn-close:hover {
+  background-color: #FFFFF2;
+  border: 1px solid black;
+}
+
 .btn-create {
   color: black;
-  background-color: #A9CED3;
+  background-color: #EAFBFE;
   border: 1px solid #555555;
+}
+
+.btn-create:hover {
+  background-color: #FFFFF2;
+  border: 1px solid black;
 }
 
 .btn-add {
   color: black;
-  background-color: #A8C8B1;
+  background-color: #F0FEEA;
   border: 1px solid #555555;
+}
+
+.btn-add:hover {
+  background-color: #FFFFF2;
+  border: 1px solid black;
 }
 
 .btn-remove {
   color: black;
-  background-color: #EC8F8C;
+  background-color: #FAB7B7;
   border: 1px solid #555555;
 }
 
-.btn-selected {
-  color: #555555;
-  background-color: #DAD8D8;
+.btn-remove:hover {
+  background-color: #FFFFF2;
+  border: 1px solid black;
 }
 
-.btn-active-selected {
-  color: #555555;
-  background-color: #A9CED3;
+.btn-edit {
+  color: black;
+  background-color: white;
+  border: 1px solid #555555;
 }
 
-.btn-active-selected:focus {
-  border-color: #0231A4;
+.btn-edit:hover {
+  background-color: #FFFFF2;
+  border: 1px solid black;
+}
+
+.btn-fullsize {
+  width: 100%;
+}
+
+.btn-table {
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.btn-menu {
+  width: 150px;
+  margin-right: 2px;
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {

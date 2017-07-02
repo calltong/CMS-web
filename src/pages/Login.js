@@ -28,11 +28,12 @@ export class Login extends Component {
     let params = {username, password};
     let url = `${config.api.url}/login`;
     http.put(url, {json: params}, false).done(response => {
+      console.log('Login:', response.statusCode);
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         cookie.save('mtoken', data.token);
         cookie.save('btoken', `Bearer ${data.token}`);
-        //browserHistory.push('/Home');
+        browserHistory.push('/Home');
       }
     });
   }

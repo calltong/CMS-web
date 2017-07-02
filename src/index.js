@@ -1,14 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/admin.css';
-import './css/button.css';
-import './css/layout.css';
-import './css/page.css';
-import './css/window.css';
-import './css/plugins/morris.css';
-import 'font-awesome/css/font-awesome.css';
-import 'react-tagsinput/react-tagsinput.css';
-import 'sweetalert/dist/sweetalert.css';
-import 'react-select2-wrapper/css/select2.css';
+import './assets.js';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -38,10 +28,6 @@ import OrderInfo from './pages/order/OrderInfo';
 import PageManager from './pages/pagesetup/PageManager';
 import PageInfo from './pages/pagesetup/PageInfo';
 
-import $ from 'jquery';
-window.jQuery = $;
-require('bootstrap');
-
 config.setup(window.location.host);
 
 let accessRight = false;
@@ -53,8 +39,8 @@ function checkAuthentication(state, replace) {
     let url = `${config.api.url}/tokenverify`;
     http.put(url, {json: {token: token}}, false).done(response => {
       done = true;
+      console.log('verify:', response.statusCode);
       if (response.statusCode === http.StatusOK) {
-        //browserHistory.push('/Home');
         accessRight = true;
       } else {
         browserHistory.push('/Login');
@@ -63,9 +49,11 @@ function checkAuthentication(state, replace) {
   } else {
     done = true;
     browserHistory.push('/Login');
+    console.log('token:', token);
   }
 
   setTimeout(function() {
+    console.log('access:', accessRight, ':', done);
     if (accessRight === false && done === false) {
       browserHistory.push('/Login');
     }

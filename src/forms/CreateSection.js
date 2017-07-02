@@ -6,9 +6,9 @@ export class CreateSection extends React.Component {
 
   render() {
     return (
-      <div className="text-right" style={{marginBottom:4}}>
-        <Link to={this.props.create} className="btn btn-create" >
-            <i className="fa fa-plus"/> Create
+      <div style={{marginBottom:4}}>
+        <Link to={this.props.create} className="btn btn-menu btn-create" >
+          <i className="fa fa-plus"/> Create
         </Link>
       </div>
     );

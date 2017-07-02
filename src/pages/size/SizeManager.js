@@ -5,8 +5,10 @@ import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
-import CreateSection from '../../forms/CreateSection';
 import EnButton from '../../forms/EnButton';
+import CreateButton from '../../forms/CreateButton';
+import TableEditBtn from '../../forms/TableEditBtn';
+import TableRemoveBtn from '../../forms/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
 
 class SizeTable extends Component {
@@ -22,14 +24,10 @@ class SizeTable extends Component {
         <td>{item.code}</td>
         <td>{item.name}</td>
         <td style={{textAlign: 'center'}}>
-          <Link to={`SizeManager/${item._id}/Edit`} className="btn btn-xs btn-default">
-            <i className="fa fa-pencil" data-tip="edit"/> Edit
-          </Link>
+          <TableEditBtn to={`SizeManager/${item._id}/Edit`} />
         </td>
         <td style={{textAlign: 'center'}}>
-          <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default">
-            <i className="fa fa-close" data-tip="delete"/> Del
-          </EnButton>
+          <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
         </td>
       </tr>);
     });
@@ -68,19 +66,20 @@ export class SizeManager extends ReducerBase {
         <EnHeader name="Size Manager"/>
 
         <div className="row">
-          <div className="col-md-2">
-            <EnButton className="btn btn-create" onClick={this.updateSize.bind(this)}>
+          <div className="col-md-12">
+            <EnButton
+              className="btn btn-normal"
+              onClick={this.updateSize.bind(this)}
+              style={{marginRight:'2px'}}>
               Update Size on Product
             </EnButton>
-          </div>
-          <div className="col-md-6">
-            <CreateSection create={'/SizeManager/Create'} />
+            <CreateButton to={'/SizeManager/Create'} />
           </div>
         </div>
 
         <div className="row">
           <div className="col-lg-8">
-            <div className="table-responsive">
+            <div className="table-responsive" style={{marginTop: 4}}>
               <SizeTable data={size}/>
             </div>
           </div>

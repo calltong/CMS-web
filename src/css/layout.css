@@ -1,3 +1,13 @@
+.product-img {
+	width: 50px;
+	height: 70px;
+	display: block;
+	margin: 0px auto;
+}
+
+.header-line {
+	color: black;
+}
 
 .summary-img {
 	margin-left: 1px;

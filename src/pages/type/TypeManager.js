@@ -5,8 +5,10 @@ import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
-import CreateSection from '../../forms/CreateSection';
 import EnButton from '../../forms/EnButton';
+import TableEditBtn from '../../forms/TableEditBtn';
+import TableRemoveBtn from '../../forms/TableRemoveBtn';
+import CreateButton from '../../forms/CreateButton';
 import EnHeader from '../../forms/EnHeader';
 
 class TypeTable extends Component {
@@ -23,14 +25,10 @@ class TypeTable extends Component {
           <td>{item.lang_eng.name}</td>
           <td>{item.tag_list}</td>
           <td style={{textAlign: 'center'}}>
-            <Link to={`TypeManager/${item._id}/Edit`} className="btn btn-xs btn-default">
-              <i className="fa fa-pencil" data-tip="edit"/> Edit
-            </Link>
+            <TableEditBtn to={`TypeManager/${item._id}/Edit`} />
           </td>
           <td style={{textAlign: 'center'}}>
-            <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default">
-              <i className="fa fa-close" data-tip="delete"/> Del
-            </EnButton>
+            <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
           </td>
         </tr>
       );
@@ -61,21 +59,21 @@ export class TypeManager extends ReducerBase {
   }
 
   render() {
-    let state = store.getState();
+    let data = store.getState().type;
     return (
       <div className="container-fluid">
         <EnHeader name="Type Manager"/>
 
         <div className="row">
           <div className="col-md-8">
-            <CreateSection create={'/TypeManager/Create'} />
+            <CreateButton to={'/TypeManager/Create'} />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-8">
-            <div className="table-responsive">
-              <TypeTable data={state.type}/>
+            <div className="table-responsive" style={{marginTop: 4}}>
+              <TypeTable data={data}/>
             </div>
           </div>
         </div>

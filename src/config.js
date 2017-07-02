@@ -1,7 +1,5 @@
 class Config {
-
   constructor() {
-
     this.api = {
       url: 'http://localhost:8081',
     };

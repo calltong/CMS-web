@@ -16,8 +16,8 @@ export const reducer = new Reducer({
   },
   data_list: [],
   data: {
-      _id: undefined,
-      name: '',
+    _id: undefined,
+    name: '',
   },
 });
 

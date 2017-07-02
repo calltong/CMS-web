@@ -21,7 +21,7 @@ class Information extends React.Component {
 
     return (
     <div>
-      <div className={check? "form-group has-error": "form-group"}>
+      <div className={check? 'form-group has-error': 'form-group'}>
         <label>Name</label>
         <EnText
           placeholder="Enter name..."
@@ -29,7 +29,7 @@ class Information extends React.Component {
           onChange={this.nameChange.bind(this)} />
       </div>
     </div>
-    )
+  );
   }
 }
 
@@ -62,25 +62,24 @@ export class ColorInfo extends ReducerBase {
 
   render() {
     let state = this.state;
-    let ob = store.getState().color;
+    let data = store.getState().color;
 
     return (
       <div className="container-fluid">
         <EnHeader name="Color Information"/>
+        <CompleteSection close={'/ColorManager'} save={this.onSave.bind(this)} />
         <div className="row">
           <div className="col-lg-6">
             <div className="panel panel-default">
               <div className="panel-heading">Information</div>
               <div className="panel-body">
                 <Information
-                  data={ob.data}
+                  data={data.data}
                   check={state.check} />
               </div>
             </div>
           </div>
         </div>
-
-        <CompleteSection close={`/ColorManager`} save={this.onSave.bind(this)} />
       </div>
     );
   }

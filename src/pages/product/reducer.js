@@ -11,7 +11,11 @@ export const reducer = new Reducer({
   size: {
     index: 0,
     total: 1,
-    limit: 8,
+    limit: 10,
+  },
+  type: {
+    index: 0,
+    id: undefined,
   },
   data_list: [],
   type_list: [],
@@ -64,13 +68,13 @@ reducer.register('PRODUCT_RESET', (state, action) => {
 reducer.register('PRODUCT_RESET_ITEM', (state, action) => {
   state.data = _.cloneDeep(reducer.initial.data);
   state.ecommerce = _.cloneDeep(reducer.initial.ecommerce);
+  state.message = _.cloneDeep(reducer.initial.message);
   return state;
 });
 
 reducer.register('PRODUCT_STORE_PAGE', (state, action) => {
   let {data} = action.params;
   state.page = data;
-  console.log('set page:', state.page);
   return state;
 });
 
@@ -143,6 +147,21 @@ reducer.register('PRODUCT_SET_MASSAGE', (state, action) => {
 reducer.register('PRODUCT_SET_SIZEPAGE', (state, action) => {
   let {index} = action.params;
   state.size.index = index;
+
+  return state;
+});
+
+reducer.register('PRODUCT_SET_TYPEPAGE', (state, action) => {
+  let {index} = action.params;
+  let id = undefined;
+  if (index !== 0) {
+    id = state.type_list[index - 1]._id;
+  }
+
+  state.type = {
+    index,
+    id,
+  };
 
   return state;
 });

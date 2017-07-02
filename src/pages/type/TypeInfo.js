@@ -15,14 +15,12 @@ class Information extends Component {
     let data = this.props.data;
     data.name = event.target.value;
     actions.type.setItem(data);
-    //store.update('TYPE_STORE_ITEM', {data: data});
   }
 
   tagsChange(tag_list) {
     let data = this.props.data;
     data.tag_list = tag_list;
     actions.type.setItem(data);
-    //store.update('TYPE_STORE_ITEM', {data: data});
   }
 
   render() {
@@ -46,7 +44,6 @@ class Information extends Component {
           value={data.tag_list}
           onChange={this.tagsChange.bind(this)} />
       </div>
-
     </div>
   );
   }
@@ -58,7 +55,6 @@ class InformationEnglish extends Component {
     let data = this.props.data;
     data.lang_eng.name = event.target.value;
     actions.type.setItem(data);
-    //store.update('TYPE_STORE_ITEM', {data: data});
   }
 
   render() {
@@ -138,7 +134,6 @@ export class TypeInfo extends ReducerBase {
       this.setState(this.state);
     } else {
       actions.type.saveItem();
-      //store.update('TYPE_SAVE_ITEM');
     }
   }
 
@@ -148,6 +143,7 @@ export class TypeInfo extends ReducerBase {
     return (
       <div className="container-fluid">
         <EnHeader name="Type Information"/>
+        <CompleteSection close={'/TypeManager'} save={this.onSave.bind(this)} />
         <div className="row">
           <div className="col-md-6">
             <div className="panel panel-default">
@@ -182,10 +178,7 @@ export class TypeInfo extends ReducerBase {
              </div>
            </div>
          </div>
-
       </div>
-
-       <CompleteSection close={'/TypeManager'} save={this.onSave.bind(this)} />
      </div>
     );
   }

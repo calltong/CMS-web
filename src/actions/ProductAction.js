@@ -214,6 +214,14 @@ export class ProductAction {
       //}
     });
   }
+
+  selectIndexSize(index) {
+    store.update('PRODUCT_SET_SIZEPAGE', {index: +index});
+  }
+
+  selectIndexType(index) {
+    store.update('PRODUCT_SET_TYPEPAGE', {index: +index});
+  }
 }
 
 export const action = new ProductAction();

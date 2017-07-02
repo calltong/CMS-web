@@ -3,16 +3,13 @@ import {Link} from 'react-router';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import OrderSearchBar from './OrderSearchBar';
 //import EnButton from '../../forms/EnButton';
 import EnHeader from '../../forms/EnHeader';
 
 class OrderTable extends Component {
-  onDelete(id) {
-    store.update('ORDER_REMOVE_ITEM', {id});
-  }
-
   render() {
     let data_list = this.props.data.data_list;
     let list = data_list.map(item => {
@@ -25,7 +22,7 @@ class OrderTable extends Component {
         <td>{tracking.status}</td>
         <td style={{textAlign: 'center'}}>
           <div>
-            <Link to={`orders/${item.id}`} className="btn btn-sm btn-default">
+            <Link to={`orders/${item.id}`} className="btn btn-table">
               <i className="fa fa-pencil" data-tip="edit"/> View
             </Link>
           </div>
@@ -56,11 +53,12 @@ class OrderTable extends Component {
 export class OrderManager extends ReducerBase {
 
   componentDidMount() {
-    store.update('ORDER_GET_LIST', {index: 1});
+    actions.order.getList();
+    //store.update('ORDER_GET_LIST', {index: 1});
   }
 
   render() {
-    let state = store.getState();
+    let order = store.getState().order;
     return (
       <div className="container-fluid">
         <EnHeader name="Order Manager"/>
@@ -69,12 +67,13 @@ export class OrderManager extends ReducerBase {
             <OrderSearchBar />
           </div>
         </div>
+        <hr/>
 
         <div className="row">
           <div className="col-md-10">
             <div className="table-responsive">
               <OrderTable
-                data={state.order}
+                data={order}
                 />
             </div>
           </div>

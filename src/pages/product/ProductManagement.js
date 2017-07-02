@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router';
 
 import ProductSearchBar from './ProductSearchBar';
-import EnButton from '../../forms/EnButton';
+import TableEditBtn from '../../forms/TableEditBtn';
+import TableRemoveBtn from '../../forms/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
 import EnImage from '../../forms/EnImage';
 import Paginator from '../../forms/Paginator';
 import MessageThai from '../../common/Message';
 import MessageBox from '../../forms/EnMessageBox';
+import EnListBox from '../../forms/EnListBox';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
 export class ProductTable extends Component {
+  sizeChange(event) {
+    let index = event.target.value;
+    actions.product.selectIndexSize(index);
+  }
+
   onDelete(id) {
     MessageBox.displayConfirm(
       MessageThai.title.confirm,
@@ -21,21 +27,35 @@ export class ProductTable extends Component {
       function() {
         actions.product.remove(id);
       });
-
   }
 
   render() {
     let data = this.props.data;
-    let indexColsize = data.size.index;
-    let totalSize = data.size.total;
-    let colsize = data.size.limit + indexColsize;
-    if (colsize > totalSize) {
-      colsize = totalSize;
+    let sizeStart = data.size.index;
+    let sizeTotal = data.size.total;
+    let colsize = data.size.limit + sizeStart;
+    if (colsize > sizeTotal) {
+      colsize = sizeTotal;
     }
     let data_list = data.data_list;
-    let sizes = data.size_list.slice(indexColsize, colsize);
-    let sizeList = sizes.map(item => {
-      return (<td key={item._id} className="col-md-1" style={{textAlign: 'center'}}>{item.name}</td>);
+    let sizes = data.size_list.slice(sizeStart, colsize);
+    let index = 0;
+    let sizeSelected = data.size_list.map(item => {
+      return {id: index++, text: item.code};
+    });
+
+    let sizeList = sizes.map((item, i) => {
+      if (i === 0) {
+        return (
+          <th key={item._id} className="col-md-1" style={{textAlign: 'center'}}>
+            <EnListBox
+              value={sizeStart}
+              data={sizeSelected}
+              onSelect={this.sizeChange.bind(this)}/>
+          </th>);
+      } else {
+        return (<th key={item._id} style={{textAlign: 'center'}}>{item.code}</th>);
+      }
     });
 
     let list = data_list.map(item => {
@@ -50,11 +70,8 @@ export class ProductTable extends Component {
             return undefined;
           }
         });
-        if (found) {
-          sizeData.push((<td key={size._id} style={{textAlign: 'center'}}>{found.quantity}</td>));
-        } else {
-          sizeData.push((<td key={size._id} style={{textAlign: 'center'}}>-</td>));
-        }
+
+        sizeData.push((<td key={size._id} style={{textAlign: 'center'}}>{found === undefined ? '-': found.quantity}</td>));
       }
 
       let img = '';
@@ -66,20 +83,13 @@ export class ProductTable extends Component {
         <td>
           <EnImage src={img} className="product-img"/>
         </td>
-        <td>{item.name}</td>
         <td>{item.code}</td>
         <td>{item.price}</td>
         <td>{item.sale_price}</td>
         {sizeData}
         <td style={{textAlign: 'center'}}>
-          <Link to={`ProductManager/${item._id}/Edit`} className="btn btn-xs btn-default" style={{width:'50px'}}>
-            <i className="fa fa-pencil" data-tip="edit"/> Edit
-          </Link>
-        </td>
-        <td style={{textAlign: 'center'}}>
-          <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default" style={{width:'50px'}}>
-            <i className="fa fa-close" data-tip="delete"/> Del
-          </EnButton>
+          <TableEditBtn to={`ProductManager/${item._id}/Edit`} />
+          <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} style={{marginTop: '2px'}} />
         </td>
       </tr>
     );
@@ -90,13 +100,11 @@ export class ProductTable extends Component {
         <thead>
           <tr>
             <th className="col-md-1">Pic.</th>
-            <th className="col-md-5">Name</th>
-            <th className="col-md-1">Code</th>
-            <th className="col-md-1">Price</th>
-            <th className="col-md-1">Sale</th>
+            <th>Code</th>
+            <th>Price</th>
+            <th>Sale</th>
             {sizeList}
-            <th/>
-            <th/>
+            <th className="col-md-1"/>
           </tr>
         </thead>
         <tbody>
@@ -115,6 +123,7 @@ export class ProductManagement extends ReducerBase {
       actions.product.getList(page);
     } else {
       actions.product.getSizeList();
+      actions.product.getTypeList();
       actions.product.getCountAndList(1);
     }
   }
@@ -150,21 +159,17 @@ export class ProductManagement extends ReducerBase {
     return (
       <div className="container-fluid">
         <EnHeader name="Product Manager"/>
-         <ProductSearchBar/>
+        <ProductSearchBar/>
+        <hr/>
 
-         <div className="row" style={{marginTop:4}}>
-           <div className="col-md-12">
-             <div className="table-responsive">
-               <ProductTable data={product}/>
+        <div className="table-responsive">
+          <ProductTable data={product}/>
 
-               <Paginator display={5} pages={total} current={page.index}
-                onNext={this.handleNext.bind(this)}
-                onPrev={this.handlePrev.bind(this)}
-                onJump={this.handleJump.bind(this)}
-               />
-             </div>
-           </div>
-         </div>
+          <Paginator display={5} pages={total} current={page.index}
+            onNext={this.handleNext.bind(this)}
+            onPrev={this.handlePrev.bind(this)}
+            onJump={this.handleJump.bind(this)} />
+          </div>
       </div>
     );
   }

@@ -1,42 +1,28 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
 
-import CreateSection from '../../forms/CreateSection';
-import EnButton from '../../forms/EnButton';
+import TableEditBtn from '../../forms/TableEditBtn';
 import EnHeader from '../../forms/EnHeader';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 class PageTable extends Component {
-
-  onDelete(id) {
-    store.update('PAGE_REMOVE_ITEM', {id});
-  }
-
   render() {
     let list = this.props.data.data_list;
     let datalist;
     if (list) {
       datalist = list.map(item => {
-      return (
+        return (
         <tr key={item._id}>
           <td>{item.name}</td>
           <td>{item.updated}</td>
           <td>{item.status}</td>
           <td style={{textAlign: 'center'}}>
-            <Link to={`PageManager/${item._id}/Edit`} className="btn btn-xs btn-default">
-              <i className="fa fa-pencil" data-tip="edit"/> Edit
-            </Link>
+            <TableEditBtn to={`PageManager/${item._id}/Edit`} />
           </td>
-
-          <td style={{textAlign: 'center'}}>
-            <EnButton onClick={this.onDelete.bind(this, item._id)} className="btn btn-xs btn-default">
-              <i className="fa fa-close" data-tip="delete"/> Del
-            </EnButton>
-          </td>
-        </tr>
-        )
+        </tr>);
       });
     }
 
@@ -48,8 +34,7 @@ class PageTable extends Component {
             <th>Name</th>
             <th>Updated</th>
             <th>Status</th>
-            <th className="col-md-1"></th>
-            <th className="col-md-1"></th>
+            <th className="col-md-1"/>
           </tr>
         </thead>
         <tbody>
@@ -63,25 +48,19 @@ class PageTable extends Component {
 export class PageManager extends ReducerBase {
 
   componentDidMount() {
-    store.update('PAGE_GET_LIST');
+    actions.page.getList();
   }
 
   render() {
-    let state = store.getState();
+    let page = store.getState().page;
     return (
       <div className="container-fluid">
         <EnHeader name="Page Manager"/>
 
         <div className="row">
           <div className="col-md-8">
-            <CreateSection create={`/PageManager/Create`} />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8">
             <div className="table-responsive">
-              <PageTable data={state.page}/>
+              <PageTable data={page}/>
             </div>
           </div>
         </div>

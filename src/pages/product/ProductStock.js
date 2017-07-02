@@ -29,11 +29,10 @@ export class ProductStock extends Component {
         MessageThai.warning.duplicate);
       actions.product.refresh();
     } else {
-      data.stock_list.push({size:size, quantity: 0});
+      data.stock_list.push({size: size, quantity: 0});
       actions.product.setItem(data);
     }
   }
-
 
   async sizeChange(index, event) {
     let value = event.target.value;
