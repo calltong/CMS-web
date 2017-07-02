@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';

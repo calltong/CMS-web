@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router';
 
 import SaveButton from './SaveButton';
 import CloseButton from './CloseButton';

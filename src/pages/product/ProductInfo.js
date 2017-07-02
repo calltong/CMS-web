@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
@@ -15,7 +14,6 @@ import ProductImage from './ProductImage';
 import ProductSquareImage from './ProductSquareImage';
 import BasicEngInfo from './BasicEngInfo';
 import ProductStock from './ProductStock';
-import EnButton from '../../forms/EnButton';
 import LoadingWindow from '../../forms/LoadingWindow';
 
 export class ProductInfo extends ReducerBase {
