@@ -1,22 +1,21 @@
 import React from 'react';
 
-import EnText from '../../forms/EnText';
-import EnButton from '../../forms/EnButton';
+import EnText from '../../../forms/EnText';
+import EnButton from '../../../forms/EnButton';
 
-export default class ModernContent extends React.Component {
+export default class CategoryContent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Modern Start:', this.props.data);
+    console.log('Category Start:', this.props.data);
     if (this.props.data.data) {
       this.state = this.props.data;
     } else {
       this.state = {
-        type: 'modern',
+        type: 'category',
         data: {
           name: '',
-          detail: '',
           list: [],
-        }
+        },
       };
     }
   }
@@ -24,12 +23,6 @@ export default class ModernContent extends React.Component {
   nameChange(event) {
     let data = this.state.data;
     data.name = event.target.value;
-    this.setState({data:data});
-  }
-
-  detailChange(event) {
-    let data = this.state.data;
-    data.detail = event.target.value;
     this.setState({data:data});
   }
 
@@ -54,8 +47,9 @@ export default class ModernContent extends React.Component {
   onAdd() {
     let data = this.state.data;
     data.list.push({
-      preview: '',
+      name: '',
       value: '',
+      preview: '',
     });
 
     this.setState({data:data});
@@ -71,14 +65,14 @@ export default class ModernContent extends React.Component {
           <div className="col-md-5">
             <EnText
               placeholder="Enter type..."
-              value={item.preview  || ''}
+              value={item.preview || ''}
               onChange={this.previewChange.bind(this, index)} />
           </div>
 
           <div className="col-md-5">
             <EnText
               placeholder="Enter link..."
-              value={item.value  || ''}
+              value={item.value || ''}
               onChange={this.valueChange.bind(this, index)} />
           </div>
 
@@ -95,7 +89,7 @@ export default class ModernContent extends React.Component {
         <div className="col-md-12">
           <div className="panel panel-content">
             <div className="panel-heading">
-              Modern Content
+              Category Content
             </div>
             <div className="panel-body">
               <div className="row">
@@ -112,23 +106,11 @@ export default class ModernContent extends React.Component {
 
               <div className="row">
                 <div className="col-md-5">
-                  <div className="form-group">
-                    <label>Detail</label>
-                    <EnText
-                        placeholder="Enter Detail..."
-                        value={this.state.data.detail || ''}
-                        onChange={this.detailChange.bind(this)} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-md-5">
                   <label>Preview</label>
                 </div>
 
                 <div className="col-md-5">
-                  <label>Value</label>
+                  <label>Category</label>
                 </div>
               </div>
 
@@ -153,6 +135,6 @@ export default class ModernContent extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

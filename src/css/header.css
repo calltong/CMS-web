@@ -1,0 +1,50 @@
+.navbar-fixed-top {
+  height: 50px;
+}
+
+.navbar {
+  background-color: #EFFCFD;
+  margin-bottom: 0px;
+}
+
+.navbar-header {
+  background-color: white;
+  background-color: #EFFCFD;
+}
+
+.navbar-brand {
+  color: black;
+}
+
+.navbar-nav > li > a {
+  background-color: #EFFCFD;
+  color: black;
+}
+
+.navbar-nav > li > a:hover {
+  color: #AB2505;
+  background-color: #EFFCFD;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #560707;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+  background-color: #EFFCFD;
+}
+
+.nav >li > a:focus, .nav > li > a:hover {
+  background-color: #EFFCFD;
+}
+
+.navbar-toggle {
+  border: 1px solid black;
+}
+
+
+@media (max-width: 400px) {
+  .navbar-fixed-top {
+    margin-right: 0;
+  }
+}

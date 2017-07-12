@@ -1,7 +1,6 @@
 import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
-import {browserHistory} from 'react-router';
 
 export class PageAction {
   resetItem() {
@@ -36,28 +35,43 @@ export class PageAction {
     let data = store.getState().page.data;
     let json = data;
     let id = data._id;
-
+    this.setMessage('', '');
     if (id) {
       let url = `${config.api.url}/page/${id}/edit`;
       http.put(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
-          browserHistory.push('/PageManager');
-        }
-      });
-    } else {
-      let url = `${config.api.url}/page/create`;
-      http.post(url, {json, authorization: true}).done(response => {
-        if (response.statusCode === http.StatusCreated) {
-          browserHistory.push('/PageManager');
+          this.setMessage('good', 'เสร็จเรียบร้อย');
+        } else {
+          this.setMessage('error', 'ไม่สามารถบันทึกข้อมูลได้');
         }
       });
     }
   }
 
-  setMenu(index, menu) {
+  setMenu(menu) {
     let data = store.getState().page.data;
-    data.menu_list[index] = menu;
+    data.menu = menu;
     store.update('PAGE_STORE_ITEM', {data: data});
+  }
+
+  setMenuItem(index, menu) {
+    let data = store.getState().page.data;
+    data.menu.list[index] = menu;
+    store.update('PAGE_STORE_ITEM', {data: data});
+  }
+
+  setMessage(type, text) {
+    store.update('PAGE_STORE_MESSAGE', {type: type, text: text});
+  }
+
+  setPageMenu(x, y) {
+    store.update('PAGE_MENU', {x, y});
+  }
+
+  selectPageMenu(index) {
+    let data = store.getState().page.page_menu;
+    data.selected = index;
+    store.update('PAGE_MENU', {data});
   }
 
 }

@@ -27,8 +27,12 @@ class Manager {
     $(id).collapse('toggle');
   }
 
-  GetWindowWidth() {
+  GetWidth() {
     return $(window).width();
+  }
+
+  GetHeight() {
+    return $(window).height();
   }
 
   SetOnTop() {

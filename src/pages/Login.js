@@ -51,14 +51,13 @@ export class Login extends Component {
         <div className="row" style={{marginTop: '15%'}}>
 
           <div className="col-md-offset-4 col-md-4">
-            <div className="panel">
+            <div className="panel panel-login">
               <div className="panel-heading">
-                <div className="panel-title">
-                  <i className="fa fa-product-hunt"/> {message}
-                </div>
+                <i className="fa fa-product-hunt"/> {message}
               </div>
 
               <div className="panel-body">
+
                 <div className="form-group">
                   <EnText ref="username" placeholder="username..." onKeyPress={this.onKeyPress.bind(this)}/>
                 </div>

@@ -143,7 +143,7 @@ export class TypeInfo extends ReducerBase {
     return (
       <div className="container-fluid">
         <EnHeader name="Type Information"/>
-        <CompleteSection close={'/TypeManager'} save={this.onSave.bind(this)} />
+        <CompleteSection close={'/type'} save={this.onSave.bind(this)} />
         <div className="row">
           <div className="col-md-6">
             <div className="panel panel-default">

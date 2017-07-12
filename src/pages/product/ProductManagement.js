@@ -88,7 +88,7 @@ export class ProductTable extends Component {
         <td>{item.sale_price}</td>
         {sizeData}
         <td style={{textAlign: 'center'}}>
-          <TableEditBtn to={`ProductManager/${item._id}/Edit`} />
+          <TableEditBtn to={`product/${item._id}/edit`} />
           <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} style={{marginTop: '2px'}} />
         </td>
       </tr>

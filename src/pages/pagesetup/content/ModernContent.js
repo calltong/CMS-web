@@ -1,18 +1,20 @@
 import React from 'react';
 
-import EnText from '../../forms/EnText';
-import EnButton from '../../forms/EnButton';
+import EnText from '../../../forms/EnText';
+import EnButton from '../../../forms/EnButton';
 
-export default class BlockContent extends React.Component {
+export default class ModernContent extends React.Component {
   constructor(props) {
     super(props);
+    console.log('Modern Start:', this.props.data);
     if (this.props.data.data) {
       this.state = this.props.data;
     } else {
       this.state = {
-        type: 'block',
+        type: 'modern',
         data: {
           name: '',
+          detail: '',
           list: [],
         },
       };
@@ -22,6 +24,12 @@ export default class BlockContent extends React.Component {
   nameChange(event) {
     let data = this.state.data;
     data.name = event.target.value;
+    this.setState({data:data});
+  }
+
+  detailChange(event) {
+    let data = this.state.data;
+    data.detail = event.target.value;
     this.setState({data:data});
   }
 
@@ -55,22 +63,20 @@ export default class BlockContent extends React.Component {
 
   render() {
     let data = this.state.data;
-    let index = -1;
-    let list = data.list.map(item => {
-      index++;
+    let list = data.list.map((item, index) => {
       return (
         <div className="row" key={index} style={{marginTop:'5px'}}>
           <div className="col-md-5">
             <EnText
               placeholder="Enter type..."
-              value={item.preview}
+              value={item.preview || ''}
               onChange={this.previewChange.bind(this, index)} />
           </div>
 
           <div className="col-md-5">
             <EnText
               placeholder="Enter link..."
-              value={item.value}
+              value={item.value || ''}
               onChange={this.valueChange.bind(this, index)} />
           </div>
 
@@ -87,7 +93,7 @@ export default class BlockContent extends React.Component {
         <div className="col-md-12">
           <div className="panel panel-content">
             <div className="panel-heading">
-              Block Content
+              Modern Content
             </div>
             <div className="panel-body">
               <div className="row">
@@ -95,9 +101,21 @@ export default class BlockContent extends React.Component {
                   <div className="form-group">
                     <label>Title</label>
                     <EnText
-                        placeholder="Enter Title..."
-                        value={this.state.data.name || ''}
-                        onChange={this.nameChange.bind(this)} />
+                      placeholder="Enter Title..."
+                      value={this.state.data.name || ''}
+                      onChange={this.nameChange.bind(this)} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-5">
+                  <div className="form-group">
+                    <label>Detail</label>
+                    <EnText
+                      placeholder="Enter Detail..."
+                      value={this.state.data.detail || ''}
+                      onChange={this.detailChange.bind(this)} />
                   </div>
                 </div>
               </div>
@@ -133,6 +151,6 @@ export default class BlockContent extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

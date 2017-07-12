@@ -3,10 +3,10 @@ import React from 'react';
 import {store} from '../../store';
 import EnText from '../../forms/EnText';
 import EnButton from '../../forms/EnButton';
-import SlideContent from './SlideContent';
-import ModernContent from './ModernContent';
-import CategoryContent from './CategoryContent';
-import BlockContent from './BlockContent';
+import SlideContent from './content/SlideContent';
+import ModernContent from './content/ModernContent';
+import CategoryContent from './content/CategoryContent';
+import BlockContent from './content/BlockContent';
 
 export default class PageContent extends React.Component {
   state = {

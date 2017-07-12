@@ -1,4 +1,39 @@
+import _ from 'lodash';
 import {Reducer} from '../../redux-manager';
+
+let page_data = {
+  _id: undefined,
+  name: '',
+  status: '',
+  updated: '',
+  information: {
+    company: '',
+    detail: '',
+    address: '',
+    mobile: '',
+    email: '',
+  },
+  menu: {
+    brand: {
+      type: 'text',
+      name: '',
+      css: {
+        font: '',
+        size: 12,
+        color: '#ffffff',
+      },
+    },
+    css: {
+      font: '',
+      size: 12,
+      color: '#ffffff',
+      bg_color: '#ffffff',
+    },
+    list: [],
+  },
+  social_list: [],
+  content_list: [],
+};
 
 export const reducer = new Reducer({
   page: {
@@ -7,25 +42,20 @@ export const reducer = new Reducer({
     limit: 10,
   },
   data_list: [],
-  data: {
-    _id: undefined,
-    name: '',
-    status: '',
-    updated: '',
-    information: {
-      company: '',
-      detail: '',
-      address: '',
-      mobile: '',
-      email: '',
-    },
-    menu_list: [],
-    social_list: [],
-    content_list: [],
-  },
+  data: _.cloneDeep(page_data),
   content: {
     type: '',
     data: {},
+  },
+  message: {
+    type: '',
+    text: '',
+  },
+  page_menu: {
+    x: 0,
+    y: 0,
+    selected: 0,
+
   },
 });
 
@@ -43,7 +73,21 @@ reducer.register('PAGE_STORE_LIST', (state, action) => {
 reducer.register('PAGE_STORE_ITEM', (state, action) => {
   let {data} = action.params;
   state.data = data;
-  console.log('page item');
+  return state;
+});
+
+reducer.register('PAGE_STORE_MESSAGE', (state, action) => {
+  let {type, text} = action.params;
+  state.message = {
+    type: type,
+    text: text,
+  };
+  return state;
+});
+
+reducer.register('PAGE_MENU', (state, action) => {
+  let {data} = action.params;
+  state.page_menu = data;
   return state;
 });
 

@@ -28,6 +28,8 @@ import OrderInfo from './pages/order/OrderInfo';
 import PageManager from './pages/pagesetup/PageManager';
 import PageInfo from './pages/pagesetup/PageInfo';
 
+import SampleHome from './pages/sample/SampleHome';
+
 config.setup(window.location.host);
 
 let accessRight = false;
@@ -64,31 +66,32 @@ ReactDOM.render((
    <Router history={browserHistory}>
       <Route path="Login" component={Login} />
 
+      <Route path="/sample/:id" component={SampleHome} onEnter={checkAuthentication} />
       <Route path="/" component={App} onEnter={checkAuthentication}>
          <IndexRoute component={Home} />
-         <Route path="Home" component={Home} />
-         <Route path="ProductManager" component={ProductManagement} />
-         <Route path="ProductManager/Create" component={ProductInfo} />
-         <Route path="ProductManager/:id/Edit" component={ProductInfo} />
+         <Route path="home" component={Home} />
+         <Route path="product" component={ProductManagement} />
+         <Route path="product/Create" component={ProductInfo} />
+         <Route path="product/:id/Edit" component={ProductInfo} />
 
-         <Route path="TypeManager" component={TypeManager} />
-         <Route path="TypeManager/Create" component={TypeInfo} />
-         <Route path="TypeManager/:id/Edit" component={TypeInfo} />
+         <Route path="type" component={TypeManager} />
+         <Route path="type/Create" component={TypeInfo} />
+         <Route path="type/:id/Edit" component={TypeInfo} />
 
-         <Route path="SizeManager" component={SizeManager} />
-         <Route path="SizeManager/Create" component={SizeInfo} />
-         <Route path="SizeManager/:id/Edit" component={SizeInfo} />
+         <Route path="size" component={SizeManager} />
+         <Route path="size/Create" component={SizeInfo} />
+         <Route path="size/:id/Edit" component={SizeInfo} />
 
-         <Route path="ColorManager" component={ColorManager} />
-         <Route path="ColorManager/Create" component={ColorInfo} />
-         <Route path="ColorManager/:id/Edit" component={ColorInfo} />
+         <Route path="color" component={ColorManager} />
+         <Route path="color/Create" component={ColorInfo} />
+         <Route path="color/:id/Edit" component={ColorInfo} />
 
-         <Route path="PageManager" component={PageManager} />
-         <Route path="PageManager/Create" component={PageInfo} />
-         <Route path="PageManager/:id/Edit" component={PageInfo} />
+         <Route path="page" component={PageManager} />
+         <Route path="page/Create" component={PageInfo} />
+         <Route path="page/:id/Edit" component={PageInfo} />
 
-         <Route path="OrderManager" component={OrderManager} />
-         <Route path="OrderManager/:id/Info" component={OrderInfo} />
+         <Route path="order" component={OrderManager} />
+         <Route path="order/:id/Info" component={OrderInfo} />
 
       </Route>
    </Router>)

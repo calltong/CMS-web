@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import HeaderBar from './layout/HeaderBar';
-import SideBar from './layout/SideBar';
+//import SideBar from './layout/SideBar';
 
 import {actions} from './actions/Action';
 
@@ -41,12 +41,9 @@ class App extends Component {
   render() {
     return (
       <div id="wrapper">
-        <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <HeaderBar/>
-          <SideBar active={this.props.location.pathname}/>
-        </nav>
+        <HeaderBar active={this.props.location.pathname}/>
         <div id="page-wrapper">
-            {this.props.children}
+          {this.props.children}
         </div>
       </div>
     );

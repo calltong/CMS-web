@@ -1,7 +1,7 @@
 import React from 'react';
 
-import EnText from '../../forms/EnText';
-import EnButton from '../../forms/EnButton';
+import EnText from '../../../forms/EnText';
+import EnButton from '../../../forms/EnButton';
 
 export default class SlideContent extends React.Component {
   constructor(props) {

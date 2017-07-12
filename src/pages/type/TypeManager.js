@@ -23,7 +23,7 @@ class TypeTable extends Component {
           <td>{item.lang_eng.name}</td>
           <td>{item.tag_list}</td>
           <td style={{textAlign: 'center'}}>
-            <TableEditBtn to={`TypeManager/${item._id}/Edit`} />
+            <TableEditBtn to={`type/${item._id}/edit`} />
           </td>
           <td style={{textAlign: 'center'}}>
             <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
@@ -64,7 +64,7 @@ export class TypeManager extends ReducerBase {
 
         <div className="row">
           <div className="col-md-8">
-            <CreateButton to={'/TypeManager/Create'} />
+            <CreateButton to={'/type/create'} />
           </div>
         </div>
 

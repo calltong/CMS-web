@@ -1,21 +1,20 @@
 import React from 'react';
 
-import EnText from '../../forms/EnText';
-import EnButton from '../../forms/EnButton';
+import EnText from '../../../forms/EnText';
+import EnButton from '../../../forms/EnButton';
 
-export default class CategoryContent extends React.Component {
+export default class BlockContent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Category Start:', this.props.data);
     if (this.props.data.data) {
       this.state = this.props.data;
     } else {
       this.state = {
-        type: 'category',
+        type: 'block',
         data: {
           name: '',
           list: [],
-        }
+        },
       };
     }
   }
@@ -47,9 +46,8 @@ export default class CategoryContent extends React.Component {
   onAdd() {
     let data = this.state.data;
     data.list.push({
-      name: '',
-      value: '',
       preview: '',
+      value: '',
     });
 
     this.setState({data:data});
@@ -65,14 +63,14 @@ export default class CategoryContent extends React.Component {
           <div className="col-md-5">
             <EnText
               placeholder="Enter type..."
-              value={item.preview  || ''}
+              value={item.preview}
               onChange={this.previewChange.bind(this, index)} />
           </div>
 
           <div className="col-md-5">
             <EnText
               placeholder="Enter link..."
-              value={item.value  || ''}
+              value={item.value}
               onChange={this.valueChange.bind(this, index)} />
           </div>
 
@@ -89,7 +87,7 @@ export default class CategoryContent extends React.Component {
         <div className="col-md-12">
           <div className="panel panel-content">
             <div className="panel-heading">
-              Category Content
+              Block Content
             </div>
             <div className="panel-body">
               <div className="row">
@@ -110,7 +108,7 @@ export default class CategoryContent extends React.Component {
                 </div>
 
                 <div className="col-md-5">
-                  <label>Category</label>
+                  <label>Value</label>
                 </div>
               </div>
 
@@ -135,6 +133,6 @@ export default class CategoryContent extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

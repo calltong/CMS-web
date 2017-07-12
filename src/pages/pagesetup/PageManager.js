@@ -19,7 +19,7 @@ class PageTable extends Component {
           <td>{item.updated}</td>
           <td>{item.status}</td>
           <td style={{textAlign: 'center'}}>
-            <TableEditBtn to={`PageManager/${item._id}/Edit`} />
+            <TableEditBtn to={`page/${item._id}/edit`} />
           </td>
         </tr>);
       });

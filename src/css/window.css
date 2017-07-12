@@ -28,3 +28,29 @@
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.color-popover {
+  position: absolute;
+  z-index: 2;
+}
+
+.color-cover {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.picker-color-button {
+	width: 120px;
+  border: 1px solid #2F2F2D;
+}
+
+.picker-color-close {
+	margin: 2px;
+	width: 100%;
+	color: black;
+	background-color: white;
+	border: 1px solid #ccc;
+}

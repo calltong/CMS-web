@@ -64,7 +64,7 @@ export class ProductInfo extends ReducerBase {
         <EnHeader name="Product Information"/>
         <form className="form-inline">
           <SaveButton onClick={this.onSave.bind(this)} />
-          <CloseButton to={`/ProductManager?page=${product.page.index}`} />
+          <CloseButton to={`/product?page=${product.page.index}`} />
 
           <div className="form-group">
             <div className="dropdown">

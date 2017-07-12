@@ -72,7 +72,7 @@ export class SizeManager extends ReducerBase {
               style={{marginRight:'2px'}}>
               Update Size on Product
             </EnButton>
-            <CreateButton to={'/SizeManager/Create'} />
+            <CreateButton to={'/size/create'} />
           </div>
         </div>
 
