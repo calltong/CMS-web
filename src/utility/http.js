@@ -6,8 +6,11 @@ function resolve(promise) {
     done: (callback) => {
       promise.done(response => {
         let body = response.body;
-        if (body !== null) {
+        if (body !== null && body !== undefined && body !== '') {
           response.body = JSON.parse(response.body);
+        } else {
+          console.log('res:', response);
+          response.body = { result: 'unexpected result'};
         }
         callback(response);
       }, (err) => {

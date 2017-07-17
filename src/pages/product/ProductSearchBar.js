@@ -8,14 +8,13 @@ import CreateButton from '../../forms/CreateButton';
 import FindButton from '../../forms/FindButton';
 
 export default class ProductSearchBar extends ReducerBase {
-  typeChange(event) {
-    let index = event.target.value;
-    actions.product.selectIndexType(index);
+  typeChange(val) {
+    actions.product.selectType(val.value);
   }
 
   render() {
     let product = store.getState().product;
-    let list = [{value: 0, label: 'เลือกชนิดสินค้า'}];
+    let list = [{value: 0, label: 'สินค้าทั้งหมด'}];
     for (let item of product.type_list) {
       list.push(
         {value: item._id, label: item.name}
@@ -29,7 +28,7 @@ export default class ProductSearchBar extends ReducerBase {
             <Select
               clearable={false}
               searchable={false}
-              value={0}
+              value={product.page.condition.type_id}
               options={list}
               onChange={this.typeChange.bind(this)} />
           </div>

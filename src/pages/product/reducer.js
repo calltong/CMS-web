@@ -6,16 +6,15 @@ export const reducer = new Reducer({
     index: 1,
     total: 1,
     limit: 20,
-    condition: '',
+    condition: {
+      type_id: 0,
+      size_id: 0,
+    },
   },
   size: {
     index: 0,
     total: 1,
     limit: 10,
-  },
-  type: {
-    index: 0,
-    id: undefined,
   },
   data_list: [],
   type_list: [],
@@ -135,33 +134,17 @@ reducer.register('PRODUCT_CHECK_LAZADA', (state, action) => {
   return state;
 });
 
-reducer.register('PRODUCT_SET_MASSAGE', (state, action) => {
-  let {type, text} = action.params;
-  state.message = {
-    type,
-    text,
-  };
-  return state;
-});
-
-reducer.register('PRODUCT_SET_SIZEPAGE', (state, action) => {
+reducer.register('PRODUCT_SET_SIZE', (state, action) => {
   let {index} = action.params;
   state.size.index = index;
 
   return state;
 });
 
-reducer.register('PRODUCT_SET_TYPEPAGE', (state, action) => {
-  let {index} = action.params;
-  let id = undefined;
-  if (index !== 0) {
-    id = state.type_list[index - 1]._id;
-  }
+reducer.register('PRODUCT_SET_TYPE', (state, action) => {
+  let {id} = action.params;
 
-  state.type = {
-    index,
-    id,
-  };
+  state.page.condition.type_id = id;
 
   return state;
 });

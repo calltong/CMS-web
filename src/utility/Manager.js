@@ -1,6 +1,7 @@
 //import {facebook} from './Facebook';
 import $ from 'jquery';
 import shortid from 'shortid';
+import {NotificationManager} from 'react-notifications';
 
 class Manager {
   DisplayPanel(id) {
@@ -43,6 +44,13 @@ class Manager {
     return shortid.generate();
   }
 
+  MessageNotify(message) {
+    NotificationManager.success(message);
+  }
+
+  MessageErrorNotify(message) {
+    NotificationManager.error(message);
+  }
 }
 
 export const manager = new Manager();

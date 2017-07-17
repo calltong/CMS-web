@@ -2,10 +2,6 @@ import React from 'react';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import {ReducerBase} from '../../ReducerBase';
-import EnHeader from '../../forms/EnHeader';
-import MainInfo from './MainInfo';
-import MenuInfo from './MenuInfo';
-import PageContent from './PageContent';
 import PageMenu from './PageMenu';
 
 import Property from './Property';

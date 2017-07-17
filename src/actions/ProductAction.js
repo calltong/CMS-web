@@ -40,17 +40,12 @@ export class ProductAction {
     store.update('PRODUCT_RESET_ITEM');
   }
 
-  clearMessage() {
-    store.update('PRODUCT_SET_MASSAGE', {type: '', text: ''});
-  }
-
-  setMessage(type, message) {
-    store.update('PRODUCT_SET_MASSAGE', {type: type, text: message});
-  }
-
   getCountAndList(index) {
     let product = store.getState().product;
     let url = `${config.api.url}/product/get/count`;
+    if (product.page.condition.type_id !== 0) {
+      url = `${url}?type=${product.page.condition.type_id}`;
+    }
     http.get(url).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
@@ -68,6 +63,9 @@ export class ProductAction {
 
     let limit = product.page.limit;
     let url = `${config.api.url}/product?page=${index}&&limit=${limit}`;
+    if (product.page.condition.type_id !== 0) {
+      url = `${url}&type=${product.page.condition.type_id}`;
+    }
     http.get(url).done(response => {
       if (response.statusCode === http.StatusOK) {
         let list = response.body;
@@ -94,7 +92,7 @@ export class ProductAction {
   }
 
   saveItem() {
-    this.clearMessage();
+    //this.clearMessage();
     let product = store.getState().product;
     let data = product.data;
     let json = data;
@@ -105,10 +103,12 @@ export class ProductAction {
       http.put(url, {json, authorization: true}).done(response => {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusOK) {
-          this.setMessage('info', 'Completed');
+          manager.MessageNotify('Save completed');
+          //this.setMessage('info', 'Completed');
           //browserHistory.push(`/ProductManager?page=${product.page.index}`);
         } else {
-          this.setMessage('error', 'Not Completed');
+          manager.MessageErrorNotify('Save not completed');
+          //this.setMessage('error', 'Not Completed');
         }
       });
     } else {
@@ -116,12 +116,14 @@ export class ProductAction {
       http.post(url, {json, authorization: true}).done(response => {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusCreated) {
-          this.setMessage('info', 'Completed');
+          manager.MessageNotify('Save completed');
+          //this.setMessage('info', 'Completed');
           id = response.body._id;
           //browserHistory.push(`/ProductManager/${id}/Edit`);
           browserHistory.push(`/ProductManager?page=${product.page.index}`);
         } else {
-          this.setMessage('error', 'Not Completed');
+          manager.MessageErrorNotify('Save not completed');
+          //this.setMessage('error', 'Not Completed');
         }
       });
     }
@@ -215,12 +217,13 @@ export class ProductAction {
     });
   }
 
-  selectIndexSize(index) {
-    store.update('PRODUCT_SET_SIZEPAGE', {index: +index});
+  selectSize(index) {
+    store.update('PRODUCT_SET_SIZE', {index: +index});
   }
 
-  selectIndexType(index) {
-    store.update('PRODUCT_SET_TYPEPAGE', {index: +index});
+  selectType(id) {
+    store.update('PRODUCT_SET_TYPE', {id: id});
+    this.getCountAndList(1);
   }
 }
 

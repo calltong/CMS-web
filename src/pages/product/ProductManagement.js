@@ -17,7 +17,7 @@ import {actions} from '../../actions/Action';
 export class ProductTable extends Component {
   sizeChange(event) {
     let index = event.target.value;
-    actions.product.selectIndexSize(index);
+    actions.product.selectSize(index);
   }
 
   onDelete(id) {

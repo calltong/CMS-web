@@ -1,4 +1,5 @@
 import React from 'react';
+import {NotificationContainer} from 'react-notifications';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
@@ -55,7 +56,6 @@ export class ProductInfo extends ReducerBase {
 
   render() {
     let product = store.getState().product;
-    let message = product.message;
 
     let ecommerce = product.ecommerce;
     let cssLazadaAction = ecommerce.lazada ? 'btn btn-menu btn-action dropdown-toggle' : 'btn btn-menu btn-action-alert dropdown-toggle';
@@ -88,12 +88,6 @@ export class ProductInfo extends ReducerBase {
        </form>
 
       <hr/>
-
-      <div className={message.type==='error' ? 'alert alert-danger' : 'alert alert-success'}
-        style={{display: message.type=== '' ? 'none': ''}}
-        role="alert">
-        {message.text}
-      </div>
 
       <div className="row">
         <ul className="nav nav-pills">
@@ -134,6 +128,7 @@ export class ProductInfo extends ReducerBase {
     </div>
 
     <LoadingWindow/>
+    <NotificationContainer />
   </div>
     );
   }
