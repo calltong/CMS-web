@@ -4,9 +4,9 @@ import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
-import TableEditBtn from '../../forms/TableEditBtn';
-import TableRemoveBtn from '../../forms/TableRemoveBtn';
-import CreateButton from '../../forms/CreateButton';
+import TableEditBtn from '../../forms/button/TableEditBtn';
+import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
+import CreateButton from '../../forms/button/CreateButton';
 import EnHeader from '../../forms/EnHeader';
 
 class TypeTable extends Component {

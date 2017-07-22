@@ -2,7 +2,7 @@ import React from 'react';
 
 import {actions} from '../../actions/Action';
 import EnImageSelector from '../../forms/EnImageSelector';
-import EnButton from '../../forms/EnButton';
+import EnButton from '../../forms/button/EnButton';
 
 export class ProductSquareImage extends React.Component {
   onDropImage(files) {

@@ -4,8 +4,8 @@ import Select from 'react-select';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 import {ReducerBase} from '../../ReducerBase';
-import CreateButton from '../../forms/CreateButton';
-import FindButton from '../../forms/FindButton';
+import CreateButton from '../../forms/button/CreateButton';
+import FindButton from '../../forms/button/FindButton';
 
 export default class ProductSearchBar extends ReducerBase {
   typeChange(val) {

@@ -4,10 +4,10 @@ import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
-import EnButton from '../../forms/EnButton';
-import CreateButton from '../../forms/CreateButton';
-import TableEditBtn from '../../forms/TableEditBtn';
-import TableRemoveBtn from '../../forms/TableRemoveBtn';
+import EnButton from '../../forms/button/EnButton';
+import CreateButton from '../../forms/button/CreateButton';
+import TableEditBtn from '../../forms/button/TableEditBtn';
+import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
 
 class SizeTable extends Component {

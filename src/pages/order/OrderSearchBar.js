@@ -2,12 +2,11 @@ import React from 'react';
 
 import {store} from '../../store';
 import EnListBox from '../../forms/EnListBox';
-import EnButton from '../../forms/EnButton';
+import EnButton from '../../forms/button/EnButton';
 
 export class OrderSearchBar extends React.Component {
   typeChange(event) {
     //let index = event.target.value;
-
   }
 
   onFind(condition) {
@@ -15,8 +14,6 @@ export class OrderSearchBar extends React.Component {
   }
 
   render() {
-    //let order = store.getState().order;
-    //let condition = order.condition;
 
     let data = ['Created', 'Planning', 'Quatation', 'Payment', 'Install', 'Completed'];
     let index = 1;

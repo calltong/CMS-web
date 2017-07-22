@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {store} from '../../store';
 
 import EnText from '../../forms/EnText';
-import EnButton from '../../forms/EnButton';
+import EnButton from '../../forms/button/EnButton';
 import EnTextArea from '../../forms/EnTextArea';
 
 export class BasicEngInfo extends Component {

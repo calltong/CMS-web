@@ -9,9 +9,9 @@ import {manager} from '../../utility/Manager';
 import EnText from '../../forms/EnText';
 import EnNumberText from '../../forms/EnNumberText';
 import EnTextArea from '../../forms/EnTextArea';
-import EnButton from '../../forms/EnButton';
-import AddButton from '../../forms/AddButton';
-import RemoveButton from '../../forms/RemoveButton';
+import EnButton from '../../forms/button/EnButton';
+import AddButton from '../../forms/button/AddButton';
+import RemoveButton from '../../forms/button/RemoveButton';
 import EnListBox from '../../forms/EnListBox';
 
 export class BasicInfo extends ReducerBase {

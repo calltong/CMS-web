@@ -6,7 +6,6 @@ import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
 import OrderSearchBar from './OrderSearchBar';
-//import EnButton from '../../forms/EnButton';
 import EnHeader from '../../forms/EnHeader';
 
 class OrderTable extends Component {

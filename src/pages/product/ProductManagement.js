@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import ProductSearchBar from './ProductSearchBar';
-import TableEditBtn from '../../forms/TableEditBtn';
-import TableRemoveBtn from '../../forms/TableRemoveBtn';
+import TableEditBtn from '../../forms/button/TableEditBtn';
+import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
 import EnImage from '../../forms/EnImage';
 import Paginator from '../../forms/Paginator';

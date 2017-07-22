@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EnButton from '../../../forms/EnButton';
+import EnButton from '../../../forms/button/EnButton';
 import {actions} from '../../../actions/Action';
 
 export default class MainContent extends React.Component {

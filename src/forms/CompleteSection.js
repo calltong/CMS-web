@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SaveButton from './SaveButton';
-import CloseButton from './CloseButton';
+import SaveButton from './button/SaveButton';
+import CloseButton from './button/CloseButton';
 
 export class CompleteSection extends React.Component {
 

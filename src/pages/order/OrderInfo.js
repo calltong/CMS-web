@@ -6,7 +6,7 @@ import {store} from '../../store';
 import OrderItems from './OrderItems';
 import AddressBox from './AddressBox';
 import EnHeader from '../../forms/EnHeader';
-import EnButton from '../../forms/EnButton';
+import EnButton from '../../forms/button/EnButton';
 import EnText from '../../forms/EnText';
 
 class OrderActionBar extends React.Component {

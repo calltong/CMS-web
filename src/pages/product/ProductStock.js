@@ -7,7 +7,7 @@ import MessageThai from '../../common/Message';
 import MessageBox from '../../forms/EnMessageBox';
 import EnListBox from '../../forms/EnListBox';
 import EnNumberText from '../../forms/EnNumberText';
-import EnButton from '../../forms/EnButton';
+import EnButton from '../../forms/button/EnButton';
 
 export class ProductStock extends Component {
 

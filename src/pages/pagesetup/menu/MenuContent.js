@@ -1,7 +1,7 @@
 import React from 'react';
-import EnButton from '../../../forms/EnButton';
-import AddButton from '../../../forms/AddButton';
-import RemoveButton from '../../../forms/RemoveButton';
+import EnButton from '../../../forms/button/EnButton';
+import AddButton from '../../../forms/button/AddButton';
+import RemoveButton from '../../../forms/button/RemoveButton';
 import UpButton from '../../../forms/button/UpButton';
 import {actions} from '../../../actions/Action';
 

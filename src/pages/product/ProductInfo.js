@@ -7,8 +7,8 @@ import {actions} from '../../actions/Action';
 import {manager} from '../../utility/Manager';
 
 import EnHeader from '../../forms/EnHeader';
-import SaveButton from '../../forms/SaveButton';
-import CloseButton from '../../forms/CloseButton';
+import SaveButton from '../../forms/button/SaveButton';
+import CloseButton from '../../forms/button/CloseButton';
 
 import BasicInfo from './BasicInfo';
 import ProductImage from './ProductImage';

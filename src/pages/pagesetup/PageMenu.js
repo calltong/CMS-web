@@ -4,7 +4,7 @@ import {ReducerBase} from '../../ReducerBase';
 
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
-import EnButton from '../../forms/EnButton';
+import EnButton from '../../forms/button/EnButton';
 
 import MainMenu from './menu/MainMenu';
 import MenuContent from './menu/MenuContent';

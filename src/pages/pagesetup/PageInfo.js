@@ -5,10 +5,10 @@ import {ReducerBase} from '../../ReducerBase';
 import PageMenu from './PageMenu';
 
 import Property from './Property';
-import SaveButton from '../../forms/SaveButton';
-import BuildButton from '../../forms/BuildButton';
-import ResetButton from '../../forms/ResetButton';
-import EnButton from '../../forms/EnButton';
+import SaveButton from '../../forms/button/SaveButton';
+import BuildButton from '../../forms/button/BuildButton';
+import ResetButton from '../../forms/button/ResetButton';
+import EnButton from '../../forms/button/EnButton';
 import PropertyInfo from './PropertyInfo';
 import SampleHome from '../sample/SampleHome';
 

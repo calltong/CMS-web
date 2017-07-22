@@ -4,7 +4,7 @@ import cookie from 'react-cookie';
 
 import {config} from '../config';
 import {http} from '../utility/http';
-import EnButton from '../forms/EnButton';
+import EnButton from '../forms/button/EnButton';
 import EnText from '../forms/EnText';
 
 export class Login extends Component {

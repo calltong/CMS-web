@@ -1,7 +1,7 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
-import EnButton from '../../forms/EnButton';
+import EnButton from '../../forms/button/EnButton';
 
 export default class Property extends React.Component {
 

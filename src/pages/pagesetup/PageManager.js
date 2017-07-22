@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import TableEditBtn from '../../forms/TableEditBtn';
+import TableEditBtn from '../../forms/button/TableEditBtn';
 import EnHeader from '../../forms/EnHeader';
 
 import {ReducerBase} from '../../ReducerBase';
