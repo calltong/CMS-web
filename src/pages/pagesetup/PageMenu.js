@@ -4,110 +4,67 @@ import {ReducerBase} from '../../ReducerBase';
 
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
-import SaveButton from '../../forms/SaveButton';
-import BuildButton from '../../forms/BuildButton';
-import ResetButton from '../../forms/ResetButton';
 import EnButton from '../../forms/EnButton';
 
+import MainMenu from './menu/MainMenu';
+import MenuContent from './menu/MenuContent';
+
 export default class PageMenu extends ReducerBase {
-
-  onSave() {
-    actions.page.saveItem();
-    //store.update('PAGE_SAVE_ITEM');
-  }
-
-  onBuild() {
-    //let id = this.props.params.id;
-    //store.update('PAGE_GEN_PAGE', {id});
-  }
-
-  onReset() {
-    //let id = this.props.params.id;
-    //store.update('PAGE_GEN_PAGE', {id});
+  onBack() {
+    actions.page.backPageMenu();
   }
 
   onChange(val, index) {
-    console.log('val:', val);
     actions.page.selectPageMenu(index);
-    //let id = this.props.params.id;
-    //store.update('PAGE_GEN_PAGE', {id});
   }
 
   render() {
-    let page = store.getState().page.page_menu;
+    let page = store.getState().page;
+    let page_menu = page.page_menu;
     let css = {
       marginBottom: '2px',
       width: '100%',
     };
 
-    let cssSub = {
-      marginBottom: '2px',
-      width: '85%',
-    };
+    let menus = [];
+    let back = (<div/>);
 
-    let list = [
-      {
-        name: 'Menu',
-      },
-      {
-        name: 'Home',
-      },
-      {
-        name: 'Product List',
-      },
-      {
-        name: 'Product Information',
-      },
-      {
-        name: 'Checkout',
-      },
-      {
-        name: 'Contact us',
-      },
-      {
-        name: 'Thank you',
-      },
-      {
-        name: 'Footer',
-      },
-    ];
+    if (page_menu.selected !== undefined) {
+      let hrcss = {
+        marginTop: '5px',
+        marginBottom: '5px',
+        borderTop: '1px solid white',
+      };
+      back = (<div>
+        <EnButton
+          className="btn btn-pmenu-back"
+          style={css}
+          onClick={this.onBack.bind(this)} >
+          <i className="fa fa-chevron-circle-left"/> Back
+        </EnButton>
+        <hr style={hrcss}/>
+      </div>);
 
-    let menus = list.map((item, index) => {
-      return (
-        <div key={index}>
-          <EnButton
-            className={page.selected === index ? 'btn btn-tree-selected' : 'btn btn-tree'}
-            style={css}
-            onClick={this.onChange.bind(this, item.name, index)} >
-            <i className="fa fa-list" /> {item.name}
-          </EnButton>
-          <EnButton
-            className={page.selected === index ? 'btn btn-tree-selected' : 'btn btn-tree pull-right'}
-            style={cssSub}
-            onClick={this.onChange.bind(this, item.name, index)} >
-            <i className="fa fa-minus" /> {item.name}
-          </EnButton>
-        </div>
-      );
-    });
+      if (page_menu.selected === 0) {
+        menus = <MenuContent list={page.data.menu.list} selected={page_menu.sub_selected} />;
+      }
+    } else {
+      menus = <MainMenu list={page_menu.menu} />;
+    }
+
     return (
       <Draggable
-        defaultPosition={{x:0, y:10}}
+        defaultPosition={{x:0, y:140}}
         handle=".handle">
-        <div className="panel panel-page-menu">
+        <div className="panel page-menu">
           <div className="panel-heading handle">
-            Pages
+            Pages Menu
           </div>
           <div className="panel-body">
+            {back}
             {menus}
           </div>
           <div className="panel-footer">
-            <BuildButton style={css} onClick={this.onBuild.bind(this)} />
-
-            <SaveButton style={css} onClick={this.onSave.bind(this)} />
-
-            <ResetButton style={css} onClick={this.onReset.bind(this)} />
-
             <EnButton className="btn btn-normal" style={css}>Close</EnButton>
           </div>
         </div>

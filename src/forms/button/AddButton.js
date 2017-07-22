@@ -1,14 +1,15 @@
 import React from 'react';
 
-export default class RemoveButton extends React.Component {
+export default class AddButton extends React.Component {
   render() {
+    let css = this.props.className === undefined ? 'btn btn-add' : `btn btn-add ${this.props.className}`;
     return (
       <button type={this.props.type || 'button'}
-        className={this.props.className || 'btn btn-remove'}
+        className={css}
         disabled={this.props.disabled}
         style={this.props.style}
         onClick={this.props.onClick}>
-        <i className="fa fa-times"/>
+        <i className="fa fa-plus"/>
       </button>
     );
   }

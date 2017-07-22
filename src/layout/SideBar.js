@@ -24,8 +24,7 @@ class MultiMenu extends React.Component {
           icon={item.icon}
           route={item.route}
           active={item.title === this.props.active}
-          onClick={this.props.onClick.bind(this, item.title)}
-        />
+          onClick={this.props.onClick.bind(this, item.title)} />
       );
     });
     return (

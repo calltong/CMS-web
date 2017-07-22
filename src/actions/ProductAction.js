@@ -104,11 +104,8 @@ export class ProductAction {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusOK) {
           manager.MessageNotify('Save completed');
-          //this.setMessage('info', 'Completed');
-          //browserHistory.push(`/ProductManager?page=${product.page.index}`);
         } else {
           manager.MessageErrorNotify('Save not completed');
-          //this.setMessage('error', 'Not Completed');
         }
       });
     } else {
@@ -117,13 +114,10 @@ export class ProductAction {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusCreated) {
           manager.MessageNotify('Save completed');
-          //this.setMessage('info', 'Completed');
           id = response.body._id;
-          //browserHistory.push(`/ProductManager/${id}/Edit`);
           browserHistory.push(`/ProductManager?page=${product.page.index}`);
         } else {
           manager.MessageErrorNotify('Save not completed');
-          //this.setMessage('error', 'Not Completed');
         }
       });
     }

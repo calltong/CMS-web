@@ -6,41 +6,41 @@ import {manager} from '../utility/Manager';
 
 export class EcommerceAction {
   updateLazada(id) {
-    //actions.product.clearMessage();
     let url = `${config.api.url}/ecommerce/lazada/${id}/update`;
     http.put(url, {authorization: true}).done(response => {
       manager.ClosePanel('#Loading');
-      if (response.statusCode !== http.StatusOK) {
+      if (response.statusCode === http.StatusOK) {
+        manager.MessageNotify('Completed');
+      } else {
         manager.MessageErrorNotify(response.body.result);
       }
     });
   }
 
   updateQuantityLazada(id) {
-    //actions.product.clearMessage();
     let url = `${config.api.url}/ecommerce/lazada/${id}/quantity`;
     http.put(url, {authorization: true}).done(response => {
       manager.ClosePanel('#Loading');
-      if (response.statusCode !== http.StatusOK) {
+      if (response.statusCode === http.StatusOK) {
+        manager.MessageNotify('Completed');
+      } else {
         manager.MessageErrorNotify(response.body.result);
-        //actions.product.setMessage('error', response.body.result);
       }
     });
   }
 
   updateImageLazada(id) {
-    //actions.product.clearMessage();
     let url = `${config.api.url}/ecommerce/lazada/${id}/image`;
     http.put(url, {authorization: true}).done(response => {
-      if (response.statusCode !== http.StatusOK) {
+      if (response.statusCode === http.StatusOK) {
+        manager.MessageNotify('Completed');
+      } else {
         manager.MessageErrorNotify(response.body.result);
-        //actions.product.setMessage('error', response.body.result);
       }
     });
   }
 
   checkOnLazada(id) {
-    //actions.product.clearMessage();
     let url = `${config.api.url}/ecommerce/lazada/${id}/check`;
     http.get(url).done(response => {
       let found = false;

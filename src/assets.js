@@ -10,6 +10,8 @@ import './css/button.css';
 import './css/layout.css';
 import './css/page.css';
 import './css/window.css';
+import './css/property.css';
+import './css/page-menu.css';
 import './css/plugins/morris.css';
 
 import './css/content/header-menu.css';

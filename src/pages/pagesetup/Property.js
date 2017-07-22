@@ -1,8 +1,6 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
-//import {actions} from '../../actions/Action';
-
 import EnButton from '../../forms/EnButton';
 
 export default class Property extends React.Component {
@@ -18,9 +16,9 @@ export default class Property extends React.Component {
     };
     return (
       <Draggable
-        defaultPosition={{x:500, y:10}}
+        defaultPosition={{x:1000, y:140}}
         handle=".handle">
-        <div className="panel panel-page-property">
+        <div className="panel property">
           <div className="panel-heading handle">
             Properties
           </div>

@@ -1,0 +1,26 @@
+.property {
+	position:absolute;
+	width: 290px;
+	border: 1px solid #ccc;
+	z-index: 2;
+	background-color: #F2FCFE;
+}
+
+.property > .panel-heading {
+	color: white;
+	background-color: #0195B9;
+}
+
+.property > .panel-footer {
+	background-color: white;
+}
+
+.property-header {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #555555;
+}
+
+.property-header > p {
+	color: black;
+	font-size: 16px;
+}

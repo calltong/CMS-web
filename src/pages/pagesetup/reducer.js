@@ -54,8 +54,34 @@ export const reducer = new Reducer({
   page_menu: {
     x: 0,
     y: 0,
-    selected: 0,
-
+    selected: undefined,
+    sub_selected: undefined,
+    menu: [
+      {
+        name: 'Menu',
+      },
+      {
+        name: 'Home',
+      },
+      {
+        name: 'Product List',
+      },
+      {
+        name: 'Product Information',
+      },
+      {
+        name: 'Checkout',
+      },
+      {
+        name: 'Contact us',
+      },
+      {
+        name: 'Thank you',
+      },
+      {
+        name: 'Footer',
+      },
+    ],
   },
 });
 

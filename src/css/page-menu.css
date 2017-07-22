@@ -1,0 +1,72 @@
+.page-menu {
+	position:absolute;
+	width: 290px;
+	border: 1px solid #ccc;
+	z-index: 2;
+	background-color: #F2FCFE;
+}
+
+.page-menu > .panel-heading {
+	color: white;
+	background-color: #0195B9;
+}
+
+.page-menu > .panel-footer {
+	background-color: white;
+}
+
+.btn-pmenu {
+  color: black;
+  background-color: white;
+  border: 1px solid #999999;
+	text-align: left;
+	font-size: 14px;
+}
+
+.btn-pmenu:hover {
+	color: red;
+	background-color: #D9FCFD;
+	border: 1px solid #555555;
+}
+
+.btn-pmenu-selected {
+  color: black;
+  background-color: #D9FCFD;
+  border: 1px solid #555555;
+	text-align: left;
+	font-size: 14px;
+}
+
+.btn-pmenu-selected:hover {
+	border: 1px solid #555555;
+}
+
+.btn-pmenu-back {
+  color: black;
+  background-color: white;
+  border: 1px solid #999999;
+	text-align: left;
+	font-size: 14px;
+}
+
+.btn-pmenu-back:hover {
+	color: red;
+	background-color: #D9FCFD;
+	border: 1px solid #555555;
+}
+
+.btn-pmenu-full {
+	width: 100%;
+	margin-bottom: 2px;
+}
+
+.btn-pmenu-sub-full {
+	width: 68%;
+	margin-bottom: 2px;
+}
+
+.btn-pmenu-sub-action {
+	width: 15%;
+	margin-bottom: 2px;
+	margin-left: 1px;
+}

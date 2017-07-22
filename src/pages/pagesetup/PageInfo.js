@@ -5,12 +5,52 @@ import {ReducerBase} from '../../ReducerBase';
 import PageMenu from './PageMenu';
 
 import Property from './Property';
-
+import SaveButton from '../../forms/SaveButton';
+import BuildButton from '../../forms/BuildButton';
+import ResetButton from '../../forms/ResetButton';
+import EnButton from '../../forms/EnButton';
+import PropertyInfo from './PropertyInfo';
 import SampleHome from '../sample/SampleHome';
 
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 //import {manager} from '../../utility/Manager';
+
+class PageInfoMenu extends React.Component {
+  onSave() {
+    actions.page.saveItem();
+    //store.update('PAGE_SAVE_ITEM');
+  }
+
+  onBuild() {
+    //let id = this.props.params.id;
+    //store.update('PAGE_GEN_PAGE', {id});
+  }
+
+  onReset() {
+    //let id = this.props.params.id;
+    //store.update('PAGE_GEN_PAGE', {id});
+  }
+
+  render() {
+    let css = {
+      marginRight: '2px',
+      width: '140px',
+    };
+    return (
+      <div style={{marginTop: '10px'}}>
+      <BuildButton style={css} onClick={this.onBuild.bind(this)} />
+
+      <SaveButton style={css} onClick={this.onSave.bind(this)} />
+
+      <ResetButton style={css} onClick={this.onReset.bind(this)} />
+
+      <EnButton className="btn btn-normal" style={css}>Pages Menu</EnButton>
+      <EnButton className="btn btn-normal" style={css}>Properties</EnButton>
+      </div>
+    );
+  }
+}
 
 export class PageInfo extends ReducerBase {
 
@@ -44,7 +84,11 @@ export class PageInfo extends ReducerBase {
     return (
       <div id="page">
         <PageMenu />
-        <Property />
+        <Property>
+          <PropertyInfo />
+        </Property>
+        <PageInfoMenu />
+        <hr style={{borderTop: '1px solid #555555'}}/>
         <SampleHome page={data} />
         <NotificationContainer />
       </div>
