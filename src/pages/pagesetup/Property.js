@@ -1,24 +1,35 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
+import {store} from '../../store';
 import EnButton from '../../forms/button/EnButton';
 
 export default class Property extends React.Component {
+  state = {
+    display: 'block',
+  };
 
-  onSave() {
+  onDisplay() {
+    this.setState({display: 'block'});
+  }
 
+  onClose() {
+    let form = store.getState().page.form;
+    form.property.display = 'none';
+    store.update('PAGE_GEN_PAGE', {data: form});
   }
 
   render() {
     let css = {
-      marginBottom: '2px',
       width: '100%',
     };
     return (
       <Draggable
         defaultPosition={{x:1000, y:140}}
         handle=".handle">
-        <div className="panel property">
+        <div
+          style={{display: this.props.display}}
+          className="panel property">
           <div className="panel-heading handle">
             Properties
           </div>
@@ -26,7 +37,10 @@ export default class Property extends React.Component {
             {this.props.children}
           </div>
           <div className="panel-footer">
-            <EnButton className="btn btn-normal" style={css}>Close</EnButton>
+            <EnButton
+              className="btn btn-normal"
+              style={css}
+              onClick={this.onClose.bind(this)}><i className="fa fa-times-circle-o" /> Close</EnButton>
           </div>
         </div>
       </Draggable>

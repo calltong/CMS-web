@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MainMenuProperty from './MainMenuProperty';
-import ItemMenuProperty from './ItemMenuProperty';
+import MainProperty from './menu/MainProperty';
+import ItemProperty from './menu/ItemProperty';
 
 
 export default class MenuProperty extends React.Component {
@@ -9,14 +9,14 @@ export default class MenuProperty extends React.Component {
     let selected = this.props.selected;
     let content = <div />;
     if (selected === undefined) {
-      content = <MainMenuProperty menu={this.props.data.menu} />;
+      content = <MainProperty menu={this.props.data.menu} />;
     } else {
-      content = <ItemMenuProperty index={selected} menu={this.props.data.menu} />;
+      content = <ItemProperty index={selected} menu={this.props.data.menu} />;
     }
     return (
-      <form>
+      <div>
         {content}
-      </form>
+      </div>
     );
   }
 }

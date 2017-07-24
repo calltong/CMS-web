@@ -5,6 +5,7 @@ import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 
 import MenuProperty from './property/MenuProperty';
+import HomeProperty from './property/HomeProperty';
 
 export default class PropertyInfo extends ReducerBase {
 
@@ -18,13 +19,16 @@ export default class PropertyInfo extends ReducerBase {
         case 0:
           info = <MenuProperty selected={page_menu.sub_selected} data={data} />;
           break;
+        case 1:
+          info = <HomeProperty selected={page_menu.sub_selected} data={data} />;
+          break;
         default:
           info = (<div />);
           break;
       }
     }
     return (
-      <div>
+      <div className="property-body" >
         {info}
       </div>
     );

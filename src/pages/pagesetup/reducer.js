@@ -13,6 +13,12 @@ let page_data = {
     mobile: '',
     email: '',
   },
+  css: {
+    font: '',
+    size: 12,
+    color: '#ffffff',
+    bg_color: '#ffffff',
+  },
   menu: {
     brand: {
       type: 'text',
@@ -50,6 +56,14 @@ export const reducer = new Reducer({
   message: {
     type: '',
     text: '',
+  },
+  form: {
+    menu: {
+      display: 'block',
+    },
+    property: {
+      display: 'block',
+    },
   },
   page_menu: {
     x: 0,
@@ -114,6 +128,18 @@ reducer.register('PAGE_STORE_MESSAGE', (state, action) => {
 reducer.register('PAGE_MENU', (state, action) => {
   let {data} = action.params;
   state.page_menu = data;
+  return state;
+});
+
+reducer.register('PAGE_SET_FORM', (state, action) => {
+  let {data} = action.params;
+  state.form = data;
+  return state;
+});
+
+reducer.register('PAGE_SET_FORM_COLOR', (state, action) => {
+  let {data} = action.params;
+  state.form.color = data;
   return state;
 });
 

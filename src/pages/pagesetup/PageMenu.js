@@ -8,10 +8,17 @@ import EnButton from '../../forms/button/EnButton';
 
 import MainMenu from './menu/MainMenu';
 import MenuContent from './menu/MenuContent';
+import HomeContent from './menu/HomeContent';
 
 export default class PageMenu extends ReducerBase {
   onBack() {
     actions.page.backPageMenu();
+  }
+
+  onClose() {
+    let form = store.getState().page.form;
+    form.menu.display = 'none';
+    store.update('PAGE_GEN_PAGE', {data: form});
   }
 
   onChange(val, index) {
@@ -45,8 +52,14 @@ export default class PageMenu extends ReducerBase {
         <hr style={hrcss}/>
       </div>);
 
-      if (page_menu.selected === 0) {
-        menus = <MenuContent list={page.data.menu.list} selected={page_menu.sub_selected} />;
+      switch (page_menu.selected) {
+        case 0:
+          menus = <MenuContent list={page.data.menu.list} selected={page_menu.sub_selected} />;
+          break;
+        case 1:
+          menus = <HomeContent list={page.data.content_list} selected={page_menu.sub_selected} />;
+          break;
+        default:
       }
     } else {
       menus = <MainMenu list={page_menu.menu} />;
@@ -56,7 +69,9 @@ export default class PageMenu extends ReducerBase {
       <Draggable
         defaultPosition={{x:0, y:140}}
         handle=".handle">
-        <div className="panel page-menu">
+        <div
+          style={{display: this.props.display}}
+          className="panel page-menu">
           <div className="panel-heading handle">
             Pages Menu
           </div>
@@ -65,7 +80,9 @@ export default class PageMenu extends ReducerBase {
             {menus}
           </div>
           <div className="panel-footer">
-            <EnButton className="btn btn-normal" style={css}>Close</EnButton>
+            <EnButton className="btn btn-normal"
+              onClick={this.onClose.bind(this)}
+              style={css}><i className="fa fa-times-circle-o" /> Close</EnButton>
           </div>
         </div>
       </Draggable>

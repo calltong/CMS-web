@@ -150,7 +150,6 @@ export class PageAction {
     data.sub_selected = index;
     store.update('PAGE_MENU', {data});
   }
-
 }
 
 export const action = new PageAction();

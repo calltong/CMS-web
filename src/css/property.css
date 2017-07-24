@@ -24,3 +24,14 @@
 	color: black;
 	font-size: 16px;
 }
+
+.property-body {
+	overflow-y: auto;
+	max-height: 400px;
+	padding-right: 10px;
+}
+
+.btn-property-full {
+	width: 100%;
+	margin-bottom: 2px;
+}

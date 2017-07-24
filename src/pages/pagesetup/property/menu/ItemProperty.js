@@ -1,12 +1,12 @@
 import React from 'react';
 import Select from 'react-select';
 
-import EnText from '../../../forms/EnText';
+import EnText from '../../../../forms/EnText';
 
-import {actions} from '../../../actions/Action';
-import {store} from '../../../store';
+import {actions} from '../../../../actions/Action';
+import {store} from '../../../../store';
 
-export default class ItemMenuProperty extends React.Component {
+export default class ItemProperty extends React.Component {
   nameChange(event) {
     let index = this.props.index;
     let menu = this.menu.list[index];

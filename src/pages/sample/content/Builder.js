@@ -14,11 +14,11 @@ export class Builder extends React.Component {
       switch (item.type) {
         case 'brand':
           return (<BrandContent key={index} content={item}/>);
-        case 'slide':
+        case 'slide-1':
           return (<SlideContent key={index} content={item}/>);
         case 'col-3':
           return (<Col3Content key={index} content={item}/>);
-        case 'block':
+        case 'block-6':
           return (<BlockContent key={index} content={item}/>);
         case 'col-4':
           return (<Col4Content key={index} content={item}/>);
