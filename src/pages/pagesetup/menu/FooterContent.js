@@ -74,13 +74,13 @@ export default class FooterContent extends React.Component {
     let content = (
       <ButtonBase
         title="Footer"
-        selected={selected.level_2} >
+        selected={selected.level_2}
+        onChange={this.onChange} >
         <ButtonContent
           selected={selected.level_2}
           list={val}
           onChange={this.onChange}
-          onUpItem={this.onUpItem}
-          />
+          onUpItem={this.onUpItem} />
       </ButtonBase>
     );
 
@@ -99,14 +99,14 @@ export default class FooterContent extends React.Component {
       <ButtonBase
         onAdd={this.onAddSocial.bind(this, selected.level_2)}
         title="Social"
-        selected={selected.level_3} >
+        selected={selected.level_3}
+        onChange={this.onL3Change} >
         <ButtonContent
           selected={selected.level_3}
           list={val}
           onChange={this.onL3Change}
           onUpItem={this.onUpItem}
-          onRemoveItem={this.onRemoveItem}
-          />
+          onRemoveItem={this.onRemoveItem} />
       </ButtonBase>
     );
 
@@ -125,14 +125,37 @@ export default class FooterContent extends React.Component {
       <ButtonBase
         onAdd={this.onAddSocial.bind(this, selected.level_2)}
         title="แบบข้อความ"
-        selected={selected.level_3} >
+        selected={selected.level_3}
+        onChange={this.onL3Change} >
         <ButtonContent
           selected={selected.level_3}
           list={val}
           onChange={this.onL3Change}
           onUpItem={this.onUpItem}
-          onRemoveItem={this.onRemoveItem}
-          />
+          onRemoveItem={this.onRemoveItem} />
+      </ButtonBase>
+    );
+
+    return content;
+  }
+
+  createInformation(list, selected) {
+    let val = [
+      {name: 'ร้านของเรา'},
+      {name: 'การสั่งซื้อสินค้า'},
+      {name: 'เงื่อนไขการสั่งซื้อ'},
+    ];
+
+    let content = (
+      <ButtonBase
+        title="เกี่ยวกับร้าน"
+        selected={selected.level_3}
+        onChange={this.onL3Change} >
+        <ButtonContent
+          selected={selected.level_3}
+          list={val}
+          onChange={this.onL3Change}
+          onUpItem={this.onUpItem} />
       </ButtonBase>
     );
 
@@ -151,6 +174,9 @@ export default class FooterContent extends React.Component {
         isDefault = false;
       } else if (item.type === 'text') {
         content = this.createText(item.data.items, selected);
+        isDefault = false;
+      } else if (item.type === 'information') {
+        content = this.createInformation(item.data.items, selected);
         isDefault = false;
       }
     }

@@ -34,6 +34,14 @@ export default class FooterProperty extends React.Component {
             content = <Social index={selected} data={item} />;
           }
           break;
+        case 'information':
+          if (selected.level_3 === undefined) {
+            content = <Header index={selected.level_2} data={data} />;
+          } else {
+            let item = data.data.items[selected.level_3];
+            content = <Social index={selected} data={item} />;
+          }
+          break;
         default:
           content = <Header index={selected.level_2} data={data} />;
           break;

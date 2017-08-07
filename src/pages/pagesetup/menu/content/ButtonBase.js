@@ -2,12 +2,9 @@ import React from 'react';
 import EnButton from '../../../../forms/button/EnButton';
 import AddButton from '../../../../forms/button/AddButton';
 
-import {actions} from '../../../../actions/Action';
-
-
 export default class ButtonBase extends React.Component {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    this.props.onChange(index);
   }
 
   render() {

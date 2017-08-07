@@ -75,7 +75,8 @@ export default class Main extends React.Component {
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
         title="Home"
-        selected={selected.level_2}>
+        selected={selected.level_2}
+        onChange={this.onChange} >
         {content}
       </ButtonBase>
     );

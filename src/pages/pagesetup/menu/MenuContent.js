@@ -28,7 +28,8 @@ export default class MenuContent extends React.Component {
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
         title="Menu"
-        selected={selected.level_2} >
+        selected={selected.level_2}
+        onChange={this.onChange} >
         <ButtonContent
           selected={selected.level_2}
           list={list}
