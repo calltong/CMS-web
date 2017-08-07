@@ -12,7 +12,13 @@
   color: black;
   font-size: 35px;
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+}
+
+.col4-content > .detail {
+  color: #5D5F5D;
+  font-size: 18px;
+  margin-bottom: 30px;
 }
 
 .col4-content-item {

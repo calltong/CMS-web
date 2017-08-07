@@ -76,79 +76,61 @@ export class PageAction {
     }
   }
 
-  setMenu(menu) {
-    let data = store.getState().page.data;
-    data.menu = menu;
-    store.update('PAGE_STORE_ITEM', {data: data});
-  }
-
-  addMenuItem() {
-    let data = store.getState().page.data;
-    let item = {
-      name: 'ชื่อเมนู',
-      type: 'category',
-      value: '',
-    };
-    data.menu.list.push(item);
-    store.update('PAGE_STORE_ITEM', {data: data});
-  }
-
-  upMenuItem(index) {
-    if (index > 0) {
-      let data = store.getState().page.data;
-      let upItem = data.menu.list[index];
-      let downItem = data.menu.list[index - 1];
-
-      data.menu.list[index - 1] = upItem;
-      data.menu.list[index] = downItem;
-      store.update('PAGE_STORE_ITEM', {data: data});
-    }
-
-  }
-
-  removeMenuItem(index) {
-    let page = store.getState().page;
-    let data = page.data;
-    data.menu.list.splice(index, 1);
-    store.update('PAGE_STORE_ITEM', {data: data});
-
-    let page_menu = page.page_menu;
-    page_menu.sub_selected = undefined;
-    store.update('PAGE_MENU', {data: page_menu});
-  }
-
-  setMenuItem(index, item) {
-    let data = store.getState().page.data;
-    data.menu.list[index] = item;
-    store.update('PAGE_STORE_ITEM', {data: data});
-  }
-
   setMessage(type, text) {
     store.update('PAGE_STORE_MESSAGE', {type: type, text: text});
   }
 
-  setPageMenu(x, y) {
-    store.update('PAGE_MENU', {x, y});
+  backMenu() {
+    let data = store.getState().page.page_menu.selected;
+    if (data.main === 'Home' || data.main === 'Footer') {
+      if (data.level_3 !== undefined) {
+        data.level_2 = undefined;
+        data.level_3 = undefined;
+      } else if (data.level_2 !== undefined) {
+        data.level_2 = undefined;
+      } else {
+        data.main = undefined;
+        data.level_2 = undefined;
+        data.level_3 = undefined;
+      }
+    } else {
+      data.main = undefined;
+      data.level_2 = undefined;
+      data.level_3 = undefined;
+    }
+
+    store.update('PAGE_MENU_SELECTED', {data});
   }
 
-  backPageMenu() {
-    let data = store.getState().page.page_menu;
-    data.selected = undefined;
-    data.sub_selected = undefined;
-    store.update('PAGE_MENU', {data});
+  selectMenu(index) {
+    let data = store.getState().page.page_menu.selected;
+    data.main = index;
+    data.level_2 = undefined;
+    data.level_3 = undefined;
+    store.update('PAGE_MENU_SELECTED', {data});
+    switch (index) {
+      case 'Menu':
+        document.getElementById('page').scrollIntoView();
+        break;
+      case 'Footer':
+        document.getElementById('footer').scrollIntoView();
+        break;
+      default:
+        break;
+    }
   }
 
-  selectPageMenu(index) {
-    let data = store.getState().page.page_menu;
-    data.selected = index;
-    data.sub_selected = undefined;
-    store.update('PAGE_MENU', {data});
+  selectMenuLevel2(index) {
+    let data = store.getState().page.page_menu.selected;
+    data.level_2 = index;
+    data.level_3 = undefined;
+    store.update('PAGE_MENU_SELECTED', {data});
   }
 
-  selectPageSubMenu(index) {
-    let data = store.getState().page.page_menu;
-    data.sub_selected = index;
-    store.update('PAGE_MENU', {data});
+  selectMenuLevel3(index) {
+    let data = store.getState().page.page_menu.selected;
+    data.level_3 = index;
+    store.update('PAGE_MENU_SELECTED', {data});
   }
 }
 

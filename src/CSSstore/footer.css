@@ -1,0 +1,46 @@
+.footer {
+	color: black;
+	background-color: white;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+
+	padding: 30px 90px;
+	margin-top: 20px;
+	border-radius: 2px;
+}
+
+.footer-title {
+  font-size: 20px;
+}
+
+.footer-description {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.footer-icon {
+  font-size: 18px;
+	padding: 2px;
+	margin-right: 4px;
+}
+
+.footer-menu {
+  font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+  	padding: 20px 40px;
+  }
+  .footer-section {
+    margin-top: 25px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .footer-section {
+    margin-bottom: 25px;
+  }
+}

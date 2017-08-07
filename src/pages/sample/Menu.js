@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 export class Menu extends React.Component {
 
   render() {
-    let menu = this.props.menu;
+    let menu = this.props.content;
     let css = {
       color: menu.css.color,
       backgroundColor: menu.css.bg_color,
@@ -27,7 +27,6 @@ export class Menu extends React.Component {
         </li>
       );
     });
-
 
     return (
       <nav style={css} className="navbar" role="navigation">

@@ -116,14 +116,11 @@ export class ProductTable extends Component {
 }
 
 export class ProductManagement extends ReducerBase {
-
   componentDidMount() {
     let page = this.props.location.query.page;
     if (page) {
       actions.product.getList(page);
     } else {
-      actions.product.getSizeList();
-      actions.product.getTypeList();
       actions.product.getCountAndList(1);
     }
   }

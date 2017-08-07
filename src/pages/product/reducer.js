@@ -143,7 +143,6 @@ reducer.register('PRODUCT_SET_SIZE', (state, action) => {
 
 reducer.register('PRODUCT_SET_TYPE', (state, action) => {
   let {id} = action.params;
-
   state.page.condition.type_id = id;
 
   return state;

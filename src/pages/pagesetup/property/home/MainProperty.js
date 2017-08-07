@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PickerColor from '../../../../forms/PickerColor';
-import SettingDialog from '../SettingDialog';
+import TextSetting from '../TextSetting';
 
 export default class MainHomeProperty extends React.Component {
   colorBgChange(color) {
@@ -13,7 +13,7 @@ export default class MainHomeProperty extends React.Component {
   }
 
   fontChange() {
-    
+
   }
 
   render() {
@@ -40,7 +40,7 @@ export default class MainHomeProperty extends React.Component {
         </div>
         <div className="form-group">
           <label>ตั้งค่า เมนู</label>
-          <SettingDialog
+          <TextSetting
             data={value}
             colorChange={this.colorChange.bind(this)}
             fontChange={this.fontChange.bind(this)} />

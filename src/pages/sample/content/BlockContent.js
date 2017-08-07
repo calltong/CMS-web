@@ -10,21 +10,6 @@ export class BlockContent extends React.Component {
 
   render() {
     let content = this.props.content;
-    /*
-    let list = content.data.list.map(item => {
-      return (
-      <div className="col-xs-4 col-sm-3 col-md-1" style={{paddingLeft:0, paddingRight:0}} key={index++}>
-        <Link onClick={this.onGotoPage.bind(this, item.value)}>
-          <div className="block-img" style={{backgroundImage: `url(${item.preview})`}}>
-            <button className="btn btn-block-next" onClick={this.onGotoPage.bind(this, item.value)}>
-              I want it
-            </button>
-          </div>
-        </Link>
-      </div>
-      );
-    });
-    */
 
     let list = content.data.list.map((item, index) => {
       return (
@@ -39,7 +24,7 @@ export class BlockContent extends React.Component {
     return (
       <div className="block-content">
         <div className="header">
-          {content.data.name}
+          {content.data.title}
         </div>
         <div className="body">
           <div className="row none-row">

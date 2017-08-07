@@ -1,6 +1,7 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
+import {manager} from '../../utility/Manager';
 import {store} from '../../store';
 import EnButton from '../../forms/button/EnButton';
 
@@ -23,9 +24,11 @@ export default class Property extends React.Component {
     let css = {
       width: '100%',
     };
+
+    let x = manager.GetWidth() - 350;
     return (
       <Draggable
-        defaultPosition={{x:1000, y:140}}
+        defaultPosition={{x: x, y: 50}}
         handle=".handle">
         <div
           style={{display: this.props.display}}

@@ -18,10 +18,10 @@ export class Builder extends React.Component {
           return (<SlideContent key={index} content={item}/>);
         case 'col-3':
           return (<Col3Content key={index} content={item}/>);
-        case 'block-6':
-          return (<BlockContent key={index} content={item}/>);
         case 'col-4':
           return (<Col4Content key={index} content={item}/>);
+        case 'block-6':
+          return (<BlockContent key={index} content={item}/>);    
         case 'product':
           return (<ProductCategory key={index} content={item}/>);
         default:

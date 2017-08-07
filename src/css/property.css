@@ -1,8 +1,8 @@
 .property {
-	position:absolute;
+	position: fixed;
 	width: 290px;
 	border: 1px solid #ccc;
-	z-index: 2;
+	z-index: 1500;
 	background-color: #F2FCFE;
 }
 
@@ -26,9 +26,7 @@
 }
 
 .property-body {
-	overflow-y: auto;
-	max-height: 400px;
-	padding-right: 10px;
+
 }
 
 .btn-property-full {

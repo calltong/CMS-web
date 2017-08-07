@@ -31,7 +31,10 @@ export class Col4Content extends React.Component {
     return (
       <div className="col4-content">
         <div className="header">
-          {content.data.name}
+          {content.data.title}
+        </div>
+        <div className="detail">
+          {content.data.description}
         </div>
         <div className="body">
           <div className="row">

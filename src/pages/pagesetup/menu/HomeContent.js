@@ -1,10 +1,15 @@
 import React from 'react';
 
-import BaseContent from './BaseContent';
-import RemoveButton from '../../../forms/button/RemoveButton';
-import UpButton from '../../../forms/button/UpButton';
+import Main from './home/Main';
+import WideImage from './content/WideImage';
+import ImageList from './home/ImageList';
+
 import {actions} from '../../../actions/Action';
 
+import blank from '../../../image/blank.png';
+import blank_sq from '../../../image/blank_sq.png';
+
+import brand from '../../../image/brand.png';
 import slider from '../../../image/slider.jpg';
 import col3 from '../../../image/col3.jpg';
 import col4 from '../../../image/col4.jpg';
@@ -14,33 +19,114 @@ import img2 from '../../../image/img2.png';
 
 export default class HomeContent extends React.Component {
   onChange(index) {
-    actions.page.selectPageSubMenu(index);
+    actions.page.selectMenuLevel2(index);
   }
 
-  onAdd() {
-    actions.page.addMenuItem();
+  onAddWideItem(index) {
+    let item = {
+      preview: blank,
+      value: '',
+    };
+
+    actions.homePage.addItem(index, item);
+  }
+
+  onAddItem(index) {
+    let item = {
+      preview: blank_sq,
+      value: '',
+    };
+
+    actions.homePage.addItem(index, item);
   }
 
   onUpItem(index) {
-    actions.page.upMenuItem(index);
+    actions.homePage.upContent(index);
   }
 
   onRemoveItem(index) {
-    actions.page.removeMenuItem(index);
+    actions.homePage.removeContent(index);
   }
 
-  getImageContent(type) {
-    switch (type) {
+  onChangeLevel3(index, indexL3) {
+    actions.page.selectMenuLevel3(indexL3);
+  }
+
+  onAddLevel3(index) {
+    actions.page.selectMenuLevel2(index);
+  }
+
+  onUpLevel3(index) {
+    actions.page.selectMenuLevel2(index);
+  }
+
+  onRemoveLevel3(index) {
+    actions.page.selectMenuLevel2(index);
+  }
+
+  getContent(item, selected) {
+
+    switch (item.type) {
+      case 'brand':
+        return (
+          <WideImage
+            image={brand}
+            onChange={this.onChangeLevel3} />);
       case 'slide-1':
-        return slider;
+        return (
+          <ImageList
+            image={slider}
+            data={item.data}
+            index={selected.level_2}
+            selected={selected.level_3}
+            onAdd={this.onAddWideItem}
+            onUp={this.onUpLevel3}
+            onRemove={this.onRemoveLevel3}
+            onChange={this.onChangeLevel3} />);
       case 'col-3':
-        return col3;
+        return (
+          <ImageList
+            image={col3}
+            data={item.data}
+            index={selected.level_2}
+            selected={selected.level_3}
+            onAdd={this.onAddItem}
+            onUp={this.onUpLevel3}
+            onRemove={this.onRemoveLevel3}
+            onChange={this.onChangeLevel3} />);
       case 'col-4':
-        return col4;
+        return (
+          <ImageList
+            image={col4}
+            data={item.data}
+            index={selected.level_2}
+            selected={selected.level_3}
+            onAdd={this.onAddItem}
+            onUp={this.onUpLevel3}
+            onRemove={this.onRemoveLevel3}
+            onChange={this.onChangeLevel3} />);
       case 'block-4':
-        return block4;
+        return (
+          <ImageList
+            image={block4}
+            data={item.data}
+            index={selected.level_2}
+            selected={selected.level_3}
+            onAdd={this.onAddItem}
+            onUp={this.onUpLevel3}
+            onRemove={this.onRemoveLevel3}
+            onChange={this.onChangeLevel3} />);
       case 'block-6':
-        return block6;
+        return (
+          <ImageList
+            image={block6}
+            data={item.data}
+            index={selected.level_2}
+            selected={selected.level_3}
+            onAdd={this.onAddItem}
+            onUp={this.onUpLevel3}
+            onRemove={this.onRemoveLevel3}
+            onChange={this.onChangeLevel3} />);
       default:
         return img2;
     }
@@ -48,33 +134,23 @@ export default class HomeContent extends React.Component {
 
   render() {
     let selected = this.props.selected;
+    this.selected = selected;
     let list = this.props.list;
+    let block = <div />;
+    if (selected.level_2 === undefined) {
+      block = (
+        <Main
+          selected={selected}
+          list={list} />);
+    } else {
+      let item = list[selected.level_2];
+      block = this.getContent(item, selected);
+    }
 
-    let content = list.map((item, index) => {
-      console.log('item:', item);
-      let image = this.getImageContent(item.type);
-      return (
-        <div key={index}>
-          <img
-            onClick={this.onChange.bind(this, index)}
-            className={selected === index ? 'pmenu-img-selected' : 'pmenu-img'}
-            src={image} />
-          <UpButton
-            onClick={this.onUpItem.bind(this, index)}
-            className="pmenu-sub-action" />
-          <RemoveButton
-            onClick={this.onRemoveItem.bind(this, index)}
-            className="pmenu-sub-action" />
-        </div>
-      );
-    });
     return (
-      <BaseContent
-        onAdd={this.onAdd.bind(this)}
-        title="Home"
-        selected={selected}>
-        {content}
-      </BaseContent>
+      <div>
+        {block}
+      </div>
     );
   }
 }

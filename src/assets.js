@@ -12,15 +12,17 @@ import './css/page.css';
 import './css/window.css';
 import './css/property.css';
 import './css/page-menu.css';
+import './css/menu-content.css';
 import './css/plugins/morris.css';
 
-import './css/content/header-menu.css';
-import './css/content/brand-content.css';
-import './css/content/col-3-content.css';
-import './css/content/col-4-content.css';
-import './css/content/product-category-content.css';
-import './css/content/slide-content.css';
-import './css/content/block-content.css';
+import './CSSstore/header-menu.css';
+import './CSSstore/footer.css';
+import './CSSstore/brand-content.css';
+import './CSSstore/col-3-content.css';
+import './CSSstore/col-4-content.css';
+import './CSSstore/product-category-content.css';
+import './CSSstore/slide-content.css';
+import './CSSstore/block-content.css';
 
 import 'font-awesome/css/font-awesome.css';
 import 'react-tagsinput/react-tagsinput.css';

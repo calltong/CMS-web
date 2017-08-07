@@ -1,67 +1,66 @@
 import React from 'react';
 import PickerColor from '../../../../forms/PickerColor';
-import SettingDialog from '../SettingDialog';
+import TextSetting from '../TextSetting';
 
 import EnText from '../../../../forms/EnText';
-//import EnButton from '../../../forms/button/EnButton';
 import {actions} from '../../../../actions/Action';
 
 export default class MainProperty extends React.Component {
   nameChange(event) {
-    this.menu.brand.name = event.target.value;
-    actions.page.setMenu(this.menu);
+    this.data.brand.name = event.target.value;
+    actions.menuPage.setMain(this.data);
   }
 
   colorChange(color) {
-    let menu = this.menu;
-    menu.brand.css.color = color;
-    actions.page.setMenu(menu);
+    let data = this.data;
+    data.brand.css.color = color;
+    actions.menuPage.setMain(data);
   }
 
   fontChange(font, size) {
-    let menu = this.menu;
-    menu.brand.css.font = font;
-    menu.brand.css.size = size;
-    actions.page.setMenu(menu);
+    let data = this.data;
+    data.brand.css.font = font;
+    data.brand.css.size = size;
+    actions.menuPage.setMain(data);
   }
 
   colorBgMenuChange(color) {
-    let menu = this.menu;
-    menu.css.bg_color = color;
-    actions.page.setMenu(menu);
+    let data = this.data;
+    data.css.bg_color = color;
+    actions.menuPage.setMain(data);
   }
 
   colorMenuChange(color) {
-    let menu = this.menu;
-    menu.css.color = color;
-    actions.page.setMenu(menu);
+    let data = this.data;
+    data.css.color = color;
+    actions.menuPage.setMain(data);
   }
 
   fontMenuChange(font, size) {
-    let menu = this.menu;
-    menu.css.font = font;
-    menu.css.size = size;
-    actions.page.setMenu(menu);
+    let data = this.data;
+    data.css.font = font;
+    data.css.size = size;
+    actions.menuPage.setMain(data);
   }
 
   render() {
-    this.menu = this.props.menu;
-    let menu = this.menu;
+    this.data = this.props.data;
+    let data = this.data;
 
     let css = {
       width: '100%',
     };
 
     let brandValue = {
-      color: menu.brand.css.color,
-      font: menu.brand.css.font,
-      size: menu.brand.css.size,
+      color: data.brand.css.color,
+      font: data.brand.css.font,
+      size: data.brand.css.size,
     };
 
-    let menuValue = {
-      color: menu.css.color,
-      font: menu.css.font,
-      size: menu.css.size,
+    let dataValue = {
+      color: data.css.color,
+      font: data.css.font,
+      size: data.css.size,
     };
 
     return (
@@ -69,13 +68,13 @@ export default class MainProperty extends React.Component {
         <div className="form-group">
           <label>ชื่อร้าน</label>
           <EnText
-            value={menu.brand.name}
+            value={data.brand.name}
             onChange={this.nameChange.bind(this)}
             placeholder="ชื่อร้าน.." />
         </div>
         <div className="form-group">
           <label>ตั้งค่า ชื่อร้าน</label>
-          <SettingDialog
+          <TextSetting
             data={brandValue}
             colorChange={this.colorChange.bind(this)}
             fontChange={this.fontChange.bind(this)} />
@@ -85,14 +84,14 @@ export default class MainProperty extends React.Component {
           <label>สีพื้นหลัง เมนู</label>
           <br/>
           <PickerColor
-            value={menu.css.bg_color}
+            value={data.css.bg_color}
             css={css}
             onChange={this.colorBgMenuChange.bind(this)}/>
         </div>
         <div className="form-group">
           <label>ตั้งค่า เมนู</label>
-          <SettingDialog
-            data={menuValue}
+          <TextSetting
+            data={dataValue}
             colorChange={this.colorMenuChange.bind(this)}
             fontChange={this.fontMenuChange.bind(this)} />
         </div>

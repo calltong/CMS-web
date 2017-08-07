@@ -1,55 +1,42 @@
 import React from 'react';
 
-import BaseContent from './BaseContent';
-import EnButton from '../../../forms/button/EnButton';
-import RemoveButton from '../../../forms/button/RemoveButton';
-import UpButton from '../../../forms/button/UpButton';
+import ButtonBase from './content/ButtonBase';
+import ButtonContent from './content/ButtonContent';
 import {actions} from '../../../actions/Action';
 
 export default class MenuContent extends React.Component {
   onChange(index) {
-    actions.page.selectPageSubMenu(index);
+    actions.page.selectMenuLevel2(index);
   }
 
   onAdd() {
-    actions.page.addMenuItem();
+    actions.menuPage.addItem();
   }
 
   onUpItem(index) {
-    actions.page.upMenuItem(index);
+    actions.menuPage.upItem(index);
   }
 
   onRemoveItem(index) {
-    actions.page.removeMenuItem(index);
+    actions.menuPage.removeItem(index);
   }
 
   render() {
     let selected = this.props.selected;
     let list = this.props.list;
-    let menus = list.map((item, index) => {
-      return (
-        <div key={index}>
-          <EnButton
-            onClick={this.onChange.bind(this, index)}
-            className={index === selected ? 'btn btn-pmenu-selected btn-pmenu-sub-full' : 'btn btn-pmenu btn-pmenu-sub-full'} >
-             {item.name}
-          </EnButton>
-          <UpButton
-            onClick={this.onUpItem.bind(this, index)}
-            className="pmenu-sub-action" />
-          <RemoveButton
-            onClick={this.onRemoveItem.bind(this, index)}
-            className="pmenu-sub-action" />
-        </div>
-      );
-    });
     return (
-      <BaseContent
+      <ButtonBase
         onAdd={this.onAdd.bind(this)}
         title="Menu"
-        selected={selected} >
-        {menus}
-      </BaseContent>
+        selected={selected.level_2} >
+        <ButtonContent
+          selected={selected.level_2}
+          list={list}
+          onChange={this.onChange}
+          onUpItem={this.onUpItem}
+          onRemoveItem={this.onRemoveItem}
+          />
+      </ButtonBase>
     );
   }
 }

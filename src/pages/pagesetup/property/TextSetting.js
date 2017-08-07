@@ -2,7 +2,7 @@ import React from 'react';
 import PickerColor from '../../../forms/PickerColor';
 import PickerFont from '../../../forms/PickerFont';
 
-export default class SettingDialog extends React.Component {
+export default class TextSetting extends React.Component {
   render() {
     let css = {
       width: '100%',

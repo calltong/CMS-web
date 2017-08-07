@@ -63,4 +63,22 @@
   border: 1px solid #ccc;
   padding: 5px 10px;
   border-radius: 4px;
-};
+}
+
+.choose-product {
+  border: 1px solid #ccc;
+  padding: 4px;
+  border-radius: 4px;
+  margin: 4px;
+}
+
+.choose-product-selected {
+  border: 1px solid #B60202;
+  padding: 4px;
+  border-radius: 4px;
+  margin: 4px;
+}
+
+.choose-product-body {
+  width: 750px;
+}

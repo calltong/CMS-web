@@ -5,7 +5,7 @@ import {actions} from '../../../actions/Action';
 
 export default class MainContent extends React.Component {
   onChange(index) {
-    actions.page.selectPageMenu(index);
+    actions.page.selectMenu(index);
   }
 
   render() {
@@ -15,8 +15,8 @@ export default class MainContent extends React.Component {
         <div key={index}>
           <EnButton
             className="btn btn-pmenu btn-pmenu-full"
-            onClick={this.onChange.bind(this, index)} >
-             {item.name}
+            onClick={this.onChange.bind(this, item.name)} >
+             {item.title}
           </EnButton>
         </div>
       );

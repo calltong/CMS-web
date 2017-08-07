@@ -10,6 +10,7 @@ class MsgThai {
 
     this.confirm = {
       remove: 'เมื่อลบข้อมูลแล้วไม่สามารถนำกลับมาได้นะค่ะ!',
+      use_image: 'ต้องการใช้รูปสินค้าใช่มัยค่ะ',
     };
 
     this.warning = {

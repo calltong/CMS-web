@@ -11,8 +11,8 @@ export class BrandContent extends React.Component {
       <div className="brand-section">
         <div className="row">
           <div className="col-md-12">
-            <p className="brand-header">{content.header.text}</p>
-            <p className="brand-sub">{content.description}</p>
+            <p className="brand-title">{content.title}</p>
+            <p className="brand-description">{content.description}</p>
           </div>
         </div>
      </div>

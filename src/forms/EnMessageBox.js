@@ -6,7 +6,7 @@ export class EnMessageBox {
       title: title,
       text: text,
       timer: option.time,
-      showConfirmButton: option.confirm
+      showConfirmButton: option.confirm,
     });
   }
 
@@ -14,12 +14,13 @@ export class EnMessageBox {
     swal({
       title: title,
       text: text,
-      type: "warning",
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonClass: "btn-danger",
+      confirmButtonClass: 'btn-danger',
     },
-    function(){
-      callback();
+    function(isConfirm) {
+      console.log('confirm:', isConfirm);
+      callback(isConfirm);
     });
   }
 

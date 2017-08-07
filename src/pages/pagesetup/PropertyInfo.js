@@ -6,6 +6,7 @@ import {store} from '../../store';
 
 import MenuProperty from './property/MenuProperty';
 import HomeProperty from './property/HomeProperty';
+import FooterProperty from './property/FooterProperty';
 
 export default class PropertyInfo extends ReducerBase {
 
@@ -13,14 +14,18 @@ export default class PropertyInfo extends ReducerBase {
     let page = store.getState().page;
     let data = page.data;
     let page_menu = page.page_menu;
+    let selected = page_menu.selected;
     let info = (<div />);
-    if (page_menu.selected !== undefined) {
-      switch (page_menu.selected) {
-        case 0:
-          info = <MenuProperty selected={page_menu.sub_selected} data={data} />;
+    if (selected.main !== undefined) {
+      switch (selected.main) {
+        case 'Menu':
+          info = <MenuProperty selected={selected} data={data} />;
           break;
-        case 1:
-          info = <HomeProperty selected={page_menu.sub_selected} data={data} />;
+        case 'Home':
+          info = <HomeProperty selected={selected} data={data} />;
+          break;
+        case 'Footer':
+          info = <FooterProperty selected={selected} data={data} />;
           break;
         default:
           info = (<div />);
