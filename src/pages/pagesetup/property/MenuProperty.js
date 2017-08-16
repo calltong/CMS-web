@@ -11,7 +11,7 @@ export default class MenuProperty extends React.Component {
       content = <MainProperty data={this.props.data.menu} />;
     } else {
       let menu = this.props.data.menu.list[selected.level_2];
-      content = <ItemProperty index={selected.level_2} menu={menu} />;
+      content = <ItemProperty index={selected.level_2} data={menu} />;
     }
     return (
       <div>

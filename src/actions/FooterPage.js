@@ -1,4 +1,5 @@
 import {store} from '../store';
+import {actions} from './Action';
 
 export class FooterPage {
   setMain(val) {
@@ -20,13 +21,16 @@ export class FooterPage {
 
   upItem(index) {
     if (index > 0) {
-      let data = store.getState().page.data;
+      let page = store.getState().page;
+      let data = page.data;
       let upItem = data.footer.list[index];
       let downItem = data.footer.list[index - 1];
 
       data.footer.list[index - 1] = upItem;
       data.footer.list[index] = downItem;
       store.update('PAGE_STORE_ITEM', {data: data});
+
+      //actions.page.selectMenuLevel2(index - 1);
     }
   }
 
@@ -36,9 +40,7 @@ export class FooterPage {
     data.footer.list.splice(index, 1);
     store.update('PAGE_STORE_ITEM', {data: data});
 
-    let selected = page.page_menu.selected;
-    selected.level_2 = undefined;
-    store.update('PAGE_MENU_SELECTED', {data: selected});
+    //actions.page.selectMenuLevel2(undefined);
   }
 
   setItem(index, item) {
@@ -51,6 +53,36 @@ export class FooterPage {
     let data = store.getState().page.data;
     data.footer.list[index].data.items.push(item);
     store.update('PAGE_STORE_ITEM', {data: data});
+  }
+
+  upSubItem(index, itemIndex) {
+    if (itemIndex > 0) {
+      let page = store.getState().page;
+      let data = page.data;
+      let i = data.footer.list[index];
+      let upItem = i.data.items[itemIndex];
+      let downItem = i.data.items[itemIndex - 1];
+
+      i.data.items[itemIndex - 1] = upItem;
+      i.data.items[itemIndex] = downItem;
+
+      data.footer.list[index] = i;
+      store.update('PAGE_STORE_ITEM', {data: data});
+
+      actions.page.selectMenuLevel3(itemIndex - 1);
+    }
+  }
+
+  removeSubItem(index, itemIndex) {
+    if (itemIndex > 0) {
+      let page = store.getState().page;
+      let data = page.data;
+      console.log('p:', data.footer);
+      data.footer.list[index].data.items.splice(itemIndex, 1);
+      store.update('PAGE_STORE_ITEM', {data: data});
+
+      actions.page.selectMenuLevel3(undefined);
+    }
   }
 
   setSubItem(index, itemIndex, item) {

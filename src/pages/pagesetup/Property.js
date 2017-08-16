@@ -25,7 +25,7 @@ export default class Property extends React.Component {
       width: '100%',
     };
 
-    let x = manager.GetWidth() - 350;
+    let x = manager.GetWidth() - 550;
     return (
       <Draggable
         defaultPosition={{x: x, y: 50}}

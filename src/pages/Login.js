@@ -15,20 +15,19 @@ export class Login extends Component {
       let url = `${config.api.url}/tokenverify`;
       http.put(url, {json: {token: token}}, false).done(response => {
         if (response.statusCode === http.StatusOK) {
-          browserHistory.push('/Home');
+          //browserHistory.push('/Home');
         }
       });
     }
   }
 
   onLogin() {
-    browserHistory.push('/home');
+    //browserHistory.push('/home');
     let username = this.refs.username.value();
     let password = this.refs.password.value();
     let params = {username, password};
     let url = `${config.api.url}/login`;
     http.put(url, {json: params}, false).done(response => {
-      console.log('Login:', response.statusCode);
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         cookie.save('mtoken', data.token);

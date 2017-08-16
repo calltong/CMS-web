@@ -16,6 +16,7 @@ import './css/menu-content.css';
 import './css/plugins/morris.css';
 
 import './CSSstore/header-menu.css';
+import './CSSstore/help-page.css';
 import './CSSstore/footer.css';
 import './CSSstore/brand-content.css';
 import './CSSstore/col-3-content.css';

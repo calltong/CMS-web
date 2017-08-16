@@ -107,7 +107,8 @@ export default class LinkSetting extends React.Component {
     let valButton = this.getLinkContent(item);
 
     return (
-      <div>
+      <div className="row">
+        <div className="col-md-6">
         <div className="form-group">
           <label>ประเภท Link</label>
           <Select
@@ -117,10 +118,13 @@ export default class LinkSetting extends React.Component {
             options={options}
             onChange={this.typeChange.bind(this)} />
         </div>
+        </div>
 
+        <div className="col-md-6">
         <div className="form-group">
           <label>Link</label>
           {valButton}
+        </div>
         </div>
       </div>
     );

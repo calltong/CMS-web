@@ -18,7 +18,6 @@ export default class ItemProperty extends React.Component {
 
   render() {
     let item = this.props.data;
-
     return (
       <div>
         <div className="form-group">

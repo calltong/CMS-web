@@ -17,7 +17,7 @@ import block4 from '../../../image/block4.jpg';
 import block6 from '../../../image/block6.jpg';
 import img2 from '../../../image/img2.png';
 
-export default class HomeContent extends React.Component {
+export default class Home extends React.Component {
   onChange(index) {
     actions.page.selectMenuLevel2(index);
   }

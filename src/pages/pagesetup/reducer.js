@@ -29,6 +29,17 @@ let page_data = {
     list: [],
   },
   content_list: [],
+  about_us: {
+    title: '',
+    description: '',
+    list: [],
+  },
+  condition: {
+    list: [],
+  },
+  how_to_buy: {
+    list: [],
+  },
 };
 
 export const reducer = new Reducer({
@@ -56,7 +67,7 @@ export const reducer = new Reducer({
   },
   page_menu: {
     selected: {
-      main: 'Footer',
+      main: 'HowToBuy',
       level_2: undefined,
       level_3: undefined,
     },
@@ -70,29 +81,24 @@ export const reducer = new Reducer({
         title: 'หน้าหลัก',
       },
       {
-        name: 'Product List',
-        title: 'หน้ารายการสินค้า',
-      },
-      {
-        name: 'Product Information',
-        title: 'หน้าสินค้า',
-      },
-      {
-        name: 'Checkout',
-        title: 'หน้าสั่งสินค้า',
-      },
-      {
-        name: 'Contact us',
-        title: 'หน้าติดต่อร้าน',
-
-      },
-      {
-        name: 'Thank you',
-        title: 'หน้าขอบคุณ',
-      },
-      {
         name: 'Footer',
         title: 'เมนูด้านล่าง',
+      },
+      {
+        name: 'AboutUs',
+        title: 'เกี่ยวกับร้าน',
+      },
+      {
+        name: 'HowToBuy',
+        title: 'วิธีการสั่งซื้อ',
+      },
+      {
+        name: 'OrderCondition',
+        title: 'เงื่อนไขการสั่งซื้อ',
+      },
+      {
+        name: 'Thankyou',
+        title: 'หน้าขอบคุณ',
       },
     ],
   },

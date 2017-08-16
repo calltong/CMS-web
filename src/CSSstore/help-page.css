@@ -1,0 +1,70 @@
+.tobuy-page {
+  padding: 50px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.tobuy-step {
+  text-align: center;
+}
+
+.tobuy-step > span {
+  color: white;
+  background-color: grey;
+  padding: 15px 20px;
+  font-size: 24px;
+  border-radius: 4px;
+}
+
+.tobuy-step > p {
+  margin-top: 25px;
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+
+.aboutus-page {
+  padding-top: 15px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.aboutus-map {
+  max-height: 400px;
+  margin-right: 20px;
+  float: right;
+}
+
+@media screen and (max-width: 1024px) {
+  .aboutus-page {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tobuy-page {
+    padding: 20px;
+  }
+
+  .aboutus-map {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 425px) {
+  .aboutus-page {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .aboutus-map {
+    max-height: 140px;
+  }
+}
+
+@media (max-width: 375px) {
+  .aboutus-map {
+    max-height: 110px;
+  }
+}

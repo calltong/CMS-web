@@ -4,7 +4,7 @@ import ButtonBase from './content/ButtonBase';
 import ButtonContent from './content/ButtonContent';
 import {actions} from '../../../actions/Action';
 
-export default class FooterContent extends React.Component {
+export default class Footer extends React.Component {
   onChange(index) {
     actions.page.selectMenuLevel2(index);
   }
@@ -31,6 +31,16 @@ export default class FooterContent extends React.Component {
 
   onL3Change(index) {
     actions.page.selectMenuLevel3(index);
+  }
+
+  onUpL3Item(index) {
+    let i = this.index.level_2;
+    actions.footerPage.upSubItem(i, index);
+  }
+
+  onRemoveL3Item(index) {
+    let i = this.index.level_2;
+    actions.footerPage.removeSubItem(i, index);
   }
 
   getName(val) {
@@ -73,7 +83,7 @@ export default class FooterContent extends React.Component {
 
     let content = (
       <ButtonBase
-        title="Footer"
+        title="เมนูด้านล่าง"
         selected={selected.level_2}
         onChange={this.onChange} >
         <ButtonContent
@@ -103,10 +113,11 @@ export default class FooterContent extends React.Component {
         onChange={this.onL3Change} >
         <ButtonContent
           selected={selected.level_3}
+          index={selected}
           list={val}
           onChange={this.onL3Change}
-          onUpItem={this.onUpItem}
-          onRemoveItem={this.onRemoveItem} />
+          onUpItem={this.onUpL3Item}
+          onRemoveItem={this.onRemoveL3Item} />
       </ButtonBase>
     );
 
@@ -129,10 +140,11 @@ export default class FooterContent extends React.Component {
         onChange={this.onL3Change} >
         <ButtonContent
           selected={selected.level_3}
+          index={selected}
           list={val}
           onChange={this.onL3Change}
-          onUpItem={this.onUpItem}
-          onRemoveItem={this.onRemoveItem} />
+          onUpItem={this.onUpL3Item}
+          onRemoveItem={this.onRemoveL3Item} />
       </ButtonBase>
     );
 
@@ -154,8 +166,7 @@ export default class FooterContent extends React.Component {
         <ButtonContent
           selected={selected.level_3}
           list={val}
-          onChange={this.onL3Change}
-          onUpItem={this.onUpItem} />
+          onChange={this.onL3Change} />
       </ButtonBase>
     );
 
@@ -164,6 +175,7 @@ export default class FooterContent extends React.Component {
 
   render() {
     let selected = this.props.selected;
+    this.index = selected;
     let list = this.props.list;
     let isDefault = true;
     let content = (<div />);

@@ -6,7 +6,10 @@ import {store} from '../../store';
 
 import MenuProperty from './property/MenuProperty';
 import HomeProperty from './property/HomeProperty';
-import FooterProperty from './property/FooterProperty';
+import Footer from './property/Footer';
+import AboutUs from './property/AboutUs';
+import OrderCondition from './property/OrderCondition';
+import ToBuy from './property/ToBuy';
 
 export default class PropertyInfo extends ReducerBase {
 
@@ -25,7 +28,16 @@ export default class PropertyInfo extends ReducerBase {
           info = <HomeProperty selected={selected} data={data} />;
           break;
         case 'Footer':
-          info = <FooterProperty selected={selected} data={data} />;
+          info = <Footer selected={selected} data={data} />;
+          break;
+        case 'OrderCondition':
+          info = <OrderCondition selected={selected} data={data} />;
+          break;
+        case 'AboutUs':
+          info = <AboutUs selected={selected} data={data} />;
+          break;
+        case 'HowToBuy':
+          info = <ToBuy selected={selected} data={data} />;
           break;
         default:
           info = (<div />);

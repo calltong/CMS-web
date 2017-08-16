@@ -1,32 +1,33 @@
 import {store} from '../store';
 import {actions} from './Action';
 
-export class MenuPage {
+export class AboutusPage {
   setMain(val) {
     let data = store.getState().page.data;
-    data.menu = val;
+    data.about_us = val;
     store.update('PAGE_STORE_ITEM', {data: data});
   }
 
   addItem() {
     let data = store.getState().page.data;
     let item = {
-      name: 'ชื่อเมนู',
-      type: 'category',
-      value: '',
+      title: '',
+      description: '',
+      preview: '',
     };
-    data.menu.list.push(item);
+    data.about_us.list.push(item);
     store.update('PAGE_STORE_ITEM', {data: data});
   }
 
   upItem(index) {
     if (index > 0) {
-      let data = store.getState().page.data;
-      let upItem = data.menu.list[index];
-      let downItem = data.menu.list[index - 1];
+      let page = store.getState().page;
+      let data = page.data;
+      let upItem = data.about_us.list[index];
+      let downItem = data.about_us.list[index - 1];
 
-      data.menu.list[index - 1] = upItem;
-      data.menu.list[index] = downItem;
+      data.about_us.list[index - 1] = upItem;
+      data.about_us.list[index] = downItem;
       store.update('PAGE_STORE_ITEM', {data: data});
 
       actions.page.selectMenuLevel2(index - 1);
@@ -36,7 +37,7 @@ export class MenuPage {
   removeItem(index) {
     let page = store.getState().page;
     let data = page.data;
-    data.menu.list.splice(index, 1);
+    data.about_us.list.splice(index, 1);
     store.update('PAGE_STORE_ITEM', {data: data});
 
     actions.page.selectMenuLevel2(undefined);
@@ -44,9 +45,9 @@ export class MenuPage {
 
   setItem(index, item) {
     let data = store.getState().page.data;
-    data.menu.list[index] = item;
+    data.about_us.list[index] = item;
     store.update('PAGE_STORE_ITEM', {data: data});
   }
 }
 
-export const action = new MenuPage();
+export const action = new AboutusPage();

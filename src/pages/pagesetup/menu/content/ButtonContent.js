@@ -25,40 +25,35 @@ export default class ButtonContent extends React.Component {
     let selected = this.props.selected;
     let list = this.props.list;
     let menus = <div />;
-    if (this.props.onRemoveItem === undefined) {
-      menus = list.map((item, index) => {
-        return (
-          <div key={index}>
-            <EnButton
-              onClick={this.onChange.bind(this, index)}
-              className={index === selected ? 'btn btn-pmenu-selected btn-pmenu-sub-full' : 'btn btn-pmenu btn-pmenu-sub-full'} >
-               {item.name}
-            </EnButton>
-            <UpButton
-              onClick={this.onUpItem.bind(this, index)}
-              className="pmenu-sub-action" />
-          </div>
-        );
-      });
-    } else {
-      menus = list.map((item, index) => {
-        return (
-          <div key={index}>
-            <EnButton
-              onClick={this.onChange.bind(this, index)}
-              className={index === selected ? 'btn btn-pmenu-selected btn-pmenu-sub-full' : 'btn btn-pmenu btn-pmenu-sub-full'} >
-               {item.name}
-            </EnButton>
-            <UpButton
-              onClick={this.onUpItem.bind(this, index)}
-              className="pmenu-sub-action" />
-            <RemoveButton
-              onClick={this.onRemoveItem.bind(this, index)}
-              className="pmenu-sub-action" />
-          </div>
-        );
-      });
-    }
+
+    menus = list.map((item, index) => {
+      let btnUp = <div />;
+      let btnRemove = <div />;
+
+      if (this.props.onUpItem !== undefined) {
+        btnUp = <UpButton
+          onClick={this.onUpItem.bind(this, index)}
+          className="pmenu-sub-action" />;
+      }
+
+      if (this.props.onRemoveItem !== undefined) {
+        btnRemove = <RemoveButton
+          onClick={this.onRemoveItem.bind(this, index)}
+          className="pmenu-sub-action" />;
+      }
+      return (
+        <div key={index}>
+          <EnButton
+            onClick={this.onChange.bind(this, index)}
+            className={index === selected ? 'btn btn-pmenu-selected btn-pmenu-sub-full' : 'btn btn-pmenu btn-pmenu-sub-full'} >
+             {item.name}
+          </EnButton>
+
+          {btnUp}
+          {btnRemove}
+        </div>
+      );
+    });
 
     return (
       <div>

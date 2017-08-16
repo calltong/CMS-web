@@ -49,7 +49,7 @@ export class PageInfo extends ReducerBase {
 
         <PageInfoMenu/>
         <hr style={{borderTop: '1px solid #555555'}}/>
-        <SampleHome page={data} />
+        <SampleHome selected={page.page_menu.selected} page={data} />
         <NotificationContainer />
         <ChooseProductDialog />
       </div>

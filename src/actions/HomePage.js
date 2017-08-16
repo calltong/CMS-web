@@ -1,4 +1,5 @@
 import {store} from '../store';
+import {actions} from './Action';
 
 export class HomePage {
   addContent(content) {
@@ -9,13 +10,16 @@ export class HomePage {
 
   upContent(index) {
     if (index > 0) {
-      let data = store.getState().page.data;
+      let page = store.getState().page;
+      let data = page.data;
       let upItem = data.content_list[index];
       let downItem = data.content_list[index - 1];
 
       data.content_list[index - 1] = upItem;
       data.content_list[index] = downItem;
       store.update('PAGE_SET_CONTENT', {data: data.content_list});
+
+      actions.page.selectMenuLevel2(index - 1);
     }
   }
 
@@ -24,6 +28,8 @@ export class HomePage {
     let data = page.data;
     data.content_list.splice(index, 1);
     store.update('PAGE_SET_CONTENT', {data: data.content_list});
+
+    actions.page.selectMenuLevel2(undefined);
   }
 
   setContent(index, item) {
@@ -56,7 +62,8 @@ export class HomePage {
 
   upItem(index, indexItem) {
     if (indexItem > 0) {
-      let data = store.getState().page.data;
+      let page = store.getState().page;
+      let data = page.data;
       let content = data.content_list[index];
 
       let upItem = content.data.list[indexItem];
@@ -65,6 +72,8 @@ export class HomePage {
       content.data.list[indexItem - 1] = upItem;
       content.data.list[indexItem] = downItem;
       store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
+
+      actions.page.selectMenuLevel3(indexItem - 1);
     }
   }
 

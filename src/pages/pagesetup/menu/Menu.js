@@ -4,7 +4,7 @@ import ButtonBase from './content/ButtonBase';
 import ButtonContent from './content/ButtonContent';
 import {actions} from '../../../actions/Action';
 
-export default class MenuContent extends React.Component {
+export default class Menu extends React.Component {
   onChange(index) {
     actions.page.selectMenuLevel2(index);
   }
@@ -27,7 +27,7 @@ export default class MenuContent extends React.Component {
     return (
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
-        title="Menu"
+        title="เมนูด้านบน"
         selected={selected.level_2}
         onChange={this.onChange} >
         <ButtonContent
