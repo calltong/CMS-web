@@ -15,7 +15,7 @@ import img2 from '../../../../image/img2.png';
 
 export default class Main extends React.Component {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    actions.page.home.selectMenu(index);
   }
 
   onAdd() {

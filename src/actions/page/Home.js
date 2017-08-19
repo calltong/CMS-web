@@ -1,11 +1,21 @@
-import {store} from '../store';
-import {actions} from './Action';
+import {store} from '../../store';
+//import {actions} from '../Action';
 
-export class HomePage {
+export class Home {
+  setMain(data) {
+    store.update('HOME_SET_DATA', {data: data});
+  }
+
+  selectMenu(index) {
+    let manage = store.getState().homePage.manage;
+    manage.index = index;
+    store.update('HOME_SET_SELECTED', {data: manage});
+  }
+
   addContent(content) {
     let data = store.getState().page.data;
     data.content_list.push(content);
-    store.update('PAGE_SET_CONTENT', {data: data.content_list});
+    store.update('HOME_SET_CONTENT', {data: data.content_list});
   }
 
   upContent(index) {
@@ -17,9 +27,9 @@ export class HomePage {
 
       data.content_list[index - 1] = upItem;
       data.content_list[index] = downItem;
-      store.update('PAGE_SET_CONTENT', {data: data.content_list});
+      store.update('HOME_SET_CONTENT', {data: data.content_list});
 
-      actions.page.selectMenuLevel2(index - 1);
+      //actions.page.selectMenuLevel2(index - 1);
     }
   }
 
@@ -29,7 +39,7 @@ export class HomePage {
     data.content_list.splice(index, 1);
     store.update('PAGE_SET_CONTENT', {data: data.content_list});
 
-    actions.page.selectMenuLevel2(undefined);
+    //actions.page.selectMenuLevel2(undefined);
   }
 
   setContent(index, item) {
@@ -73,7 +83,7 @@ export class HomePage {
       content.data.list[indexItem] = downItem;
       store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
 
-      actions.page.selectMenuLevel3(indexItem - 1);
+      //actions.page.selectMenuLevel3(indexItem - 1);
     }
   }
 
@@ -104,4 +114,4 @@ export class HomePage {
   }
 }
 
-export const action = new HomePage();
+export const action = new Home();

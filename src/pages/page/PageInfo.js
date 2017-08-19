@@ -6,7 +6,7 @@ import {ReducerBase} from '../../ReducerBase';
 import PageMenu from './PageMenu';
 import Property from './Property';
 import PropertyInfo from './PropertyInfo';
-import SampleHome from '../sample/SampleHome';
+import Home from '../sample/Home';
 import PageInfoMenu from './PageInfoMenu';
 
 import {store} from '../../store';
@@ -15,12 +15,8 @@ import {actions} from '../../actions/Action';
 
 export class PageInfo extends ReducerBase {
   componentDidMount() {
-    let id = this.props.params.id;
-    if (id) {
-      actions.page.getItem(id);
-    } else {
-      actions.page.reset();
-    }
+    actions.page.main.getMenu();
+    actions.page.main.getHome();
   }
 
   OnDisplaySample() {
@@ -28,8 +24,8 @@ export class PageInfo extends ReducerBase {
   }
 
   render() {
-    let page = store.getState().page;
-    let data = page.data;
+    let state = store.getState();
+    let page = state.page;
     let message = page.message;
 
     if (message.text !== '') {
@@ -49,7 +45,7 @@ export class PageInfo extends ReducerBase {
 
         <PageInfoMenu/>
         <hr style={{borderTop: '1px solid #555555'}}/>
-        <SampleHome selected={page.page_menu.selected} page={data} />
+        <Home />
         <NotificationContainer />
         <ChooseProductDialog />
       </div>

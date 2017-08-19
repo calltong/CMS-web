@@ -1,19 +1,13 @@
-import {store} from '../store';
-import {actions} from './Action';
+import {store} from '../../store';
+import {actions} from '../Action';
 
-export class OrderConditionPage {
-  setMain(val) {
-    let data = store.getState().page.data;
-    data.condition = val;
-    store.update('PAGE_STORE_ITEM', {data: data});
-  }
-
+export class HowToBuy {
   addItem() {
     let data = store.getState().page.data;
     let item = {
       title: '',
     };
-    data.condition.list.push(item);
+    data.how_to_buy.list.push(item);
     store.update('PAGE_STORE_ITEM', {data: data});
   }
 
@@ -21,11 +15,11 @@ export class OrderConditionPage {
     if (index > 0) {
       let page = store.getState().page;
       let data = page.data;
-      let upItem = data.condition.list[index];
-      let downItem = data.condition.list[index - 1];
+      let upItem = data.how_to_buy.list[index];
+      let downItem = data.how_to_buy.list[index - 1];
 
-      data.condition.list[index - 1] = upItem;
-      data.condition.list[index] = downItem;
+      data.how_to_buy.list[index - 1] = upItem;
+      data.how_to_buy.list[index] = downItem;
       store.update('PAGE_STORE_ITEM', {data: data});
 
       actions.page.selectMenuLevel2(index - 1);
@@ -35,7 +29,7 @@ export class OrderConditionPage {
   removeItem(index) {
     let page = store.getState().page;
     let data = page.data;
-    data.condition.list.splice(index, 1);
+    data.how_to_buy.list.splice(index, 1);
     store.update('PAGE_STORE_ITEM', {data: data});
 
     actions.page.selectMenuLevel2(undefined);
@@ -43,9 +37,9 @@ export class OrderConditionPage {
 
   setItem(index, item) {
     let data = store.getState().page.data;
-    data.condition.list[index] = item;
+    data.how_to_buy.list[index] = item;
     store.update('PAGE_STORE_ITEM', {data: data});
   }
 }
 
-export const action = new OrderConditionPage();
+export const action = new HowToBuy();

@@ -1,38 +1,42 @@
 import React from 'react';
 
+import {ReducerBase} from '../../../ReducerBase';
 import ButtonBase from './content/ButtonBase';
 import ButtonContent from './content/ButtonContent';
 import {actions} from '../../../actions/Action';
+import {store} from '../../../store';
 
-export default class Menu extends React.Component {
+export default class Menu extends ReducerBase {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    actions.page.menu.selectMenu(index);
   }
 
   onAdd() {
-    actions.menuPage.addItem();
+    actions.page.menu.addItem();
   }
 
   onUpItem(index) {
-    actions.menuPage.upItem(index);
+    actions.page.menu.upItem(index);
   }
 
   onRemoveItem(index) {
-    actions.menuPage.removeItem(index);
+    actions.page.menu.removeItem(index);
   }
 
   render() {
-    let selected = this.props.selected;
-    let list = this.props.list;
+    let state = store.getState();
+    let manage = state.menu.manage;
+    let menu = state.menu.data;
+    console.log('menu:', menu);
     return (
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
         title="เมนูด้านบน"
-        selected={selected.level_2}
+        selected={manage.index}
         onChange={this.onChange} >
         <ButtonContent
-          selected={selected.level_2}
-          list={list}
+          selected={manage.index}
+          list={menu.data.menu.list}
           onChange={this.onChange}
           onUpItem={this.onUpItem}
           onRemoveItem={this.onRemoveItem}

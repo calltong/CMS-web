@@ -3,7 +3,7 @@ import {config} from '../config';
 import {http} from '../utility/http';
 import {browserHistory} from 'react-router';
 
-export class TypeAction {
+export class Type {
   resetItem() {
     store.update('TYPE_RESET_ITEM');
   }
@@ -73,4 +73,4 @@ export class TypeAction {
   }
 }
 
-export const action = new TypeAction();
+export const action = new Type();

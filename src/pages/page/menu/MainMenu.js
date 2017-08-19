@@ -5,7 +5,7 @@ import {actions} from '../../../actions/Action';
 
 export default class MainContent extends React.Component {
   onChange(index) {
-    actions.page.selectMenu(index);
+    actions.page.main.selectMenu(index);
   }
 
   render() {

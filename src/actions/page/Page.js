@@ -1,47 +1,61 @@
-import {store} from '../store';
-import {config} from '../config';
-import {http} from '../utility/http';
+import {store} from '../../store';
+import {config} from '../../config';
+import {http} from '../../utility/http';
+import {actions} from '../Action';
 
-export class PageAction {
-  resetItem() {
-    store.update('PAGE_RESET_ITEM');
-  }
-
-  getList() {
-    let url = `${config.api.url}/page`;
-    http.get(url, {authorization: true}).done(response => {
-      if (response.statusCode === http.StatusOK) {
-        let list = response.body;
-        store.update('PAGE_STORE_LIST', {list});
-      }
-    });
-  }
-
-  setItem(data) {
-    store.update('PAGE_STORE_ITEM', {data: data});
-  }
-
-  getItem(id) {
-    let url = `${config.api.url}/page/${id}`;
+export class Page {
+  getMenu() {
+    let url = `${config.api.url}/page/menu/modify`;
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
-        let list = [];
-        for (let item of data.menu.list) {
-          if (item.type === 'category') {
-            item.category = item.value;
-            item.tag = '';
-          } else {
-            item.category = '';
-            item.tag = item.value;
-          }
-
-          list.push(item);
-        }
-        data.menu.list = list;
-        this.setItem(data);
+        actions.page.menu.setMain(data);
       }
     });
+  }
+
+  getHome() {
+    let url = `${config.api.url}/page/home/modify`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        actions.page.home.setMain(data);
+      }
+    });
+  }
+
+  getAboutus() {
+    let url = `${config.api.url}/page/aboutus`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        actions.page.about_us.setData(data);
+      }
+    });
+  }
+
+  getHowToBuy() {
+    let url = `${config.api.url}/page/howtobuy`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        actions.page.how_to_buy.setData(data);
+      }
+    });
+  }
+
+  getOrderCondition() {
+    let url = `${config.api.url}/page/ordercondition`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        actions.page.order_condition.setData(data);
+      }
+    });
+  }
+
+  saveAllPage() {
+
   }
 
   saveItem() {
@@ -81,7 +95,7 @@ export class PageAction {
   }
 
   backMenu() {
-    let data = store.getState().page.page_menu.selected;
+    let data = store.getState().page.manage.selected;
     if (data.main === 'Home' || data.main === 'Footer') {
       if (data.level_3 !== undefined) {
         data.level_2 = undefined;
@@ -103,7 +117,7 @@ export class PageAction {
   }
 
   selectMenu(index) {
-    let data = store.getState().page.page_menu.selected;
+    let data = store.getState().page.manage.selected;
     data.main = index;
     data.level_2 = undefined;
     data.level_3 = undefined;
@@ -121,17 +135,17 @@ export class PageAction {
   }
 
   selectMenuLevel2(index) {
-    let data = store.getState().page.page_menu.selected;
+    let data = store.getState().page.manage.selected;
     data.level_2 = index;
     data.level_3 = undefined;
     store.update('PAGE_MENU_SELECTED', {data});
   }
 
   selectMenuLevel3(index) {
-    let data = store.getState().page.page_menu.selected;
+    let data = store.getState().page.manage.selected;
     data.level_3 = index;
     store.update('PAGE_MENU_SELECTED', {data});
   }
 }
 
-export const action = new PageAction();
+export const action = new Page();

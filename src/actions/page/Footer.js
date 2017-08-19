@@ -1,11 +1,11 @@
-import {store} from '../store';
-import {actions} from './Action';
+import {store} from '../../store';
+import {actions} from '../Action';
 
-export class FooterPage {
-  setMain(val) {
-    let data = store.getState().page.data;
-    data.footer = val;
-    store.update('PAGE_STORE_ITEM', {data: data});
+export class Footer {
+  selectMenu(index) {
+    let manage = store.getState().menu.manage;
+    manage.index = index;
+    store.update('MENU_SET_SELECTED', {data: manage});
   }
 
   addItem() {
@@ -92,4 +92,4 @@ export class FooterPage {
   }
 }
 
-export const action = new FooterPage();
+export const action = new Footer();

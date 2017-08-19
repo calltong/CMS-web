@@ -5,7 +5,7 @@ import {config} from '../config';
 import {http} from '../utility/http';
 import {manager} from '../utility/Manager';
 
-export class ProductAction {
+export class Product {
   getTypeList(load) {
     let product = store.getState().product;
     if (product.type_list.length === 0 || load === true) {
@@ -221,4 +221,4 @@ export class ProductAction {
   }
 }
 
-export const action = new ProductAction();
+export const action = new Product();

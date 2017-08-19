@@ -34,6 +34,12 @@
   float: right;
 }
 
+.condition-page {
+  padding: 50px;
+  margin-left: 60px;
+  margin-bottom: 80px;
+}
+
 @media screen and (max-width: 1024px) {
   .aboutus-page {
     padding-left: 40px;
@@ -60,6 +66,12 @@
 
   .aboutus-map {
     max-height: 140px;
+  }
+
+  .condition-page {
+    padding: 40px;
+    margin-left: 40px;
+    margin-bottom: 50px;
   }
 }
 

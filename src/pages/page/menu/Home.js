@@ -4,6 +4,7 @@ import Main from './home/Main';
 import WideImage from './content/WideImage';
 import ImageList from './home/ImageList';
 
+import {store} from '../../../store';
 import {actions} from '../../../actions/Action';
 
 import blank from '../../../image/blank.png';
@@ -19,7 +20,7 @@ import img2 from '../../../image/img2.png';
 
 export default class Home extends React.Component {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    actions.page.home.selectMenu(index);
   }
 
   onAddWideItem(index) {
@@ -77,7 +78,7 @@ export default class Home extends React.Component {
           <ImageList
             image={slider}
             data={item.data}
-            index={selected.level_2}
+            index={selected.index}
             selected={selected.level_3}
             onAdd={this.onAddWideItem}
             onUp={this.onUpLevel3}
@@ -88,7 +89,7 @@ export default class Home extends React.Component {
           <ImageList
             image={col3}
             data={item.data}
-            index={selected.level_2}
+            index={selected.index}
             selected={selected.level_3}
             onAdd={this.onAddItem}
             onUp={this.onUpLevel3}
@@ -99,7 +100,7 @@ export default class Home extends React.Component {
           <ImageList
             image={col4}
             data={item.data}
-            index={selected.level_2}
+            index={selected.index}
             selected={selected.level_3}
             onAdd={this.onAddItem}
             onUp={this.onUpLevel3}
@@ -110,7 +111,7 @@ export default class Home extends React.Component {
           <ImageList
             image={block4}
             data={item.data}
-            index={selected.level_2}
+            index={selected.index}
             selected={selected.level_3}
             onAdd={this.onAddItem}
             onUp={this.onUpLevel3}
@@ -121,7 +122,7 @@ export default class Home extends React.Component {
           <ImageList
             image={block6}
             data={item.data}
-            index={selected.level_2}
+            index={selected.index}
             selected={selected.level_3}
             onAdd={this.onAddItem}
             onUp={this.onUpLevel3}
@@ -133,18 +134,19 @@ export default class Home extends React.Component {
   }
 
   render() {
-    let selected = this.props.selected;
-    this.selected = selected;
-    let list = this.props.list;
+    let state = store.getState();
+    let manage = state.homePage.manage;
+    let doc = state.homePage.data;
+
+    let list = doc.data.content_list;
     let block = <div />;
-    if (selected.level_2 === undefined) {
+    if (manage.index === undefined) {
       block = (
-        <Main
-          selected={selected}
-          list={list} />);
+        <Main selected={manage} list={list} />
+      );
     } else {
-      let item = list[selected.level_2];
-      block = this.getContent(item, selected);
+      let item = list[manage.index];
+      block = this.getContent(item, manage);
     }
 
     return (

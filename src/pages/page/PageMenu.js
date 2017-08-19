@@ -16,7 +16,7 @@ import ToBuy from './menu/ToBuy';
 
 export default class PageMenu extends ReducerBase {
   onBack() {
-    actions.page.backMenu();
+    actions.page.main.backMenu();
   }
 
   onClose() {
@@ -26,14 +26,13 @@ export default class PageMenu extends ReducerBase {
   }
 
   onChange(val, index) {
-    actions.page.selectPageMenu(index);
+    actions.page.main.selectPageMenu(index);
   }
 
   render() {
     let page = store.getState().page;
-    let data = page.data;
-    let page_menu = page.page_menu;
-    let selected = page_menu.selected;
+    let manage = page.manage;
+    let selected = manage.selected;
     let css = {
       marginBottom: '2px',
       width: '100%',
@@ -59,27 +58,27 @@ export default class PageMenu extends ReducerBase {
 
       switch (selected.main) {
         case 'Menu':
-          menus = <Menu list={data.menu.list} selected={selected} />;
+          menus = <Menu />;
           break;
         case 'Home':
-          menus = <Home list={data.content_list} selected={selected} />;
+          menus = <Home />;
           break;
         case 'Footer':
-          menus = <Footer list={data.footer.list} selected={selected} />;
+          menus = <Footer />;
           break;
         case 'OrderCondition':
-          menus = <OrderCondition list={data.condition.list} selected={selected} />;
+          menus = <OrderCondition />;
           break;
         case 'HowToBuy':
-          menus = <ToBuy list={data.how_to_buy.list} selected={selected} />;
+          menus = <ToBuy />;
           break;
         case 'AboutUs':
-          menus = <AboutUs list={data.about_us.list} selected={selected} />;
+          menus = <AboutUs />;
           break;
         default:
       }
     } else {
-      menus = <MainMenu list={page_menu.menu} />;
+      menus = <MainMenu list={manage.menu} />;
     }
 
     return (

@@ -3,7 +3,7 @@ import {config} from '../config';
 import {http} from '../utility/http';
 import {browserHistory} from 'react-router';
 
-export class SizeAction {
+export class Size {
   resetItem() {
     store.update('SIZE_RESET_ITEM');
   }
@@ -72,4 +72,4 @@ export class SizeAction {
   }
 }
 
-export const action = new SizeAction();
+export const action = new Size();

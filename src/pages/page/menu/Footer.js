@@ -1,24 +1,26 @@
 import React from 'react';
 
+import {ReducerBase} from '../../../ReducerBase';
 import ButtonBase from './content/ButtonBase';
 import ButtonContent from './content/ButtonContent';
 import {actions} from '../../../actions/Action';
+import {store} from '../../../store';
 
-export default class Footer extends React.Component {
+export default class Footer extends ReducerBase {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    actions.page.footer.selectMenu(index);
   }
 
   onAdd() {
-    actions.footerPage.addItem();
+    actions.page.footer.addItem();
   }
 
   onUpItem(index) {
-    actions.footerPage.upItem(index);
+    actions.page.footer.upItem(index);
   }
 
   onRemoveItem(index) {
-    actions.footerPage.removeItem(index);
+    actions.page.footer.removeItem(index);
   }
 
   onAddSocial(index) {
@@ -26,21 +28,21 @@ export default class Footer extends React.Component {
       type: 'facebook',
       url: '',
     };
-    actions.footerPage.addSubItem(index, item);
+    actions.page.footer.addSubItem(index, item);
   }
 
   onL3Change(index) {
-    actions.page.selectMenuLevel3(index);
+    actions.page.footer.selectSubMenu(index);
   }
 
   onUpL3Item(index) {
-    let i = this.index.level_2;
-    actions.footerPage.upSubItem(i, index);
+    let i = this.manage.index;
+    actions.page.footer.upSubItem(i, index);
   }
 
   onRemoveL3Item(index) {
-    let i = this.index.level_2;
-    actions.footerPage.removeSubItem(i, index);
+    let i = this.manage.index;
+    actions.page.footer.removeSubItem(i, index);
   }
 
   getName(val) {
@@ -84,10 +86,10 @@ export default class Footer extends React.Component {
     let content = (
       <ButtonBase
         title="เมนูด้านล่าง"
-        selected={selected.level_2}
+        selected={selected.index}
         onChange={this.onChange} >
         <ButtonContent
-          selected={selected.level_2}
+          selected={selected.index}
           list={val}
           onChange={this.onChange}
           onUpItem={this.onUpItem} />
@@ -107,12 +109,12 @@ export default class Footer extends React.Component {
 
     let content = (
       <ButtonBase
-        onAdd={this.onAddSocial.bind(this, selected.level_2)}
+        onAdd={this.onAddSocial.bind(this, selected.index)}
         title="Social"
-        selected={selected.level_3}
+        selected={selected.level_2}
         onChange={this.onL3Change} >
         <ButtonContent
-          selected={selected.level_3}
+          selected={selected.level_2}
           index={selected}
           list={val}
           onChange={this.onL3Change}
@@ -134,12 +136,12 @@ export default class Footer extends React.Component {
 
     let content = (
       <ButtonBase
-        onAdd={this.onAddSocial.bind(this, selected.level_2)}
+        onAdd={this.onAddSocial.bind(this, selected.index)}
         title="แบบข้อความ"
-        selected={selected.level_3}
+        selected={selected.level_2}
         onChange={this.onL3Change} >
         <ButtonContent
-          selected={selected.level_3}
+          selected={selected.level_2}
           index={selected}
           list={val}
           onChange={this.onL3Change}
@@ -161,10 +163,10 @@ export default class Footer extends React.Component {
     let content = (
       <ButtonBase
         title="เกี่ยวกับร้าน"
-        selected={selected.level_3}
+        selected={selected.level_2}
         onChange={this.onL3Change} >
         <ButtonContent
-          selected={selected.level_3}
+          selected={selected.level_2}
           list={val}
           onChange={this.onL3Change} />
       </ButtonBase>
@@ -174,27 +176,29 @@ export default class Footer extends React.Component {
   }
 
   render() {
-    let selected = this.props.selected;
-    this.index = selected;
-    let list = this.props.list;
+    let state = store.getState();
+    let manage = state.menu.manage;
+    let doc = state.menu.data;
+
+    let list = doc.data.footer.list;
     let isDefault = true;
     let content = (<div />);
-    if (selected.level_2 !== undefined) {
-      let item = list[selected.level_2];
+    if (manage.index !== undefined) {
+      let item = list[manage.index];
       if (item.type === 'social') {
-        content = this.createSocial(item.data.items, selected);
+        content = this.createSocial(item.data.items, manage);
         isDefault = false;
       } else if (item.type === 'text') {
-        content = this.createText(item.data.items, selected);
+        content = this.createText(item.data.items, manage);
         isDefault = false;
       } else if (item.type === 'information') {
-        content = this.createInformation(item.data.items, selected);
+        content = this.createInformation(item.data.items, manage);
         isDefault = false;
       }
     }
 
     if (isDefault) {
-      content = this.createDefault(list, selected);
+      content = this.createDefault(list, manage);
     }
 
     return (

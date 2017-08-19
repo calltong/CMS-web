@@ -28,7 +28,7 @@ class MenuBar extends Component {
             </li>
           </ul>
         </li>
-        <li><Link to={'/page'} ><i className="fa fa-columns" /> Page</Link></li>
+        <li><Link to={'/page/modify'} ><i className="fa fa-columns" /> Page</Link></li>
       </ul>
     );
   }

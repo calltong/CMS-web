@@ -16,13 +16,13 @@ export default class PropertyInfo extends ReducerBase {
   render() {
     let page = store.getState().page;
     let data = page.data;
-    let page_menu = page.page_menu;
-    let selected = page_menu.selected;
+    let manage = page.manage;
+    let selected = manage.selected;
     let info = (<div />);
     if (selected.main !== undefined) {
       switch (selected.main) {
         case 'Menu':
-          info = <MenuProperty selected={selected} data={data} />;
+          info = <MenuProperty />;
           break;
         case 'Home':
           info = <HomeProperty selected={selected} data={data} />;
