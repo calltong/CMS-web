@@ -19,50 +19,34 @@ import block6 from '../../../image/block6.jpg';
 import img2 from '../../../image/img2.png';
 
 export default class Home extends React.Component {
-  onChange(index) {
-    actions.page.home.selectMenu(index);
+  onChangeSub(index) {
+    actions.page.home.selectSubMenu(index);
   }
 
-  onAddWideItem(index) {
+  onAddWideItem() {
     let item = {
       preview: blank,
       value: '',
     };
 
-    actions.homePage.addItem(index, item);
+    actions.page.home.addItem(item);
   }
 
-  onAddItem(index) {
+  onAddItem() {
     let item = {
       preview: blank_sq,
       value: '',
     };
 
-    actions.homePage.addItem(index, item);
+    actions.page.home.addItem(item);
   }
 
-  onUpItem(index) {
-    actions.homePage.upContent(index);
+  onUpSub(index) {
+    actions.page.home.upItem(index);
   }
 
-  onRemoveItem(index) {
-    actions.homePage.removeContent(index);
-  }
-
-  onChangeLevel3(index, indexL3) {
-    actions.page.selectMenuLevel3(indexL3);
-  }
-
-  onAddLevel3(index) {
-    actions.page.selectMenuLevel2(index);
-  }
-
-  onUpLevel3(index) {
-    actions.page.selectMenuLevel2(index);
-  }
-
-  onRemoveLevel3(index) {
-    actions.page.selectMenuLevel2(index);
+  onRemoveSub(index) {
+    actions.page.home.removeItem(index);
   }
 
   getContent(item, selected) {
@@ -72,62 +56,57 @@ export default class Home extends React.Component {
         return (
           <WideImage
             image={brand}
-            onChange={this.onChangeLevel3} />);
+            onChange={this.onChangeSub} />);
       case 'slide-1':
         return (
           <ImageList
             image={slider}
             data={item.data}
-            index={selected.index}
-            selected={selected.level_3}
+            selected={selected.level_2}
             onAdd={this.onAddWideItem}
-            onUp={this.onUpLevel3}
-            onRemove={this.onRemoveLevel3}
-            onChange={this.onChangeLevel3} />);
+            onUp={this.onUpSub}
+            onRemove={this.onRemoveSub}
+            onChange={this.onChangeSub} />);
       case 'col-3':
         return (
           <ImageList
             image={col3}
             data={item.data}
-            index={selected.index}
-            selected={selected.level_3}
+            selected={selected.level_2}
             onAdd={this.onAddItem}
-            onUp={this.onUpLevel3}
-            onRemove={this.onRemoveLevel3}
-            onChange={this.onChangeLevel3} />);
+            onUp={this.onUpSub}
+            onRemove={this.onRemoveSub}
+            onChange={this.onChangeSub} />);
       case 'col-4':
         return (
           <ImageList
             image={col4}
             data={item.data}
-            index={selected.index}
-            selected={selected.level_3}
+            selected={selected.level_2}
             onAdd={this.onAddItem}
-            onUp={this.onUpLevel3}
-            onRemove={this.onRemoveLevel3}
-            onChange={this.onChangeLevel3} />);
+            onUp={this.onUpSub}
+            onRemove={this.onRemoveSub}
+            onChange={this.onChangeSub} />);
       case 'block-4':
         return (
           <ImageList
             image={block4}
             data={item.data}
-            index={selected.index}
-            selected={selected.level_3}
+            selected={selected.level_2}
             onAdd={this.onAddItem}
-            onUp={this.onUpLevel3}
-            onRemove={this.onRemoveLevel3}
-            onChange={this.onChangeLevel3} />);
+            onUp={this.onUpSub}
+            onRemove={this.onRemoveSub}
+            onChange={this.onChangeSub} />);
       case 'block-6':
         return (
           <ImageList
             image={block6}
             data={item.data}
-            index={selected.index}
-            selected={selected.level_3}
+            selected={selected.level_2}
             onAdd={this.onAddItem}
-            onUp={this.onUpLevel3}
-            onRemove={this.onRemoveLevel3}
-            onChange={this.onChangeLevel3} />);
+            onUp={this.onUpSub}
+            onRemove={this.onRemoveSub}
+            onChange={this.onChangeSub} />);
       default:
         return img2;
     }
@@ -135,8 +114,8 @@ export default class Home extends React.Component {
 
   render() {
     let state = store.getState();
-    let manage = state.homePage.manage;
-    let doc = state.homePage.data;
+    let manage = state.home.manage;
+    let doc = state.home.data;
 
     let list = doc.data.content_list;
     let block = <div />;

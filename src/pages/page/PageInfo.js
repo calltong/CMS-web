@@ -17,6 +17,9 @@ export class PageInfo extends ReducerBase {
   componentDidMount() {
     actions.page.main.getMenu();
     actions.page.main.getHome();
+    actions.page.main.getAboutus();
+    actions.page.main.getHowToBuy();
+    actions.page.main.getOrderCondition();
   }
 
   OnDisplaySample() {

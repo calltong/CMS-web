@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 
-export class AboutUs extends React.Component {
+import {ReducerBase} from '../../ReducerBase';
+import {store} from '../../store';
+
+export class AboutUs extends ReducerBase {
   render() {
-    let data = this.props.data;
-    let list = data.list.map((item, index) => {
+    let state = store.getState();
+    let doc = state.about_us.data;
+
+    let list = doc.data.list.map((item, index) => {
       return (
       <div key={index + 10}>
         <hr />
@@ -26,8 +31,8 @@ export class AboutUs extends React.Component {
         <br />
         <div className="row">
           <div className="col-md-12">
-            <h3>{data.title}</h3>
-            <div>{ReactHtmlParser(data.description)}</div>
+            <h3>{doc.data.title}</h3>
+            <div>{ReactHtmlParser(doc.data.description)}</div>
           </div>
         </div>
         <br />

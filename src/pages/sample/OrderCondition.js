@@ -1,9 +1,12 @@
 import React from 'react';
+import {ReducerBase} from '../../ReducerBase';
+import {store} from '../../store';
 
-export class OrderCondition extends React.Component {
+export class OrderCondition extends ReducerBase {
   render() {
-    let data = this.props.data;
-    let conditions = data.list.map((item, index) => {
+    let state = store.getState();
+    let doc = state.order_condition.data;
+    let conditions = doc.data.list.map((item, index) => {
       return (<li key={index}>{item.title}</li>);
     });
 

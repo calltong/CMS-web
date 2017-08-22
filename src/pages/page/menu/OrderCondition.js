@@ -2,28 +2,33 @@ import React from 'react';
 
 import ButtonBase from './content/ButtonBase';
 import ButtonContent from './content/ButtonContent';
+
+import {ReducerBase} from '../../../ReducerBase';
+import {store} from '../../../store';
 import {actions} from '../../../actions/Action';
 
-export default class OrderCondition extends React.Component {
+export default class OrderCondition extends ReducerBase {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    actions.page.order_condition.selectMenu(index);
   }
 
   onAdd() {
-    actions.orderConditionPage.addItem();
+    actions.page.order_condition.addItem();
   }
 
   onUpItem(index) {
-    actions.orderConditionPage.upItem(index);
+    actions.page.order_condition.upItem(index);
   }
 
   onRemoveItem(index) {
-    actions.orderConditionPage.removeItem(index);
+    actions.page.order_condition.removeItem(index);
   }
 
   render() {
-    let selected = this.props.selected;
-    let list = this.props.list.map((item, index) => {
+    let state = store.getState();
+    let manage = state.order_condition.manage;
+    let doc = state.order_condition.data;
+    let list = doc.data.list.map((item, index) => {
       let name = `เงื่อนไข ${index + 1}`;
       return { name };
     });
@@ -31,10 +36,10 @@ export default class OrderCondition extends React.Component {
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
         title="เงื่อนไขการสั่งซื้อ"
-        selected={selected.level_2}
+        selected={manage.index}
         onChange={this.onChange} >
         <ButtonContent
-          selected={selected.level_2}
+          selected={manage.index}
           list={list}
           onChange={this.onChange}
           onUpItem={this.onUpItem}

@@ -7,110 +7,112 @@ export class Home {
   }
 
   selectMenu(index) {
-    let manage = store.getState().homePage.manage;
+    let manage = store.getState().home.manage;
     manage.index = index;
     store.update('HOME_SET_SELECTED', {data: manage});
   }
 
+  selectSubMenu(index) {
+    let manage = store.getState().home.manage;
+    manage.level_2 = index;
+    store.update('HOME_SET_SELECTED', {data: manage});
+  }
+
+  resetSelectMenu() {
+    let manage = store.getState().home.manage;
+    let isReset = false;
+    if (manage.index !== undefined || manage.level_2 !== undefined) {
+      manage.index = undefined;
+      manage.level_2 = undefined;
+      isReset = true;
+    }
+
+    store.update('HOME_SET_SELECTED', {data: manage});
+    return isReset;
+  }
+
   addContent(content) {
-    let data = store.getState().page.data;
-    data.content_list.push(content);
-    store.update('HOME_SET_CONTENT', {data: data.content_list});
+    let doc = store.getState().home.data;
+    doc.data.content_list.push(content);
+    store.update('HOME_SET_CONTENT', {data: doc.data.content_list});
   }
 
   upContent(index) {
     if (index > 0) {
-      let page = store.getState().page;
-      let data = page.data;
-      let upItem = data.content_list[index];
-      let downItem = data.content_list[index - 1];
+      let doc = store.getState().home.data;
+      let list = doc.data.content_list;
+      let upItem = list[index];
+      let downItem = list[index - 1];
 
-      data.content_list[index - 1] = upItem;
-      data.content_list[index] = downItem;
-      store.update('HOME_SET_CONTENT', {data: data.content_list});
+      list[index - 1] = upItem;
+      list[index] = downItem;
+      store.update('HOME_SET_CONTENT', {data: list});
 
-      //actions.page.selectMenuLevel2(index - 1);
+      //this.selectMenu(index - 1);
     }
   }
 
   removeContent(index) {
-    let page = store.getState().page;
-    let data = page.data;
-    data.content_list.splice(index, 1);
-    store.update('PAGE_SET_CONTENT', {data: data.content_list});
+    let doc = store.getState().home.data;
+    let list = doc.data.content_list;
+    list.splice(index, 1);
+    store.update('HOME_SET_CONTENT', {data: list});
 
-    //actions.page.selectMenuLevel2(undefined);
+    //this.selectMenu(undefined);
   }
 
   setContent(index, item) {
-    let data = store.getState().page.data;
-    data.content_list[index] = item;
-    store.update('PAGE_SET_CONTENT', {data: data.content_list});
+    let doc = store.getState().home.data;
+    let list = doc.data.content_list;
+    list[index] = item;
+    store.update('HOME_SET_CONTENT', {data: list});
   }
 
-  addItem(index, item) {
-    let data = store.getState().page.data;
-    let content = data.content_list[index];
+  addItem(item) {
+    let home = store.getState().home;
+    let index = home.manage.index;
+    let doc = home.data;
+    let content = doc.data.content_list[index];
     content.data.list.push(item);
 
-    store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
+    store.update('HOME_SET_CONTENT_ITEM', {index, data: content});
   }
 
-  removeItem(index, indexItem) {
-    let data = store.getState().page.data;
-    let content = data.content_list[index];
+  removeItem(indexItem) {
+    let home = store.getState().home;
+    let index = home.manage.index;
+    let doc = home.data;
+    let content = doc.data.content_list[index];
     content.data.list.splice(indexItem, 1);
-    store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
+    store.update('HOME_SET_CONTENT_ITEM', {index, data: content});
+
+    this.selectSubMenu(undefined);
   }
 
-  setItem(index, indexItem, item) {
-    let data = store.getState().page.data;
-    let content = data.content_list[index];
+  setItem(indexItem, item) {
+    let home = store.getState().home;
+    let index = home.manage.index;
+    let doc = home.data;
+    let content = doc.data.content_list[index];
     content.data.list[indexItem] = item;
-    store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
+    store.update('HOME_SET_CONTENT_ITEM', {index, data: content});
   }
 
-  upItem(index, indexItem) {
+  upItem(indexItem) {
     if (indexItem > 0) {
-      let page = store.getState().page;
-      let data = page.data;
-      let content = data.content_list[index];
+      let home = store.getState().home;
+      let index = home.manage.index;
+      let doc = home.data;
+      let content = doc.data.content_list[index];
 
       let upItem = content.data.list[indexItem];
       let downItem = content.data.list[indexItem - 1];
 
       content.data.list[indexItem - 1] = upItem;
       content.data.list[indexItem] = downItem;
-      store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
-
-      //actions.page.selectMenuLevel3(indexItem - 1);
+      store.update('HOME_SET_CONTENT_ITEM', {index, data: content});
+      this.selectSubMenu(indexItem - 1);
     }
-  }
-
-  addL3Item(index, indexL2, item) {
-    let data = store.getState().page.data;
-    let content = data.content_list[index];
-    content.data.list.push(item);
-
-    store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
-  }
-
-  removeL3Item(index, indexL2, IndexL3) {
-    let data = store.getState().page.data;
-    let content = data.content_list[index];
-    content.data.list.splice(indexL2, 1);
-    store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
-  }
-
-  setL3Item(index, indexL2, item) {
-    let data = store.getState().page.data;
-    let content = data.content_list[index];
-    content.data.list[indexL2] = item;
-    store.update('PAGE_SET_CONTENT_ITEM', {index, data: content});
-  }
-
-  selectProduct(product) {
-    store.update('PAGE_SET_CONTENT_ITEM', {data: product});
   }
 }
 

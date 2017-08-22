@@ -18,12 +18,12 @@ import './css/plugins/morris.css';
 import './CSSstore/header-menu.css';
 import './CSSstore/help-page.css';
 import './CSSstore/footer.css';
-import './CSSstore/brand-content.css';
-import './CSSstore/col-3-content.css';
-import './CSSstore/col-4-content.css';
-import './CSSstore/product-category-content.css';
-import './CSSstore/slide-content.css';
-import './CSSstore/block-content.css';
+import './CSSstore/page/brand-content.css';
+import './CSSstore/page/col-3-content.css';
+import './CSSstore/page/col-4-content.css';
+import './CSSstore/page/product-category-content.css';
+import './CSSstore/page/slide-content.css';
+import './CSSstore/page/block-content.css';
 
 import 'font-awesome/css/font-awesome.css';
 import 'react-tagsinput/react-tagsinput.css';

@@ -6,7 +6,7 @@ import {actions} from '../../../../actions/Action';
 export default class Item extends React.Component {
   titleChange(event) {
     this.data.title = event.target.value;
-    actions.orderConditionPage.setItem(this.props.index, this.data);
+    actions.page.order_condition.setItem(this.props.index, this.data);
   }
 
   render() {

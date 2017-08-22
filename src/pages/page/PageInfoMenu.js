@@ -10,18 +10,14 @@ import {actions} from '../../actions/Action';
 
 export default class PageInfoMenu extends React.Component {
   onSave() {
-    actions.page.saveItem();
-    //store.update('PAGE_SAVE_ITEM');
+    actions.page.main.saveAllPage();
   }
 
   onBuild() {
-    //let id = this.props.params.id;
-    //store.update('PAGE_GEN_PAGE', {id});
+    actions.page.main.buildPage();
   }
 
   onReset() {
-    //let id = this.props.params.id;
-    //store.update('PAGE_GEN_PAGE', {id});
   }
 
   onDisplayMenu() {

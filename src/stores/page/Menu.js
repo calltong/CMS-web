@@ -36,6 +36,7 @@ export const reducer = new Reducer({
   data: _.cloneDeep(page_data),
   manage: {
     index: undefined,
+    level_2: undefined,
   },
 });
 

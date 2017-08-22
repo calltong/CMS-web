@@ -8,20 +8,20 @@ export default class Main extends React.Component {
   colorBgChange(color) {
     let data = this.data;
     data.css.bg_color = color;
-    actions.footerPage.setMain(this.data);
+    actions.page.footer.setMain(this.data);
   }
 
   colorChange(color) {
     let data = this.data;
     data.css.color = color;
-    actions.footerPage.setMain(this.data);
+    actions.page.footer.setMain(this.data);
   }
 
   fontChange(font, size) {
     let data = this.data;
     data.css.font = font;
     data.css.size = size;
-    actions.footerPage.setMain(this.data);
+    actions.page.footer.setMain(this.data);
   }
 
   render() {

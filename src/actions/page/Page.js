@@ -25,31 +25,41 @@ export class Page {
   }
 
   getAboutus() {
-    let url = `${config.api.url}/page/aboutus`;
+    let url = `${config.api.url}/page/about_us/modify`;
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
-        actions.page.about_us.setData(data);
+        actions.page.about_us.setMain(data);
       }
     });
   }
 
   getHowToBuy() {
-    let url = `${config.api.url}/page/howtobuy`;
+    let url = `${config.api.url}/page/how_to_buy/modify`;
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
-        actions.page.how_to_buy.setData(data);
+        actions.page.how_buy.setMain(data);
       }
     });
   }
 
   getOrderCondition() {
-    let url = `${config.api.url}/page/ordercondition`;
+    let url = `${config.api.url}/page/order_condition/modify`;
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
-        actions.page.order_condition.setData(data);
+        actions.page.order_condition.setMain(data);
+      }
+    });
+  }
+
+  buildPage() {
+    let url = `${config.api.url}/page/build`;
+    http.put(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        console.log('build:', data);
       }
     });
   }
@@ -96,31 +106,29 @@ export class Page {
 
   backMenu() {
     let data = store.getState().page.manage.selected;
-    if (data.main === 'Home' || data.main === 'Footer') {
-      if (data.level_3 !== undefined) {
-        data.level_2 = undefined;
-        data.level_3 = undefined;
-      } else if (data.level_2 !== undefined) {
-        data.level_2 = undefined;
-      } else {
-        data.main = undefined;
-        data.level_2 = undefined;
-        data.level_3 = undefined;
-      }
-    } else {
-      data.main = undefined;
-      data.level_2 = undefined;
-      data.level_3 = undefined;
+    let isReset = false;
+    switch (data.main) {
+      case 'Menu':
+        isReset = actions.page.menu.resetSelectMenu();
+        break;
+      case 'Footer':
+        isReset = actions.page.footer.resetSelectMenu();
+        break;
+      case 'Home':
+        isReset = actions.page.home.resetSelectMenu();
+        break;
+      default:
     }
 
-    store.update('PAGE_MENU_SELECTED', {data});
+    if (isReset === false) {
+      data.main = undefined;
+      store.update('PAGE_MENU_SELECTED', {data});
+    }
   }
 
   selectMenu(index) {
     let data = store.getState().page.manage.selected;
     data.main = index;
-    data.level_2 = undefined;
-    data.level_3 = undefined;
     store.update('PAGE_MENU_SELECTED', {data});
     switch (index) {
       case 'Menu':
@@ -132,19 +140,6 @@ export class Page {
       default:
         break;
     }
-  }
-
-  selectMenuLevel2(index) {
-    let data = store.getState().page.manage.selected;
-    data.level_2 = index;
-    data.level_3 = undefined;
-    store.update('PAGE_MENU_SELECTED', {data});
-  }
-
-  selectMenuLevel3(index) {
-    let data = store.getState().page.manage.selected;
-    data.level_3 = index;
-    store.update('PAGE_MENU_SELECTED', {data});
   }
 }
 

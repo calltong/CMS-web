@@ -19,15 +19,15 @@ export default class Main extends React.Component {
   }
 
   onAdd() {
-    actions.contentPage.addContent({});
+    actions.page.home.addContent({});
   }
 
   onUpItem(index) {
-    actions.contentPage.upContent(index);
+    actions.page.home.upContent(index);
   }
 
   onRemoveItem(index) {
-    actions.contentPage.removeContent(index);
+    actions.page.home.removeContent(index);
   }
 
   getImageContent(type) {

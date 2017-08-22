@@ -15,7 +15,7 @@ export default class Footer extends ReducerBase {
     let doc = state.menu.data;
     let content = <div />;
     if (manage.index === undefined) {
-      content = <Main data={this.props.data.footer} />;
+      content = <Main data={doc.data} />;
     } else {
       let val = doc.data.footer.list[manage.index];
       switch (val.type) {
@@ -27,7 +27,7 @@ export default class Footer extends ReducerBase {
             content = <Header index={manage.index} data={val} />;
           } else {
             let item = val.data.items[manage.level_2];
-            content = <Text index={manage} data={item} />;
+            content = <Text index={manage.index} level_2={manage.level_2} data={item} />;
           }
           break;
         case 'social':
@@ -35,7 +35,7 @@ export default class Footer extends ReducerBase {
             content = <Header index={manage.index} data={val} />;
           } else {
             let item = val.data.items[manage.level_2];
-            content = <Social index={manage} data={item} />;
+            content = <Social index={manage.index} level_2={manage.level_2} data={item} />;
           }
           break;
         case 'information':

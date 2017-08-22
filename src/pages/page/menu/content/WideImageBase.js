@@ -3,13 +3,6 @@ import React from 'react';
 import AddButton from '../../../../forms/button/AddButton';
 
 export default class ImageBase extends React.Component {
-  onChange(index) {
-    this.props.onChange(index);
-  }
-
-  onAdd() {
-    //actions.page.addMenuItem();
-  }
 
   render() {
     let css = {

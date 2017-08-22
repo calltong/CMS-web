@@ -12,7 +12,7 @@ import Home from './menu/Home';
 import Footer from './menu/Footer';
 import AboutUs from './menu/AboutUs';
 import OrderCondition from './menu/OrderCondition';
-import ToBuy from './menu/ToBuy';
+import HowBuy from './menu/HowBuy';
 
 export default class PageMenu extends ReducerBase {
   onBack() {
@@ -70,7 +70,7 @@ export default class PageMenu extends ReducerBase {
           menus = <OrderCondition />;
           break;
         case 'HowToBuy':
-          menus = <ToBuy />;
+          menus = <HowBuy />;
           break;
         case 'AboutUs':
           menus = <AboutUs />;

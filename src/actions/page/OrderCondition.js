@@ -1,50 +1,51 @@
 import {store} from '../../store';
-import {actions} from '../Action';
 
 export class OrderCondition {
-  setMain(val) {
-    let data = store.getState().page.data;
-    data.condition = val;
-    store.update('PAGE_STORE_ITEM', {data: data});
+  setMain(data) {
+    store.update('ORDER_CONDITION_SET_DATA', {data: data});
+  }
+
+  selectMenu(index) {
+    let manage = store.getState().order_condition.manage;
+    manage.index = index;
+    store.update('ORDER_CONDITION_SET_SELECTED', {data: manage});
   }
 
   addItem() {
-    let data = store.getState().page.data;
+    let doc = store.getState().order_condition.data;
     let item = {
       title: '',
     };
-    data.condition.list.push(item);
-    store.update('PAGE_STORE_ITEM', {data: data});
+    doc.data.list.push(item);
+    store.update('ORDER_CONDITION_SET_DATA', {data: doc});
   }
 
   upItem(index) {
     if (index > 0) {
-      let page = store.getState().page;
-      let data = page.data;
-      let upItem = data.condition.list[index];
-      let downItem = data.condition.list[index - 1];
+      let doc = store.getState().order_condition.data;
+      let upItem = doc.data.list[index];
+      let downItem = doc.data.list[index - 1];
 
-      data.condition.list[index - 1] = upItem;
-      data.condition.list[index] = downItem;
-      store.update('PAGE_STORE_ITEM', {data: data});
+      doc.data.list[index - 1] = upItem;
+      doc.data.list[index] = downItem;
+      store.update('ORDER_CONDITION_SET_DATA', {data: doc});
 
-      actions.page.selectMenuLevel2(index - 1);
+      this.selectMenu(index - 1);
     }
   }
 
   removeItem(index) {
-    let page = store.getState().page;
-    let data = page.data;
-    data.condition.list.splice(index, 1);
-    store.update('PAGE_STORE_ITEM', {data: data});
+    let doc = store.getState().order_condition.data;
+    doc.data.list.splice(index, 1);
+    store.update('ORDER_CONDITION_SET_DATA', {data: doc});
 
-    actions.page.selectMenuLevel2(undefined);
+    this.selectMenu(undefined);
   }
 
   setItem(index, item) {
-    let data = store.getState().page.data;
-    data.condition.list[index] = item;
-    store.update('PAGE_STORE_ITEM', {data: data});
+    let doc = store.getState().order_condition.data;
+    doc.data.list[index] = item;
+    store.update('ORDER_CONDITION_SET_DATA', {data: doc});
   }
 }
 

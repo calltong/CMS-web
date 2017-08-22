@@ -3,15 +3,15 @@ import React from 'react';
 import {actions} from '../../../../actions/Action';
 import EnText from '../../../../forms/EnText';
 
-export default class TitleProperty extends React.Component {
+export default class Title extends React.Component {
   titleChange(event) {
     this.content.data.title = event.target.value;
-    actions.homePage.setContent(this.props.index, this.item);
+    actions.page.home.setContent(this.props.index, this.content);
   }
 
   desChange(event) {
     this.content.data.description = event.target.value;
-    actions.homePage.setContent(this.props.index, this.item);
+    actions.page.home.setContent(this.props.index, this.content);
   }
 
   render() {

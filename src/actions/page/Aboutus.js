@@ -1,52 +1,53 @@
 import {store} from '../../store';
-import {actions} from '../Action';
 
 export class Aboutus {
-  setMain(val) {
-    let data = store.getState().page.data;
-    data.about_us = val;
-    store.update('PAGE_STORE_ITEM', {data: data});
+  setMain(data) {
+    store.update('ABOUT_SET_DATA', {data: data});
+  }
+
+  selectMenu(index) {
+    let manage = store.getState().about_us.manage;
+    manage.index = index;
+    store.update('ABOUT_SET_SELECTED', {data: manage});
   }
 
   addItem() {
-    let data = store.getState().page.data;
+    let doc = store.getState().about_us.data;
     let item = {
       title: '',
       description: '',
       preview: '',
     };
-    data.about_us.list.push(item);
-    store.update('PAGE_STORE_ITEM', {data: data});
+    doc.data.list.push(item);
+    store.update('ABOUT_SET_DATA', {data: doc});
   }
 
   upItem(index) {
     if (index > 0) {
-      let page = store.getState().page;
-      let data = page.data;
-      let upItem = data.about_us.list[index];
-      let downItem = data.about_us.list[index - 1];
+      let doc = store.getState().about_us.data;
+      let upItem = doc.data.list[index];
+      let downItem = doc.data.list[index - 1];
 
-      data.about_us.list[index - 1] = upItem;
-      data.about_us.list[index] = downItem;
-      store.update('PAGE_STORE_ITEM', {data: data});
+      doc.data.list[index - 1] = upItem;
+      doc.data.list[index] = downItem;
+      store.update('ABOUT_SET_DATA', {data: doc});
 
-      actions.page.selectMenuLevel2(index - 1);
+      this.selectMenu(index - 1);
     }
   }
 
   removeItem(index) {
-    let page = store.getState().page;
-    let data = page.data;
-    data.about_us.list.splice(index, 1);
-    store.update('PAGE_STORE_ITEM', {data: data});
+    let doc = store.getState().about_us.data;
+    doc.data.list.splice(index, 1);
+    store.update('ABOUT_SET_DATA', {data: doc});
 
-    actions.page.selectMenuLevel2(undefined);
+    this.selectMenu(undefined);
   }
 
   setItem(index, item) {
-    let data = store.getState().page.data;
-    data.about_us.list[index] = item;
-    store.update('PAGE_STORE_ITEM', {data: data});
+    let doc = store.getState().about_us.data;
+    doc.data.list[index] = item;
+    store.update('ABOUT_SET_DATA', {data: doc});
   }
 }
 

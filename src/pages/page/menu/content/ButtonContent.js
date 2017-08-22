@@ -25,7 +25,6 @@ export default class ButtonContent extends React.Component {
     let selected = this.props.selected;
     let list = this.props.list;
     let menus = <div />;
-
     menus = list.map((item, index) => {
       let btnUp = <div />;
       let btnRemove = <div />;
@@ -41,6 +40,7 @@ export default class ButtonContent extends React.Component {
           onClick={this.onRemoveItem.bind(this, index)}
           className="pmenu-sub-action" />;
       }
+
       return (
         <div key={index}>
           <EnButton

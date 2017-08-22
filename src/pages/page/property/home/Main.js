@@ -3,7 +3,7 @@ import React from 'react';
 import PickerColor from '../../../../forms/PickerColor';
 import TextSetting from '../TextSetting';
 
-export default class MainHomeProperty extends React.Component {
+export default class Main extends React.Component {
   colorBgChange(color) {
 
   }

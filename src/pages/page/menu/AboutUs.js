@@ -2,28 +2,33 @@ import React from 'react';
 
 import ButtonBase from './content/ButtonBase';
 import ButtonContent from './content/ButtonContent';
+
+import {ReducerBase} from '../../../ReducerBase';
+import {store} from '../../../store';
 import {actions} from '../../../actions/Action';
 
-export default class AboutUs extends React.Component {
+export default class AboutUs extends ReducerBase {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    actions.page.about_us.selectMenu(index);
   }
 
   onAdd() {
-    actions.aboutusPage.addItem();
+    actions.page.about_us.addItem();
   }
 
   onUpItem(index) {
-    actions.aboutusPage.upItem(index);
+    actions.page.about_us.upItem(index);
   }
 
   onRemoveItem(index) {
-    actions.aboutusPage.removeItem(index);
+    actions.page.about_us.removeItem(index);
   }
 
   render() {
-    let selected = this.props.selected;
-    let list = this.props.list.map((item, index) => {
+    let state = store.getState();
+    let manage = state.about_us.manage;
+    let doc = state.about_us.data;
+    let list = doc.data.list.map((item, index) => {
       let name = `สาขา ${index + 1}`;
       return { name };
     });
@@ -31,10 +36,10 @@ export default class AboutUs extends React.Component {
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
         title="เกี่ยวกับร้าน"
-        selected={selected.level_2}
+        selected={manage.index}
         onChange={this.onChange} >
         <ButtonContent
-          selected={selected.level_2}
+          selected={manage.index}
           list={list}
           onChange={this.onChange}
           onUpItem={this.onUpItem}

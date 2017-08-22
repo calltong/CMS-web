@@ -38,12 +38,12 @@ reducer.register('HOME_SET_SELECTED', (state, action) => {
 
 reducer.register('HOME_SET_CONTENT', (state, action) => {
   let {data} = action.params;
-  state.data.content_list = data;
+  state.data.data.content_list = data;
   return state;
 });
 
 reducer.register('HOME_SET_CONTENT_ITEM', (state, action) => {
   let {index, data} = action.params;
-  state.data.content_list[index] = data;
+  state.data.data.content_list[index] = data;
   return state;
 });

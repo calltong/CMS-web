@@ -2,15 +2,9 @@ import React from 'react';
 
 import AddButton from '../../../../forms/button/AddButton';
 
-import {actions} from '../../../../actions/Action';
-
 export default class ImageBase extends React.Component {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
-  }
-
-  onAdd() {
-    //actions.page.addMenuItem();
+    this.props.onChange(index);
   }
 
   render() {

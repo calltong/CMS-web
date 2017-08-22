@@ -20,8 +20,6 @@ export const reducer = new Reducer({
   manage: {
     selected: {
       main: undefined,
-      level_2: undefined,
-      level_3: undefined,
     },
     menu: [
       {

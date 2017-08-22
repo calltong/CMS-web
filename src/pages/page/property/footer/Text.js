@@ -7,18 +7,16 @@ import {actions} from '../../../../actions/Action';
 export default class Text extends React.Component {
   typeChange(value) {
     let item = this.item;
-    let index = this.props.index;
     item.type = value.value;
     item.value = '';
-    actions.footerPage.setSubItem(index.level_2, index.level_3, item);
+    actions.page.footer.setSubItem(this.props.index, this.props.level_2, item);
   }
 
   textChange(event) {
     let item = this.item;
-    let index = this.props.index;
     item.value = event.target.value;
 
-    actions.footerPage.setSubItem(index.level_2, index.level_3, item);
+    actions.page.footer.setSubItem(this.props.index, this.props.level_2, item);
   }
 
   render() {

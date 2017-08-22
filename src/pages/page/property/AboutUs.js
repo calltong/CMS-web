@@ -1,17 +1,22 @@
 import React from 'react';
+import {ReducerBase} from '../../../ReducerBase';
+import {store} from '../../../store';
 
 import Title from './aboutus/Title';
 import Item from './aboutus/Item';
 
-export default class AboutUs extends React.Component {
+export default class AboutUs extends ReducerBase {
   render() {
-    let selected = this.props.selected;
+    let state = store.getState();
+    let manage = state.about_us.manage;
+    let doc = state.about_us.data;
+
     let content = <div />;
-    if (selected.level_2 === undefined) {
-      content = <Title data={this.props.data.about_us} />;
+    if (manage.index === undefined) {
+      content = <Title data={doc.data} />;
     } else {
-      let item = this.props.data.about_us.list[selected.level_2];
-      content = <Item index={selected.level_2} data={item} />;
+      let item = doc.data.list[manage.index];
+      content = <Item index={manage.index} data={item} />;
     }
     return (
       <div>

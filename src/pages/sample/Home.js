@@ -15,21 +15,21 @@ export class Home extends ReducerBase {
     let state = store.getState();
     let page = state.page;
     let menu = state.menu.data;
-    let home = state.homePage.data;
 
     let selected = page.manage.selected;
     let body = <div />;
     switch (selected.main) {
       case 'AboutUs':
-        body = <AboutUs data={page.about_us} />;
+        body = <AboutUs />;
         break;
       case 'HowToBuy':
-        body = <HowToBuy data={page.how_to_buy} />;
+        body = <HowToBuy/>;
         break;
       case 'OrderCondition':
-        body = <OrderCondition data={page.condition} />;
+        body = <OrderCondition />;
         break;
       default:
+        let home = state.home.data;
         body = <Builder list={home.data.content_list} />;
         break;
 

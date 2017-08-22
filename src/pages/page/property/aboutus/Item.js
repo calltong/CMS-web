@@ -17,7 +17,7 @@ export default class Item extends React.Component {
         // access image size here
         let data = event.target.result;
         item.preview = data;
-        actions.aboutusPage.setItem(index, item);
+        actions.page.about_us.setItem(index, item);
       };
     };
     reader.readAsDataURL(files[0]);
@@ -25,18 +25,17 @@ export default class Item extends React.Component {
 
   titleChange(event) {
     this.data.title = event.target.value;
-    actions.aboutusPage.setItem(this.props.index, this.data);
+    actions.page.about_us.setItem(this.props.index, this.data);
   }
 
   descriptionChange(event) {
     this.data.description = event.target.value;
-    actions.aboutusPage.setItem(this.props.index, this.data);
+    actions.page.about_us.setItem(this.props.index, this.data);
   }
 
   render() {
     this.data = this.props.data;
     let data = this.data;
-    console.log('aite:', data);
     return (
       <div>
         <div className="form-group">

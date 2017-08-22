@@ -1,5 +1,4 @@
 import {store} from '../../store';
-//import {actions} from '../Action';
 
 export class Menu {
   setMain(data) {
@@ -10,6 +9,15 @@ export class Menu {
     let manage = store.getState().menu.manage;
     manage.index = index;
     store.update('MENU_SET_SELECTED', {data: manage});
+  }
+
+  resetSelectMenu() {
+    let manage = store.getState().menu.manage;
+    manage.index = undefined;
+    manage.level_2 = undefined;
+    store.update('MENU_SET_SELECTED', {data: manage});
+
+    return false;
   }
 
   addItem() {
@@ -33,7 +41,7 @@ export class Menu {
       doc.data.menu.list[index] = downItem;
       store.update('MENU_SET_DATA', {data: doc});
 
-      //actions.page.selectMenuLevel2(index - 1);
+      this.selectMenu(index - 1);
     }
   }
 
@@ -42,7 +50,7 @@ export class Menu {
     doc.data.menu.list.splice(index, 1);
     store.update('MENU_SET_DATA', {data: doc});
 
-    //actions.page.selectMenuLevel2(undefined);
+    this.selectMenu(undefined);
   }
 
   setItem(index, item) {

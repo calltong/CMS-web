@@ -4,12 +4,12 @@ import {action as size} from './Size';
 import {action as order} from './OrderAction';
 import {action as ecommerce} from './EcommerceAction';
 import {action as page} from './page/Page';
-import {action as menuPage} from './page/Menu';
-import {action as homePage} from './page/Home';
-import {action as footerPage} from './page/Footer';
-import {action as aboutusPage} from './page/Aboutus';
-import {action as orderConditionPage} from './page/OrderCondition';
-import {action as toBuyPage} from './page/HowToBuy';
+import {action as menu} from './page/Menu';
+import {action as home} from './page/Home';
+import {action as footer} from './page/Footer';
+import {action as aboutus} from './page/Aboutus';
+import {action as orderCondition} from './page/OrderCondition';
+import {action as toBuy} from './page/HowBuy';
 import {action as dialog} from './DialogAction';
 
 export const actions = {
@@ -21,17 +21,11 @@ export const actions = {
   dialog,
   page: {
     main: page,
-    menu: menuPage,
-    footer: footerPage,
-    home: homePage,
-    about_us: aboutusPage,
-    order_condition: orderConditionPage,
-    how_to_buy: toBuyPage,
+    menu: menu,
+    footer: footer,
+    home: home,
+    about_us: aboutus,
+    order_condition: orderCondition,
+    how_buy: toBuy,
   },
-  menuPage,
-  homePage,
-  footerPage,
-  aboutusPage,
-  orderConditionPage,
-  toBuyPage,
 };

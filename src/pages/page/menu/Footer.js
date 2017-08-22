@@ -23,26 +23,24 @@ export default class Footer extends ReducerBase {
     actions.page.footer.removeItem(index);
   }
 
-  onAddSocial(index) {
+  onAddSocial() {
     let item = {
       type: 'facebook',
       url: '',
     };
-    actions.page.footer.addSubItem(index, item);
+    actions.page.footer.addSubItem(item);
   }
 
-  onL3Change(index) {
+  onSubChange(index) {
     actions.page.footer.selectSubMenu(index);
   }
 
-  onUpL3Item(index) {
-    let i = this.manage.index;
-    actions.page.footer.upSubItem(i, index);
+  onUpSubItem(index) {
+    actions.page.footer.upSubItem(index);
   }
 
-  onRemoveL3Item(index) {
-    let i = this.manage.index;
-    actions.page.footer.removeSubItem(i, index);
+  onRemoveSubItem(index) {
+    actions.page.footer.removeSubItem(index);
   }
 
   getName(val) {
@@ -112,14 +110,13 @@ export default class Footer extends ReducerBase {
         onAdd={this.onAddSocial.bind(this, selected.index)}
         title="Social"
         selected={selected.level_2}
-        onChange={this.onL3Change} >
+        onChange={this.onSubChange} >
         <ButtonContent
           selected={selected.level_2}
-          index={selected}
           list={val}
-          onChange={this.onL3Change}
-          onUpItem={this.onUpL3Item}
-          onRemoveItem={this.onRemoveL3Item} />
+          onChange={this.onSubChange}
+          onUpItem={this.onUpSubItem}
+          onRemoveItem={this.onRemoveSubItem} />
       </ButtonBase>
     );
 
@@ -139,14 +136,14 @@ export default class Footer extends ReducerBase {
         onAdd={this.onAddSocial.bind(this, selected.index)}
         title="แบบข้อความ"
         selected={selected.level_2}
-        onChange={this.onL3Change} >
+        onChange={this.onSubChange} >
         <ButtonContent
           selected={selected.level_2}
           index={selected}
           list={val}
-          onChange={this.onL3Change}
-          onUpItem={this.onUpL3Item}
-          onRemoveItem={this.onRemoveL3Item} />
+          onChange={this.onSubChange}
+          onUpItem={this.onUpSubItem}
+          onRemoveItem={this.onRemoveSubItem} />
       </ButtonBase>
     );
 
@@ -164,11 +161,11 @@ export default class Footer extends ReducerBase {
       <ButtonBase
         title="เกี่ยวกับร้าน"
         selected={selected.level_2}
-        onChange={this.onL3Change} >
+        onChange={this.onSubChange} >
         <ButtonContent
           selected={selected.level_2}
           list={val}
-          onChange={this.onL3Change} />
+          onChange={this.onSubChange} />
       </ButtonBase>
     );
 
@@ -181,23 +178,23 @@ export default class Footer extends ReducerBase {
     let doc = state.menu.data;
 
     let list = doc.data.footer.list;
-    let isDefault = true;
     let content = (<div />);
     if (manage.index !== undefined) {
       let item = list[manage.index];
-      if (item.type === 'social') {
-        content = this.createSocial(item.data.items, manage);
-        isDefault = false;
-      } else if (item.type === 'text') {
-        content = this.createText(item.data.items, manage);
-        isDefault = false;
-      } else if (item.type === 'information') {
-        content = this.createInformation(item.data.items, manage);
-        isDefault = false;
+      switch (item.type) {
+        case 'social':
+          content = this.createSocial(item.data.items, manage);
+          break;
+        case 'text':
+          content = this.createText(item.data.items, manage);
+          break;
+        case 'information':
+          content = this.createInformation(item.data.items, manage);
+          break;
+        default:
+          content = this.createDefault(list, manage);
       }
-    }
-
-    if (isDefault) {
+    } else {
       content = this.createDefault(list, manage);
     }
 

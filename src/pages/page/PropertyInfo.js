@@ -9,13 +9,12 @@ import HomeProperty from './property/HomeProperty';
 import Footer from './property/Footer';
 import AboutUs from './property/AboutUs';
 import OrderCondition from './property/OrderCondition';
-import ToBuy from './property/ToBuy';
+import HowBuy from './property/HowBuy';
 
 export default class PropertyInfo extends ReducerBase {
 
   render() {
     let page = store.getState().page;
-    let data = page.data;
     let manage = page.manage;
     let selected = manage.selected;
     let info = (<div />);
@@ -25,19 +24,19 @@ export default class PropertyInfo extends ReducerBase {
           info = <MenuProperty />;
           break;
         case 'Home':
-          info = <HomeProperty selected={selected} data={data} />;
+          info = <HomeProperty />;
           break;
         case 'Footer':
-          info = <Footer selected={selected} data={data} />;
+          info = <Footer />;
           break;
         case 'OrderCondition':
-          info = <OrderCondition selected={selected} data={data} />;
+          info = <OrderCondition />;
           break;
         case 'AboutUs':
-          info = <AboutUs selected={selected} data={data} />;
+          info = <AboutUs />;
           break;
         case 'HowToBuy':
-          info = <ToBuy selected={selected} data={data} />;
+          info = <HowBuy />;
           break;
         default:
           info = (<div />);

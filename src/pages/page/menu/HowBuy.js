@@ -2,28 +2,33 @@ import React from 'react';
 
 import ButtonBase from './content/ButtonBase';
 import ButtonContent from './content/ButtonContent';
+
+import {ReducerBase} from '../../../ReducerBase';
+import {store} from '../../../store';
 import {actions} from '../../../actions/Action';
 
-export default class ToBuy extends React.Component {
+export default class HowBuy extends ReducerBase {
   onChange(index) {
-    actions.page.selectMenuLevel2(index);
+    actions.page.how_buy.selectMenu(index);
   }
 
   onAdd() {
-    actions.toBuyPage.addItem();
+    actions.page.how_buy.addItem();
   }
 
   onUpItem(index) {
-    actions.toBuyPage.upItem(index);
+    actions.page.how_buy.upItem(index);
   }
 
   onRemoveItem(index) {
-    actions.toBuyPage.removeItem(index);
+    actions.page.how_buy.removeItem(index);
   }
 
   render() {
-    let selected = this.props.selected;
-    let list = this.props.list.map((item, index) => {
+    let state = store.getState();
+    let manage = state.how_buy.manage;
+    let doc = state.how_buy.data;
+    let list = doc.data.list.map((item, index) => {
       let name = `ขั้นที่ ${index + 1}`;
       return { name };
     });
@@ -31,10 +36,10 @@ export default class ToBuy extends React.Component {
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
         title="วิธีการสั่งซื้อ"
-        selected={selected.level_2}
+        selected={manage.index}
         onChange={this.onChange} >
         <ButtonContent
-          selected={selected.level_2}
+          selected={manage.index}
           list={list}
           onChange={this.onChange}
           onUpItem={this.onUpItem}

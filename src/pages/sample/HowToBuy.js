@@ -1,9 +1,12 @@
 import React from 'react';
+import {ReducerBase} from '../../ReducerBase';
+import {store} from '../../store';
 
-export class HowToBuy extends React.Component {
+export class HowToBuy extends ReducerBase {
   render() {
-    let data = this.props.data;
-    let list = data.list.map((item, index) => {
+    let state = store.getState();
+    let doc = state.how_buy.data;
+    let list = doc.data.list.map((item, index) => {
       return (
         <div className="col-xs-6 col-sm-6 col-md-3" key={index}>
           <div className="tobuy-step">

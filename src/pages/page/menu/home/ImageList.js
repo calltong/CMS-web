@@ -6,19 +6,19 @@ import UpButton from '../../../../forms/button/UpButton';
 
 export default class ImageList extends React.Component {
   onChange(index) {
-    this.props.onChange(this.props.index, index);
+    this.props.onChange(index);
   }
 
   onAdd() {
-    this.props.onAdd(this.props.index);
+    this.props.onAdd();
   }
 
   onUpItem(index) {
-    this.props.onUp(this.props.index, index);
+    this.props.onUp(index);
   }
 
   onRemoveItem(index) {
-    this.props.onRemove(this.props.index, index);
+    this.props.onRemove(index);
   }
 
   render() {
@@ -31,7 +31,6 @@ export default class ImageList extends React.Component {
     let content = list.map((item, index) => {
       return (
         <div key={index}
-          onClick={this.onChange.bind(this, index)}
           className={selected === index ? 'row pmenu-item-row-selected' : 'row pmenu-item-row'}>
           <div className="col-md-8 pmenu-item">
             <img
