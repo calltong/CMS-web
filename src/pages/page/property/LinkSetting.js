@@ -2,7 +2,6 @@ import React from 'react';
 import Select from 'react-select';
 
 import EnText from '../../../forms/EnText';
-//import EnButton from '../../../forms/button/EnButton';
 import {actions} from '../../../actions/Action';
 import {store} from '../../../store';
 
@@ -109,22 +108,22 @@ export default class LinkSetting extends React.Component {
     return (
       <div className="row">
         <div className="col-md-6">
-        <div className="form-group">
-          <label>ประเภท Link</label>
-          <Select
-            clearable={false}
-            searchable={false}
-            value={item.type}
-            options={options}
-            onChange={this.typeChange.bind(this)} />
-        </div>
+          <div className="form-group">
+            <label>ประเภท Link</label>
+            <Select
+              clearable={false}
+              searchable={false}
+              value={item.type}
+              options={options}
+              onChange={this.typeChange.bind(this)} />
+          </div>
         </div>
 
         <div className="col-md-6">
-        <div className="form-group">
-          <label>Link</label>
-          {valButton}
-        </div>
+          <div className="form-group">
+            <label>Link</label>
+            {valButton}
+          </div>
         </div>
       </div>
     );

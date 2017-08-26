@@ -8,39 +8,39 @@ import {actions} from '../../../../actions/Action';
 export default class MainProperty extends React.Component {
   nameChange(event) {
     this.data.brand.name = event.target.value;
-    actions.menuPage.setMain(this.data);
+    actions.page.menu.setData(this.data);
   }
 
   colorChange(color) {
     let data = this.data;
     data.brand.css.color = color;
-    actions.menuPage.setMain(data);
+    actions.page.menu.setData(data);
   }
 
   fontChange(font, size) {
     let data = this.data;
     data.brand.css.font = font;
     data.brand.css.size = size;
-    actions.menuPage.setMain(data);
+    actions.page.menu.setData(data);
   }
 
   colorBgMenuChange(color) {
     let data = this.data;
     data.css.bg_color = color;
-    actions.menuPage.setMain(data);
+    actions.page.menu.setData(data);
   }
 
   colorMenuChange(color) {
     let data = this.data;
     data.css.color = color;
-    actions.menuPage.setMain(data);
+    actions.page.menu.setData(data);
   }
 
   fontMenuChange(font, size) {
     let data = this.data;
     data.css.font = font;
     data.css.size = size;
-    actions.menuPage.setMain(data);
+    actions.page.menu.setData(data);
   }
 
   render() {

@@ -33,7 +33,7 @@ let page_data = {
 };
 
 export const reducer = new Reducer({
-  data: _.cloneDeep(page_data),
+  doc: _.cloneDeep(page_data),
   manage: {
     index: undefined,
     level_2: undefined,
@@ -45,26 +45,26 @@ reducer.register('MENU_RESET', (state, action) => {
   return state;
 });
 
-reducer.register('MENU_SET_DATA', (state, action) => {
+reducer.register('MENU_DATA', (state, action) => {
   let {data} = action.params;
-  state.data = data;
+  state.doc = data;
   return state;
 });
 
-reducer.register('MENU_SET_SELECTED', (state, action) => {
+reducer.register('MENU_SELECTED', (state, action) => {
   let {data} = action.params;
   state.manage = data;
   return state;
 });
 
-reducer.register('MENU_SET_TOPBRA', (state, action) => {
+reducer.register('MENU_TOP', (state, action) => {
   let {data} = action.params;
-  state.data.data.menu = data;
+  state.doc.data.menu = data;
   return state;
 });
 
-reducer.register('MENU_SET_FOOTER', (state, action) => {
+reducer.register('MENU_FOOTER', (state, action) => {
   let {data} = action.params;
-  state.data.data.footer = data;
+  state.doc.data.footer = data;
   return state;
 });

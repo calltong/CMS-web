@@ -12,10 +12,10 @@ export default class Footer extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.menu.manage;
-    let doc = state.menu.data;
+    let doc = state.menu.doc;
     let content = <div />;
     if (manage.index === undefined) {
-      content = <Main data={doc.data} />;
+      content = <Main data={doc.data.footer} />;
     } else {
       let val = doc.data.footer.list[manage.index];
       switch (val.type) {

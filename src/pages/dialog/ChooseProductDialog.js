@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 
-import blank_sq from '../../image/blank_sq.png';
+import blank from '../../image/blank.png';
 import WindowDialog from '../../forms/WindowDialog';
 import EnImage from '../../forms/EnImage';
 import FindButton from '../../forms/button/FindButton';
@@ -89,7 +89,7 @@ export default class ChooseProductDialog extends React.Component {
     };
     let data_list = product.data_list;
     let list = data_list.map((item, index) => {
-      let img = blank_sq;
+      let img = blank;
       if (item.image_list.length > 0) {
         img = item.image_list[0].data;
       } else if (item.image_square_list.length > 0) {

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import {store} from '../../../store';
-import Main from './home/Main';
+import Main from './product/Main';
 import Title from './home/Title';
 import Image from './home/Image';
 import WideImage from './home/WideImage';
 
-export default class HomeProperty extends React.Component {
+export default class Product extends React.Component {
   getProperty(manage, content) {
     switch (content.type) {
       case 'brand':
@@ -33,14 +33,15 @@ export default class HomeProperty extends React.Component {
 
   render() {
     let state = store.getState();
-    let manage = state.home.manage;
-    let doc = state.home.data;
-
+    let manage = state.product_info.manage;
+    let doc = state.product_info.doc;
+    console.log('manage:', manage);
+    console.log('doc:', doc);
     let view = <div />;
-    if (manage.index === undefined || doc.data.content_list.length === 0) {
+    if (manage.index === undefined) {
       view = <Main data={doc.data} />;
     } else {
-      let content = doc.data.content_list[manage.index];
+      let content = doc.data.list[manage.index];
       view = this.getProperty(manage, content);
     }
     return (

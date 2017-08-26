@@ -7,12 +7,12 @@ import {actions} from '../../../../actions/Action';
 export default class TitleProperty extends React.Component {
   titleChange(event) {
     this.data.data.title = event.target.value;
-    actions.footerPage.setItem(this.props.index, this.data);
+    actions.page.footer.setItem(this.props.index, this.data);
   }
 
   descriptionChange(event) {
     this.data.data.description = event.target.value;
-    actions.footerPage.setItem(this.props.index, this.data);
+    actions.page.footer.setItem(this.props.index, this.data);
   }
 
   render() {

@@ -8,7 +8,7 @@ export default class OrderCondition extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.order_condition.manage;
-    let doc = state.order_condition.data;
+    let doc = state.order_condition.doc;
     let content = <div />;
     if (manage.index === undefined) {
       content = <div />;

@@ -3,11 +3,16 @@ import ReactHtmlParser from 'react-html-parser';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 export class AboutUs extends ReducerBase {
+  componentDidMount() {
+    actions.page.main.getAboutus();
+  }
+
   render() {
     let state = store.getState();
-    let doc = state.about_us.data;
+    let doc = state.about_us.doc;
 
     let list = doc.data.list.map((item, index) => {
       return (

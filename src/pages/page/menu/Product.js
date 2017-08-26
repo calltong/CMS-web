@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Main from './home/Main';
+import Main from './product/Main';
 import WideImage from './content/WideImage';
 import ImageList from './content/ImageList';
 
@@ -18,9 +18,9 @@ import block4 from '../../../image/block4.jpg';
 import block6 from '../../../image/block6.jpg';
 import img2 from '../../../image/img2.png';
 
-export default class Home extends React.Component {
+export default class Product extends React.Component {
   onChangeSub(index) {
-    actions.page.home.selectSubMenu(index);
+    actions.page.product_info.selectSubMenu(index);
   }
 
   onAddWideItem() {
@@ -29,7 +29,7 @@ export default class Home extends React.Component {
       value: '',
     };
 
-    actions.page.home.addItem(item);
+    actions.page.product_info.addItem(item);
   }
 
   onAddItem() {
@@ -38,15 +38,15 @@ export default class Home extends React.Component {
       value: '',
     };
 
-    actions.page.home.addItem(item);
+    actions.page.product_info.addItem(item);
   }
 
   onUpSub(index) {
-    actions.page.home.upItem(index);
+    actions.page.product_info.upItem(index);
   }
 
   onRemoveSub(index) {
-    actions.page.home.removeItem(index);
+    actions.page.product_info.removeItem(index);
   }
 
   getContent(item, selected) {
@@ -114,9 +114,8 @@ export default class Home extends React.Component {
 
   render() {
     let state = store.getState();
-    let manage = state.home.manage;
-    let doc = state.home.doc;
-
+    let manage = state.product_info.manage;
+    let doc = state.product_info.doc;
     let list = doc.data.list;
     let block = <div />;
     if (manage.index === undefined) {

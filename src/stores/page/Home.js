@@ -7,12 +7,12 @@ let page_data = {
   name: '',
   status: '',
   data: {
-    content_list: [],
+    list: [],
   },
 };
 
 export const reducer = new Reducer({
-  data: _.cloneDeep(page_data),
+  doc: _.cloneDeep(page_data),
   manage: {
     index: undefined,
     level_2: undefined,
@@ -24,26 +24,26 @@ reducer.register('HOME_RESET', (state, action) => {
   return state;
 });
 
-reducer.register('HOME_SET_DATA', (state, action) => {
+reducer.register('HOME_DATA', (state, action) => {
   let {data} = action.params;
-  state.data = data;
+  state.doc = data;
   return state;
 });
 
-reducer.register('HOME_SET_SELECTED', (state, action) => {
+reducer.register('HOME_SELECTED', (state, action) => {
   let {data} = action.params;
   state.manage = data;
   return state;
 });
 
-reducer.register('HOME_SET_CONTENT', (state, action) => {
+reducer.register('HOME_CONTENT', (state, action) => {
   let {data} = action.params;
-  state.data.data.content_list = data;
+  state.doc.data.list = data;
   return state;
 });
 
-reducer.register('HOME_SET_CONTENT_ITEM', (state, action) => {
+reducer.register('HOME_CONTENT_ITEM', (state, action) => {
   let {index, data} = action.params;
-  state.data.data.content_list[index] = data;
+  state.doc.data.list[index] = data;
   return state;
 });

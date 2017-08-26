@@ -26,8 +26,8 @@ export default class Menu extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.menu.manage;
-    let menu = state.menu.data;
-    console.log('menu:', menu);
+    let menu = state.menu.doc;
+
     return (
       <ButtonBase
         onAdd={this.onAdd.bind(this)}
@@ -39,8 +39,7 @@ export default class Menu extends ReducerBase {
           list={menu.data.menu.list}
           onChange={this.onChange}
           onUpItem={this.onUpItem}
-          onRemoveItem={this.onRemoveItem}
-          />
+          onRemoveItem={this.onRemoveItem} />
       </ButtonBase>
     );
   }

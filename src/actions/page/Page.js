@@ -54,6 +54,36 @@ export class Page {
     });
   }
 
+  getProduct() {
+    let url = `${config.api.url}/page/product/modify`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        actions.page.product_info.setMain(data);
+      }
+    });
+  }
+
+  getProductList() {
+    let url = `${config.api.url}/page/product_list/modify`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        actions.page.product_list.setMain(data);
+      }
+    });
+  }
+
+  getCheckout() {
+    let url = `${config.api.url}/page/checkout/modify`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        actions.page.checkout.setMain(data);
+      }
+    });
+  }
+
   buildPage() {
     let url = `${config.api.url}/page/build`;
     http.put(url, {authorization: true}).done(response => {

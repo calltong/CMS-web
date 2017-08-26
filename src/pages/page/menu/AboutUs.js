@@ -27,7 +27,7 @@ export default class AboutUs extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.about_us.manage;
-    let doc = state.about_us.data;
+    let doc = state.about_us.doc;
     let list = doc.data.list.map((item, index) => {
       let name = `สาขา ${index + 1}`;
       return { name };

@@ -27,7 +27,7 @@ export default class HowBuy extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.how_buy.manage;
-    let doc = state.how_buy.data;
+    let doc = state.how_buy.doc;
     let list = doc.data.list.map((item, index) => {
       let name = `ขั้นที่ ${index + 1}`;
       return { name };

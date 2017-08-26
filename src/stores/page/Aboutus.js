@@ -14,7 +14,7 @@ let page_data = {
 };
 
 export const reducer = new Reducer({
-  data: _.cloneDeep(page_data),
+  doc: _.cloneDeep(page_data),
   manage: {
     index: undefined,
     level_2: undefined,
@@ -26,13 +26,19 @@ reducer.register('ABOUT_RESET', (state, action) => {
   return state;
 });
 
-reducer.register('ABOUT_SET_DATA', (state, action) => {
+reducer.register('ABOUT_DATA', (state, action) => {
   let {data} = action.params;
-  state.data = data;
+  state.doc = data;
   return state;
 });
 
-reducer.register('ABOUT_SET_SELECTED', (state, action) => {
+reducer.register('ABOUT_DATA_ITEM', (state, action) => {
+  let {data} = action.params;
+  state.doc.data = data;
+  return state;
+});
+
+reducer.register('ABOUT_SELECTED', (state, action) => {
   let {data} = action.params;
   state.manage = data;
   return state;

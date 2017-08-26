@@ -4,12 +4,13 @@ import React from 'react';
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 
-import MenuProperty from './property/MenuProperty';
-import HomeProperty from './property/HomeProperty';
+import Menu from './property/Menu';
+import Home from './property/Home';
 import Footer from './property/Footer';
 import AboutUs from './property/AboutUs';
 import OrderCondition from './property/OrderCondition';
 import HowBuy from './property/HowBuy';
+import Product from './property/Product';
 
 export default class PropertyInfo extends ReducerBase {
 
@@ -21,10 +22,10 @@ export default class PropertyInfo extends ReducerBase {
     if (selected.main !== undefined) {
       switch (selected.main) {
         case 'Menu':
-          info = <MenuProperty />;
+          info = <Menu />;
           break;
         case 'Home':
-          info = <HomeProperty />;
+          info = <Home />;
           break;
         case 'Footer':
           info = <Footer />;
@@ -37,6 +38,9 @@ export default class PropertyInfo extends ReducerBase {
           break;
         case 'HowToBuy':
           info = <HowBuy />;
+          break;
+        case 'Product':
+          info = <Product />;
           break;
         default:
           info = (<div />);

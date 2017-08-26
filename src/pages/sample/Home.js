@@ -9,12 +9,13 @@ import Builder from './content/Builder';
 import HowToBuy from './HowToBuy';
 import AboutUs from './AboutUs';
 import OrderCondition from './OrderCondition';
+import Product from './Product';
 
 export class Home extends ReducerBase {
   render() {
     let state = store.getState();
     let page = state.page;
-    let menu = state.menu.data;
+    let menu = state.menu.doc;
 
     let selected = page.manage.selected;
     let body = <div />;
@@ -28,9 +29,12 @@ export class Home extends ReducerBase {
       case 'OrderCondition':
         body = <OrderCondition />;
         break;
+      case 'Product':
+        body = <Product />;
+        break;
       default:
-        let home = state.home.data;
-        body = <Builder list={home.data.content_list} />;
+        let home = state.home.doc;
+        body = <Builder list={home.data.list} />;
         break;
 
     }

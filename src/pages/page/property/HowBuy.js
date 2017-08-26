@@ -8,7 +8,7 @@ export default class HowBuy extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.how_buy.manage;
-    let doc = state.how_buy.data;
+    let doc = state.how_buy.doc;
     let content = <div />;
     if (manage.index === undefined) {
       content = <div />;

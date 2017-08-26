@@ -9,7 +9,7 @@ export default class AboutUs extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.about_us.manage;
-    let doc = state.about_us.data;
+    let doc = state.about_us.doc;
 
     let content = <div />;
     if (manage.index === undefined) {

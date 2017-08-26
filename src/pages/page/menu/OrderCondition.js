@@ -27,7 +27,7 @@ export default class OrderCondition extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.order_condition.manage;
-    let doc = state.order_condition.data;
+    let doc = state.order_condition.doc;
     let list = doc.data.list.map((item, index) => {
       let name = `เงื่อนไข ${index + 1}`;
       return { name };
@@ -43,8 +43,7 @@ export default class OrderCondition extends ReducerBase {
           list={list}
           onChange={this.onChange}
           onUpItem={this.onUpItem}
-          onRemoveItem={this.onRemoveItem}
-          />
+          onRemoveItem={this.onRemoveItem} />
       </ButtonBase>
     );
   }

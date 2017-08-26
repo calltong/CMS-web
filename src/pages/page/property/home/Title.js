@@ -2,6 +2,7 @@ import React from 'react';
 
 import {actions} from '../../../../actions/Action';
 import EnText from '../../../../forms/EnText';
+import EnTextArea from '../../../../forms/EnTextArea';
 
 export default class Title extends React.Component {
   titleChange(event) {
@@ -27,7 +28,8 @@ export default class Title extends React.Component {
         </div>
         <div className="form-group">
           <label>ข้อความเพิ่มเติม</label>
-          <EnText
+          <EnTextArea
+            rows={5}
             value={content.data.description}
             onChange={this.desChange.bind(this)} />
         </div>

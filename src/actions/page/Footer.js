@@ -1,16 +1,20 @@
 import {store} from '../../store';
 
 export class Footer {
+  setData(data) {
+    store.update('MENU_FOOTER', {data: data});
+  }
+
   selectMenu(index) {
     let manage = store.getState().menu.manage;
     manage.index = index;
-    store.update('MENU_SET_SELECTED', {data: manage});
+    store.update('MENU_SELECTED', {data: manage});
   }
 
   selectSubMenu(index) {
     let manage = store.getState().menu.manage;
     manage.level_2 = index;
-    store.update('MENU_SET_SELECTED', {data: manage});
+    store.update('MENU_SELECTED', {data: manage});
   }
 
   resetSelectMenu() {
@@ -22,62 +26,62 @@ export class Footer {
       isReset = true;
     }
 
-    store.update('MENU_SET_SELECTED', {data: manage});
+    store.update('MENU_SELECTED', {data: manage});
     return isReset;
   }
 
   addItem() {
-    let doc = store.getState().menu.data;
+    let doc = store.getState().menu.doc;
     let item = {
       name: 'ชื่อเมนู',
       type: 'category',
       value: '',
     };
     doc.data.footer.list.push(item);
-    store.update('MENU_SET_DATA', {data: doc});
+    store.update('MENU_DATA', {data: doc});
   }
 
   upItem(index) {
     if (index > 0) {
-      let doc = store.getState().menu.data;
+      let doc = store.getState().menu.doc;
       let upItem = doc.data.footer.list[index];
       let downItem = doc.data.footer.list[index - 1];
 
       doc.data.footer.list[index - 1] = upItem;
       doc.data.footer.list[index] = downItem;
-      store.update('MENU_SET_DATA', {data: doc});
+      store.update('MENU_DATA', {data: doc});
 
       this.selectMenu(index - 1);
     }
   }
 
   removeItem(index) {
-    let doc = store.getState().menu.data;
+    let doc = store.getState().menu.doc;
     doc.data.footer.list.splice(index, 1);
-    store.update('MENU_SET_DATA', {data: doc});
+    store.update('MENU_DATA', {data: doc});
 
     this.selectMenu(undefined);
   }
 
   setItem(index, item) {
-    let doc = store.getState().menu.data;
+    let doc = store.getState().menu.doc;
     doc.data.footer.list[index] = item;
-    store.update('MENU_SET_DATA', {data: doc});
+    store.update('MENU_DATA', {data: doc});
   }
 
   addSubItem(item) {
     let menu = store.getState().menu;
     let index = menu.manage.index;
-    let doc = menu.data;
+    let doc = menu.doc;
     doc.data.footer.list[index].data.items.push(item);
-    store.update('MENU_SET_DATA', {data: doc});
+    store.update('MENU_DATA', {data: doc});
   }
 
   upSubItem(itemIndex) {
     if (itemIndex > 0) {
       let menu = store.getState().menu;
       let index = menu.manage.index;
-      let doc = menu.data;
+      let doc = menu.doc;
       let i = doc.data.footer.list[index];
       let upItem = i.data.items[itemIndex];
       let downItem = i.data.items[itemIndex - 1];
@@ -86,7 +90,7 @@ export class Footer {
       i.data.items[itemIndex] = downItem;
 
       doc.data.footer.list[index] = i;
-      store.update('MENU_SET_DATA', {data: doc});
+      store.update('MENU_DATA', {data: doc});
 
       this.selectSubMenu(itemIndex - 1);
     }
@@ -96,19 +100,18 @@ export class Footer {
     if (itemIndex > 0) {
       let menu = store.getState().menu;
       let index = menu.manage.index;
-      let doc = menu.data;
+      let doc = menu.doc;
       doc.data.footer.list[index].data.items.splice(itemIndex, 1);
-      store.update('MENU_SET_DATA', {data: doc});
+      store.update('MENU_DATA', {data: doc});
 
       this.selectSubMenu(undefined);
     }
   }
 
   setSubItem(index, itemIndex, item) {
-    let doc = store.getState().menu.data;
-    console.log('con:', doc.data.footer.list[index]);
+    let doc = store.getState().menu.doc;
     doc.data.footer.list[index].data.items[itemIndex] = item;
-    store.update('MENU_SET_DATA', {data: doc});
+    store.update('MENU_DATA', {data: doc});
   }
 }
 

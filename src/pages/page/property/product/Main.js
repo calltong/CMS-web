@@ -1,19 +1,20 @@
 import React from 'react';
 
 import PickerColor from '../../../../forms/PickerColor';
-import TextSetting from '../TextSetting';
+
+import {actions} from '../../../../actions/Action';
 
 export default class Main extends React.Component {
   colorBgChange(color) {
-
+    let data = this.data;
+    data.css.bg_color = color;
+    actions.page.product_info.setData(data);
   }
 
   colorChange(color) {
-
-  }
-
-  fontChange() {
-
+    let data = this.data;
+    data.css.color = color;
+    actions.page.product_info.setData(data);
   }
 
   render() {
@@ -22,31 +23,26 @@ export default class Main extends React.Component {
     };
     this.data = this.props.data;
     let data = this.data;
-
-    let value = {
-      color: data.css.color,
-      font: data.css.font,
-      size: data.css.size,
-    };
+    console.log('product data:', data);
     return (
       <div>
         <div className="row">
           <div className="col-md-6">
             <div className="form-group">
-              <label>สีพื้นหลัง เมนู</label>
+              <label>สีพื้น ปุ่ม</label>
               <PickerColor
                 value={data.css.bg_color}
                 css={css}
-                onChange={this.colorBgChange.bind(this)}/>
+                onChange={this.colorBgChange.bind(this)} />
             </div>
           </div>
-          <div className="col-md-12">
+          <div className="col-md-6">
             <div className="form-group">
-              <label>ตั้งค่า เมนู</label>
-              <TextSetting
-                data={value}
-                colorChange={this.colorChange.bind(this)}
-                fontChange={this.fontChange.bind(this)} />
+              <label>สีตัวหนังสือ</label>
+              <PickerColor
+                value={data.css.color}
+                css={css}
+                onChange={this.colorChange.bind(this)} />
             </div>
           </div>
         </div>

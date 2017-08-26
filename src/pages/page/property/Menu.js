@@ -5,11 +5,11 @@ import {store} from '../../../store';
 import MainProperty from './menu/MainProperty';
 import ItemProperty from './menu/ItemProperty';
 
-export default class MenuProperty extends ReducerBase {
+export default class Menu extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.menu.manage;
-    let doc = state.menu.data;
+    let doc = state.menu.doc;
 
     let content = <div />;
     if (manage.index === undefined) {

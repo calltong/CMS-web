@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WideImageBase from '../content/WideImageBase';
+import WideImageBase from './WideImageBase';
 import RemoveButton from '../../../../forms/button/RemoveButton';
 import UpButton from '../../../../forms/button/UpButton';
 

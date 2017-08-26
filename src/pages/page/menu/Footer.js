@@ -175,7 +175,7 @@ export default class Footer extends ReducerBase {
   render() {
     let state = store.getState();
     let manage = state.menu.manage;
-    let doc = state.menu.data;
+    let doc = state.menu.doc;
 
     let list = doc.data.footer.list;
     let content = (<div />);

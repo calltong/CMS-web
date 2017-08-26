@@ -7,12 +7,12 @@ import {actions} from '../../../../actions/Action';
 export default class Title extends React.Component {
   titleChange(event) {
     this.data.title = event.target.value;
-    actions.aboutusPage.setMain(this.data);
+    actions.page.about_us.setData(this.data);
   }
 
   descriptionChange(event) {
     this.data.description = event.target.value;
-    actions.aboutusPage.setMain(this.data);
+    actions.page.about_us.setData(this.data);
   }
 
   render() {

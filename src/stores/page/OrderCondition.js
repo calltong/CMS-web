@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import {Reducer} from '../../redux-manager';
 
 let page_data = {
@@ -14,7 +15,7 @@ let page_data = {
 };
 
 export const reducer = new Reducer({
-  data: _.cloneDeep(page_data),
+  doc: _.cloneDeep(page_data),
   manage: {
     index: undefined,
     level_2: undefined,
@@ -26,13 +27,13 @@ reducer.register('ORDER_CONDITION_RESET', (state, action) => {
   return state;
 });
 
-reducer.register('ORDER_CONDITION_SET_DATA', (state, action) => {
+reducer.register('ORDER_CONDITION_DATA', (state, action) => {
   let {data} = action.params;
-  state.data = data;
+  state.doc = data;
   return state;
 });
 
-reducer.register('ORDER_CONDITION_SET_SELECTED', (state, action) => {
+reducer.register('ORDER_CONDITION_SELECTED', (state, action) => {
   let {data} = action.params;
   state.manage = data;
   return state;

@@ -9,11 +9,11 @@ export default class ItemProperty extends React.Component {
   nameChange(event) {
     let data = this.props.data;
     data.name = event.target.value;
-    actions.menuPage.setItem(this.props.index, data);
+    actions.page.menu.setItem(this.props.index, data);
   }
 
   onChange(index, item) {
-    actions.menuPage.setItem(index, item);
+    actions.page.menu.setItem(index, item);
   }
 
   render() {
