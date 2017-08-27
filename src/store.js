@@ -11,6 +11,7 @@ import {reducer as aboutus} from './stores/page/Aboutus';
 import {reducer as howBuy} from './stores/page/HowBuy';
 import {reducer as orderCondition} from './stores/page/OrderCondition';
 import {reducer as productInfo} from './stores/page/Product';
+import {reducer as payment} from './stores/page/Payment';
 import {reducer as page} from './stores/Page';
 import {reducer as dialog} from './pages/dialog/reducer';
 
@@ -24,6 +25,7 @@ export const store = new Store({
   menu: menu.combine(),
   home: home.combine(),
   about_us: aboutus.combine(),
+  payment: payment.combine(),
   how_buy: howBuy.combine(),
   product_info: productInfo.combine(),
   order_condition: orderCondition.combine(),

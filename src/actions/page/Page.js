@@ -74,12 +74,12 @@ export class Page {
     });
   }
 
-  getCheckout() {
-    let url = `${config.api.url}/page/checkout/modify`;
+  getPayment() {
+    let url = `${config.api.url}/page/payment/modify`;
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
-        actions.page.checkout.setMain(data);
+        actions.page.payment.setMain(data);
       }
     });
   }

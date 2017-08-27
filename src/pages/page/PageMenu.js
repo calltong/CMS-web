@@ -14,6 +14,7 @@ import AboutUs from './menu/AboutUs';
 import OrderCondition from './menu/OrderCondition';
 import HowBuy from './menu/HowBuy';
 import Product from './menu/Product';
+import Payment from './menu/Payment';
 
 export default class PageMenu extends ReducerBase {
   onBack() {
@@ -78,6 +79,9 @@ export default class PageMenu extends ReducerBase {
           break;
         case 'Product':
           menus = <Product />;
+          break;
+        case 'Payment':
+          menus = <Payment />;
           break;
         default:
       }

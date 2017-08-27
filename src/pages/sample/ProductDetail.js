@@ -17,7 +17,6 @@ export default class ProductDetail extends ReducerBase {
     let doc = product_info.doc.data;
     let data = product_info.data;
     let detail = product_info.detail;
-    console.log('css:', doc.css);
     let css = {
       color: doc.css.color,
       backgroundColor: doc.css.bg_color,

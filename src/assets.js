@@ -21,6 +21,8 @@ import './CSSstore/help-page.css';
 import './CSSstore/footer.css';
 import './CSSstore/product-info.css';
 import './CSSstore/product-image.css';
+import './CSSstore/summary.css';
+import './CSSstore/summary-panel.css';
 
 import './CSSstore/page/brand-content.css';
 import './CSSstore/page/col-3-content.css';

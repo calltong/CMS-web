@@ -10,6 +10,7 @@ import {action as footer} from './page/Footer';
 import {action as aboutus} from './page/Aboutus';
 import {action as orderCondition} from './page/OrderCondition';
 import {action as toBuy} from './page/HowBuy';
+import {action as payment} from './page/Payment';
 import {action as productInfo} from './page/Product';
 import {action as dialog} from './DialogAction';
 
@@ -29,5 +30,6 @@ export const actions = {
     order_condition: orderCondition,
     how_buy: toBuy,
     product_info: productInfo,
+    payment: payment,
   },
 };

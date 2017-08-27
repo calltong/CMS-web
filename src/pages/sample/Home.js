@@ -10,6 +10,7 @@ import HowToBuy from './HowToBuy';
 import AboutUs from './AboutUs';
 import OrderCondition from './OrderCondition';
 import Product from './Product';
+import CheckoutPayment from './order/CheckoutPayment';
 
 export class Home extends ReducerBase {
   render() {
@@ -31,6 +32,9 @@ export class Home extends ReducerBase {
         break;
       case 'Product':
         body = <Product />;
+        break;
+      case 'Payment':
+        body = <CheckoutPayment />;
         break;
       default:
         let home = state.home.doc;

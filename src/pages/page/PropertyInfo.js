@@ -11,6 +11,7 @@ import AboutUs from './property/AboutUs';
 import OrderCondition from './property/OrderCondition';
 import HowBuy from './property/HowBuy';
 import Product from './property/Product';
+import Payment from './property/Payment';
 
 export default class PropertyInfo extends ReducerBase {
 
@@ -41,6 +42,9 @@ export default class PropertyInfo extends ReducerBase {
           break;
         case 'Product':
           info = <Product />;
+          break;
+        case 'Payment':
+          info = <Payment />;
           break;
         default:
           info = (<div />);
