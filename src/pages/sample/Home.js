@@ -15,7 +15,7 @@ import CheckoutPayment from './order/CheckoutPayment';
 
 export class Home extends ReducerBase {
   componentDidMount() {
-    actions.page.main.getHowToBuy();
+    actions.page.main.getHome();
     actions.page.main.getMenu();
   }
 
