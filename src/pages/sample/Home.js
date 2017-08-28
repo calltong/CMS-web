@@ -2,6 +2,7 @@ import React from 'react';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import Menu from './Menu';
 import Footer from './Footer';
@@ -13,6 +14,11 @@ import Product from './Product';
 import CheckoutPayment from './order/CheckoutPayment';
 
 export class Home extends ReducerBase {
+  componentDidMount() {
+    actions.page.main.getHowToBuy();
+    actions.page.main.getMenu();
+  }
+
   render() {
     let state = store.getState();
     let page = state.page;

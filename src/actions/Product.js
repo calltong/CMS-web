@@ -10,7 +10,7 @@ export class Product {
     let product = store.getState().product;
     if (product.type_list.length === 0 || load === true) {
       let url = `${config.api.url}/protype`;
-      http.get(url).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let list = response.body;
           store.update('PRODUCT_STORE_TYPE', {list});
@@ -23,7 +23,7 @@ export class Product {
     let product = store.getState().product;
     if (product.size_list.length === 0 || load === true) {
       let url = `${config.api.url}/prosize`;
-      http.get(url).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let list = response.body;
           store.update('PRODUCT_STORE_SIZE', {list});
@@ -46,7 +46,7 @@ export class Product {
     if (product.page.condition.type_id !== 0) {
       url = `${url}?type=${product.page.condition.type_id}`;
     }
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         product.page.total = +data.value;
@@ -66,7 +66,7 @@ export class Product {
     if (product.page.condition.type_id !== 0) {
       url = `${url}&type=${product.page.condition.type_id}`;
     }
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let list = response.body;
         store.update('PRODUCT_STORE_LIST', {list});
@@ -83,7 +83,7 @@ export class Product {
 
   getItem(id) {
     let url = `${config.api.url}/product/${id}`;
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         this.setItem(data);

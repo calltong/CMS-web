@@ -3,10 +3,10 @@ import './assets.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import cookie from 'react-cookie';
 
 import {config} from './config';
-import {http} from './utility/http';
+import {actions} from './actions/Action';
+
 import App from './App';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -24,39 +24,13 @@ import ColorInfo from './pages/color/ColorInfo';
 
 import OrderManager from './pages/order/OrderManager';
 import OrderInfo from './pages/order/OrderInfo';
-
 import PageInfo from './pages/page/PageInfo';
 
 config.setup(window.location.host);
 
-let accessRight = false;
 function checkAuthentication(state, replace) {
-  let token = cookie.load('mtoken');
-  let done = false;
-  accessRight = false;
-  if (token) {
-    let url = `${config.api.url}/tokenverify`;
-    http.put(url, {json: {token: token}}, false).done(response => {
-      done = true;
-      console.log('verify:', response.statusCode);
-      if (response.statusCode === http.StatusOK) {
-        accessRight = true;
-      } else {
-        browserHistory.push('/Login');
-      }
-    });
-  } else {
-    done = true;
-    browserHistory.push('/Login');
-    console.log('token:', token);
-  }
-
-  setTimeout(function() {
-    console.log('access:', accessRight, ':', done);
-    if (accessRight === false && done === false) {
-      browserHistory.push('/Login');
-    }
-  }, 2000); // check again in a second
+  console.log('Authen state:', state);
+  actions.user.verify(state);
 }
 
 ReactDOM.render((

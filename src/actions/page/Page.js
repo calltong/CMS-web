@@ -1,3 +1,5 @@
+import swal from 'sweetalert';
+
 import {store} from '../../store';
 import {config} from '../../config';
 import {http} from '../../utility/http';
@@ -88,46 +90,31 @@ export class Page {
     let url = `${config.api.url}/page/build`;
     http.put(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        let data = response.body;
-        console.log('build:', data);
+        swal({
+          title: '',
+          text: 'Build เรียบร้อย',
+        });
+      } else {
+        swal({
+          title: '',
+          text: 'เกิดข้อผิลพลาดขณะ Build ',
+        });
       }
     });
   }
 
   saveAllPage() {
-
-  }
-
-  saveItem() {
-    let data = store.getState().page.data;
-    let json = data;
-    let id = data._id;
-    this.setMessage('', '');
-    if (id) {
-      let list = [];
-      for (let item of data.menu.list) {
-        if (item.type === 'category') {
-          item.value = item.category;
-        } else {
-          item.value = item.tag;
-          item.category = '';
-          item.tag = item.value;
-        }
-        item.category = undefined;
-        item.tag = undefined;
-        list.push(item);
-      }
-
-      data.menu.list = list;
-      let url = `${config.api.url}/page/${id}/edit`;
-      http.put(url, {json, authorization: true}).done(response => {
-        if (response.statusCode === http.StatusOK) {
-          this.setMessage('good', 'เสร็จเรียบร้อย');
-        } else {
-          this.setMessage('error', 'ไม่สามารถบันทึกข้อมูลได้');
-        }
-      });
-    }
+    actions.page.menu.save();
+    actions.page.home.save();
+    actions.page.how_buy.save();
+    actions.page.order_condition.save();
+    actions.page.about_us.save();
+    actions.page.product_info.save();
+    actions.page.payment.save();
+    swal({
+      title: '',
+      text: 'บันทึกเรียบร้อย',
+    });
   }
 
   setMessage(type, text) {

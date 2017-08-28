@@ -24,7 +24,7 @@ export class OrderAction {
 
   getItem(id) {
     let url = `${config.api.url}/order/${id}`;
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         this.setItem(data);

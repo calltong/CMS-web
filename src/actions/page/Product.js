@@ -1,7 +1,21 @@
 import {store} from '../../store';
-//import {actions} from '../Action';
+import {config} from '../../config';
+import {http} from '../../utility/http';
 
 export class Product {
+  save() {
+    let doc = store.getState().product_info.doc;
+    let id = doc._id;
+    if (id !== '' && id !== undefined) {
+      let url = `${config.api.url}/page/${id}/edit`;
+      http.put(url, {json: doc, authorization: true}).done(response => {
+        if (response.statusCode === http.StatusOK) {
+
+        }
+      });
+    }
+  }
+
   setMain(data) {
     store.update('PRODUCT_INFO_DATA', {data: data});
   }

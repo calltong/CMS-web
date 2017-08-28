@@ -10,7 +10,7 @@ export class Type {
 
   getList() {
     let url = `${config.api.url}/protype`;
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let list = response.body;
         store.update('TYPE_STORE_LIST', {list});
@@ -32,7 +32,7 @@ export class Type {
 
   getItem(id) {
     let url = `${config.api.url}/protype/${id}`;
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         this.setItem(data);

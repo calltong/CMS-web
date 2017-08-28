@@ -10,7 +10,7 @@ export class Size {
 
   getList() {
     let url = `${config.api.url}/prosize`;
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let list = response.body;
         store.update('SIZE_STORE_LIST', {list});
@@ -31,7 +31,7 @@ export class Size {
 
   getItem(id) {
     let url = `${config.api.url}/prosize/${id}`;
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         this.setItem(data);

@@ -10,18 +10,9 @@ import Home from '../sample/Home';
 import PageInfoMenu from './PageInfoMenu';
 
 import {store} from '../../store';
-import {actions} from '../../actions/Action';
 //import {manager} from '../../utility/Manager';
 
 export class PageInfo extends ReducerBase {
-  componentDidMount() {
-    actions.page.main.getMenu();
-    actions.page.main.getHome();
-    actions.page.main.getAboutus();
-    actions.page.main.getHowToBuy();
-    actions.page.main.getOrderCondition();
-  }
-
   OnDisplaySample() {
     window.open('http://www.facebook.com');
   }

@@ -3,6 +3,8 @@ import {action as type} from './Type';
 import {action as size} from './Size';
 import {action as order} from './OrderAction';
 import {action as ecommerce} from './EcommerceAction';
+import {action as user} from './User';
+
 import {action as page} from './page/Page';
 import {action as menu} from './page/Menu';
 import {action as home} from './page/Home';
@@ -15,6 +17,7 @@ import {action as productInfo} from './page/Product';
 import {action as dialog} from './DialogAction';
 
 export const actions = {
+  user,
   product,
   type,
   size,

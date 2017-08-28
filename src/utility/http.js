@@ -9,7 +9,6 @@ function resolve(promise) {
         if (body !== null && body !== undefined && body !== '') {
           response.body = JSON.parse(response.body);
         } else {
-          console.log('res:', response);
           response.body = { result: 'unexpected result'};
         }
         callback(response);

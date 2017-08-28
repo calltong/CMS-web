@@ -42,7 +42,7 @@ export class EcommerceAction {
 
   checkOnLazada(id) {
     let url = `${config.api.url}/ecommerce/lazada/${id}/check`;
-    http.get(url).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       let found = false;
       if (response.statusCode === http.StatusOK) {
         found = true;

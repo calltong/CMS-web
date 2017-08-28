@@ -1,6 +1,21 @@
 import {store} from '../../store';
+import {config} from '../../config';
+import {http} from '../../utility/http';
 
 export class OrderCondition {
+  save() {
+    let doc = store.getState().order_condition.doc;
+    let id = doc._id;
+    if (id !== '' && id !== undefined) {
+      let url = `${config.api.url}/page/${id}/edit`;
+      http.put(url, {json: doc, authorization: true}).done(response => {
+        if (response.statusCode === http.StatusOK) {
+
+        }
+      });
+    }
+  }
+
   setMain(data) {
     store.update('ORDER_CONDITION_DATA', {data: data});
   }

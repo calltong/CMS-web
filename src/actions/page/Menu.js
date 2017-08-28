@@ -1,6 +1,21 @@
 import {store} from '../../store';
+import {config} from '../../config';
+import {http} from '../../utility/http';
 
 export class Menu {
+  save() {
+    let doc = store.getState().menu.doc;
+    let id = doc._id;
+    if (id !== '' && id !== undefined) {
+      let url = `${config.api.url}/page/${id}/edit`;
+      http.put(url, {json: doc, authorization: true}).done(response => {
+        if (response.statusCode === http.StatusOK) {
+
+        }
+      });
+    }
+  }
+
   setMain(data) {
     store.update('MENU_DATA', {data: data});
   }
