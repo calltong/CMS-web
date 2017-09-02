@@ -5,6 +5,7 @@ import {reducer as size} from './pages/size/reducer';
 import {reducer as type} from './pages/type/reducer';
 import {reducer as color} from './pages/color/reducer';
 import {reducer as order} from './pages/order/reducer';
+import {reducer as user} from './stores/User';
 import {reducer as home} from './stores/page/Home';
 import {reducer as menu} from './stores/page/Menu';
 import {reducer as aboutus} from './stores/page/Aboutus';
@@ -21,6 +22,7 @@ export const store = new Store({
   type: type.combine(),
   color: color.combine(),
   order: order.combine(),
+  user: user.combine(),
   page: page.combine(),
   menu: menu.combine(),
   home: home.combine(),

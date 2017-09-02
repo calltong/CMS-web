@@ -1,7 +1,7 @@
 import cookie from 'react-cookie';
 import {browserHistory} from 'react-router';
 
-//import {store} from '../store';
+import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
 
@@ -20,6 +20,7 @@ export class User {
         console.log('verify:', response.statusCode);
         if (response.statusCode === http.StatusOK) {
           this.accessRight = true;
+          this.getUser();
         } else {
           browserHistory.push('/Login');
         }
@@ -38,21 +39,34 @@ export class User {
   }
 
   login(username, password) {
+    store.update('USER_MESSAGE', {data: ''});
     let params = {username, password};
     let url = `${config.api.url}/user/login`;
     http.put(url, {json: params}, false).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
+        cookie.remove('mtoken');
         cookie.save('mtoken', data.token);
-        //cookie.save('btoken', `Bearer ${data.token}`);
         browserHistory.push('/Home');
+        this.getUser();
+      } else {
+        store.update('USER_MESSAGE', {data: 'username หรือ password ไม่ถูกต้อง'});
+      }
+    });
+  }
+
+  getUser() {
+    let url = `${config.api.url}/user/get`;
+    http.put(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        store.update('USER_DATA', {data: data});
       }
     });
   }
 
   logout() {
     cookie.remove('mtoken');
-    //cookie.remove('btoken');
     browserHistory.push('/Login');
   }
 }

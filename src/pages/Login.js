@@ -1,27 +1,17 @@
-import React, { Component } from 'react';
-import {browserHistory} from 'react-router';
-import cookie from 'react-cookie';
+import React from 'react';
 
-import {config} from '../config';
-import {http} from '../utility/http';
 import EnButton from '../forms/button/EnButton';
 import EnText from '../forms/EnText';
 
-export class Login extends Component {
+import {ReducerBase} from '../ReducerBase';
+import {store} from '../store';
+import {actions} from '../actions/Action';
+
+export class Login extends ReducerBase {
   onLogin() {
     let username = this.refs.username.value();
     let password = this.refs.password.value();
-    let params = {username, password};
-    let url = `${config.api.url}/user/login`;
-    http.put(url, {json: params}, false).done(response => {
-      if (response.statusCode === http.StatusOK) {
-        let data = response.body;
-        console.log('User:', data);
-        cookie.save('mtoken', data.token);
-        cookie.save('btoken', `Bearer ${data.token}`);
-        browserHistory.push('/Home');
-      }
-    });
+    actions.user.login(username, password);
   }
 
   onKeyPress(event) {
@@ -31,6 +21,8 @@ export class Login extends Component {
   }
 
   render() {
+    let user = store.getState().user;
+    console.log('user:', user);
     let message = 'Login to Go Shopping';
     return (
       <div className="container-fluid">
@@ -50,6 +42,9 @@ export class Login extends Component {
                 <div className="form-group" style={{marginBottom:4}}>
                   <EnText type="password" ref="password"
                     placeholder="password..." onKeyPress={this.onKeyPress.bind(this)}/>
+                </div>
+                <div>
+                  <p style={{color: '#C60101'}}>{user.message}</p>
                 </div>
                 <EnButton className="btn btn-login pull-right" onClick={this.onLogin.bind(this)}>
                   <i className="fa fa-sign-in"/> Login

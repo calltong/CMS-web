@@ -31,10 +31,12 @@
 }
 
 .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+  color: black;
   background-color: #EFFCFD;
 }
 
-.nav >li > a:focus, .nav > li > a:hover {
+.nav > li > a, .nav > li > a:focus, .nav > li > a:hover {
+  color: black;
   background-color: #EFFCFD;
 }
 
@@ -42,6 +44,10 @@
   border: 1px solid black;
 }
 
+.navbar-right {
+  float: right!important;
+  margin-right: 40px;
+}
 
 @media (max-width: 400px) {
   .navbar-fixed-top {

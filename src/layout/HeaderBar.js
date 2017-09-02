@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
 
+import {ReducerBase} from '../ReducerBase';
+import {store} from '../store';
+import {actions} from '../actions/Action';
+
 class MenuBar extends Component {
   render() {
 
@@ -35,27 +39,32 @@ class MenuBar extends Component {
 }
 
 class UserBar extends Component {
-  render() {
+  logout() {
+    actions.user.logout();
+  }
 
+  render() {
+    let data = this.props.data;
+    let css = {visibility: 'none'};
     return (
       <ul className="nav navbar-right">
         <li className="dropdown">
-          <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-            <i className="fa fa-user"/> Uthai R.<b className="caret"/>
+          <a className="dropdown-toggle" data-toggle="dropdown">
+            <i className="fa fa-user"/> {data.name}<b className="caret" />
           </a>
           <ul className="dropdown-menu">
             <li>
-              <a href="#"><i className="fa fa-fw fa-user"/> Profile</a>
+              <a style={css} ><i className="fa fa-fw fa-user"/> Profile</a>
             </li>
             <li>
-              <a href="#"><i className="fa fa-fw fa-envelope"/> Inbox</a>
+              <a style={css} ><i className="fa fa-fw fa-envelope"/> Inbox</a>
             </li>
             <li>
-              <a href="#"><i className="fa fa-fw fa-gear"/> Settings</a>
+              <a style={css} ><i className="fa fa-fw fa-gear"/> Settings</a>
             </li>
             <li className="divider"/>
             <li>
-              <a href="#"><i className="fa fa-fw fa-power-off"/> Log Out</a>
+              <a onClick={this.logout.bind(this)}><i className="fa fa-fw fa-power-off"/> Log Out</a>
             </li>
           </ul>
         </li>
@@ -64,10 +73,10 @@ class UserBar extends Component {
   }
 }
 
-export class HeaderBar extends Component {
+export class HeaderBar extends ReducerBase {
 
   render() {
-
+    let user = store.getState().user;
     return (
       <nav className="navbar navbar-fixed-top" role="navigation">
         <div className="navbar-header">
@@ -77,12 +86,12 @@ export class HeaderBar extends Component {
             <span className="icon-bar" />
             <span className="icon-bar" />
           </button>
-          <Link className="navbar-brand" to="/home">{name}</Link>
+          <Link className="navbar-brand" to="/home">Go Shopping</Link>
         </div>
 
         <div className="collapse navbar-collapse" id="header-bar">
           <MenuBar />
-          <UserBar />
+          <UserBar data={user.data} />
         </div>
       </nav>
     );

@@ -28,6 +28,7 @@ export default class ImageList extends React.Component {
     };
     let selected = this.props.selected;
     let list = this.props.data.list;
+  
     let content = list.map((item, index) => {
       return (
         <div key={index}

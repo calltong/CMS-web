@@ -8,10 +8,10 @@ export const reducer = new Reducer({
   },
   form: {
     menu: {
-      display: 'block',
+      display: 'none',
     },
     property: {
-      display: 'block',
+      display: 'none',
     },
   },
   dialog: {
