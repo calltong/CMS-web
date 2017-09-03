@@ -35,7 +35,7 @@ export default class ProductSearchBar extends ReducerBase {
           <input className="form-control" placeholder="Enter Code" style={{marginLeft:'4px', marginRight:'4px'}}/>
 
           <FindButton />
-          <CreateButton to={'/ProductManager/Create'} />
+          <CreateButton to={'/product/create'} />
         </form>
       </div>
     );

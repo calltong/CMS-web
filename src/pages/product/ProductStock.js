@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
+import Select from 'react-select';
 
-//import {store} from '../../store';
 import {actions} from '../../actions/Action';
-
 import MessageThai from '../../common/Message';
 import MessageBox from '../../forms/EnMessageBox';
-import EnListBox from '../../forms/EnListBox';
 import EnNumberText from '../../forms/EnNumberText';
 import EnButton from '../../forms/button/EnButton';
 
 export class ProductStock extends Component {
 
   async sizeAdd(event) {
-    let value = event.target.value;
+    let value = event.value;
     let data = this.props.data;
 
     let size = this.props.size_list.find(item => {
@@ -35,7 +33,7 @@ export class ProductStock extends Component {
   }
 
   async sizeChange(index, event) {
-    let value = event.target.value;
+    let value = event.value;
     let data = this.props.data;
 
     let size = this.props.size_list.find(item => {
@@ -57,7 +55,7 @@ export class ProductStock extends Component {
   }
 
   quantityChange(index, event) {
-    let value = event.target.value;
+    let value = event.value;
     let data = this.props.data;
     let stock_list = data.stock_list;
     let val = parseInt(value, 10);
@@ -80,7 +78,7 @@ export class ProductStock extends Component {
   render() {
     let data = this.props.data;
     let sizeList = this.props.size_list.map(item => {
-      return {id: item._id, text: item.name};
+      return {value: item._id, label: item.name, clearableValue: false};
     });
 
     let list = data.stock_list.map((item, index) => {
@@ -88,14 +86,18 @@ export class ProductStock extends Component {
       return (
       <tr key={id}>
         <td>
-          <EnListBox
+          <Select
+            clearable={false}
+            searchable={false}
             value={id}
-            data={sizeList}
-            onSelect={this.sizeChange.bind(this, index)}/></td>
+            options={sizeList}
+            onChange={this.sizeChange.bind(this, index)} />
+        </td>
         <td>
           <EnNumberText
             value={item.quantity}
-            onChange={this.quantityChange.bind(this, index)}/></td>
+            onChange={this.quantityChange.bind(this, index)}/>
+        </td>
         <td style={{textAlign: 'center'}}>
             <EnButton onClick={this.onDelete.bind(this, index)} className="btn btn-default">
               <i className="fa fa-close" data-tip="delete"/> Delete
@@ -113,8 +115,8 @@ export class ProductStock extends Component {
             <table width="100%" className="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
-                  <th className="col-md-2">Size</th>
-                  <th className="col-md-2">Quantity</th>
+                  <th className="col-md-3">ขนาด</th>
+                  <th className="col-md-2">จำนวนสินค้า</th>
                   <th/>
                 </tr>
               </thead>
@@ -122,9 +124,11 @@ export class ProductStock extends Component {
                 {list}
                 <tr>
                   <td>
-                    <EnListBox
-                      data={sizeList}
-                      onSelect={this.sizeAdd.bind(this)}/>
+                    <Select
+                      clearable={false}
+                      searchable={false}
+                      options={sizeList}
+                      onChange={this.sizeAdd.bind(this)} />
                   </td>
                   <td/>
                   <td/>

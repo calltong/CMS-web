@@ -103,9 +103,9 @@ export class Product {
       http.put(url, {json, authorization: true}).done(response => {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusOK) {
-          manager.MessageNotify('Save completed');
+          manager.MessageNotify('บันทึกเรียบร้อย');
         } else {
-          manager.MessageErrorNotify('Save not completed');
+          manager.MessageErrorNotify('ไม่สามารถบันทึกได้');
         }
       });
     } else {
@@ -113,11 +113,11 @@ export class Product {
       http.post(url, {json, authorization: true}).done(response => {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusCreated) {
-          manager.MessageNotify('Save completed');
+          manager.MessageNotify('บันทึกเรียบร้อย');
           id = response.body._id;
           browserHistory.push(`/ProductManager?page=${product.page.index}`);
         } else {
-          manager.MessageErrorNotify('Save not completed');
+          manager.MessageErrorNotify('ไม่สามารถบันทึกได');
         }
       });
     }
@@ -204,10 +204,9 @@ export class Product {
   updateSize() {
     let url = `${config.api.url}/product/updatesize`;
     http.put(url, {authorization: true}).done(response => {
-      console.log(response.statusCode, ':Text:', response.body);
-      //if (response.statusCode === http.StatusOK) {
-      //  console.log('Text:', response.body);
-      //}
+      if (response.statusCode === http.StatusOK) {
+        manager.MessageNotify('บันทึกเรียบร้อย');
+      }
     });
   }
 

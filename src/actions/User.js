@@ -47,7 +47,7 @@ export class User {
         let data = response.body;
         cookie.remove('mtoken');
         cookie.save('mtoken', data.token);
-        browserHistory.push('/Home');
+        browserHistory.push('/home');
         this.getUser();
       } else {
         store.update('USER_MESSAGE', {data: 'username หรือ password ไม่ถูกต้อง'});
@@ -67,7 +67,7 @@ export class User {
 
   logout() {
     cookie.remove('mtoken');
-    browserHistory.push('/Login');
+    browserHistory.push('/login');
   }
 }
 

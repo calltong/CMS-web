@@ -49,14 +49,14 @@ export class Size {
       let url = `${config.api.url}/prosize/${id}/edit`;
       http.put(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
-          browserHistory.push('/SizeManager');
+          browserHistory.push('/size');
         }
       });
     } else {
       let url = `${config.api.url}/prosize/create`;
       http.post(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusCreated) {
-          browserHistory.push('/SizeManager');
+          browserHistory.push('/size');
         }
       });
     }

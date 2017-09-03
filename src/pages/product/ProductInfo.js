@@ -1,5 +1,4 @@
 import React from 'react';
-import {NotificationContainer} from 'react-notifications';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
@@ -18,7 +17,6 @@ import ProductStock from './ProductStock';
 import LoadingWindow from '../../forms/LoadingWindow';
 
 export class ProductInfo extends ReducerBase {
-
   componentDidMount() {
     let id = this.props.params.id;
     if (id) {
@@ -90,7 +88,7 @@ export class ProductInfo extends ReducerBase {
       <hr/>
 
       <div className="row">
-        <ul className="nav nav-pills">
+        <ul className="nav product-nav nav-pills">
           <li className="active">
             <a href="#Information" data-toggle="tab">Information</a>
           </li>
@@ -128,7 +126,6 @@ export class ProductInfo extends ReducerBase {
     </div>
 
     <LoadingWindow/>
-    <NotificationContainer />
   </div>
     );
   }

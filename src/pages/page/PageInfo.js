@@ -1,5 +1,4 @@
 import React from 'react';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import ChooseProductDialog from '../dialog/ChooseProductDialog';
 import {ReducerBase} from '../../ReducerBase';
@@ -10,7 +9,6 @@ import Home from '../sample/Home';
 import PageInfoMenu from './PageInfoMenu';
 
 import {store} from '../../store';
-//import {manager} from '../../utility/Manager';
 
 export class PageInfo extends ReducerBase {
   OnDisplaySample() {
@@ -20,15 +18,6 @@ export class PageInfo extends ReducerBase {
   render() {
     let state = store.getState();
     let page = state.page;
-    let message = page.message;
-
-    if (message.text !== '') {
-      if (message.type === 'error') {
-        NotificationManager.error(message.text);
-      } else {
-        NotificationManager.success(message.text);
-      }
-    }
 
     return (
       <div id="page">
@@ -40,7 +29,6 @@ export class PageInfo extends ReducerBase {
         <PageInfoMenu/>
         <hr style={{borderTop: '1px solid #555555'}}/>
         <Home />
-        <NotificationContainer />
         <ChooseProductDialog />
       </div>
     );

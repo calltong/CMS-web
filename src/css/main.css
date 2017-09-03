@@ -39,6 +39,10 @@ body {
 
 }
 
+.product-nav > li > a, .nav > li > a:focus, .nav > li > a:hover {
+  border: 1px solid #ccc;
+}
+
 @media screen and (max-width: 1024px) {
   #page-wrapper {
     padding-left: 20px;

@@ -41,14 +41,14 @@ export class OrderAction {
       let url = `${config.api.url}/order/${id}/edit`;
       http.put(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
-          browserHistory.push('/OrderManager');
+          browserHistory.push('/order');
         }
       });
     } else {
       let url = `${config.api.url}/order/create`;
       http.post(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusCreated) {
-          browserHistory.push('/OrderManager');
+          browserHistory.push('/order');
         }
       });
     }

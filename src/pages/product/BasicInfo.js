@@ -1,5 +1,6 @@
 import React from 'react';
 import TagsInput from 'react-tagsinput';
+import Select from 'react-select';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
@@ -10,9 +11,6 @@ import EnText from '../../forms/EnText';
 import EnNumberText from '../../forms/EnNumberText';
 import EnTextArea from '../../forms/EnTextArea';
 import EnButton from '../../forms/button/EnButton';
-import AddButton from '../../forms/button/AddButton';
-import RemoveButton from '../../forms/button/RemoveButton';
-import EnListBox from '../../forms/EnListBox';
 
 export class BasicInfo extends ReducerBase {
 
@@ -62,7 +60,7 @@ export class BasicInfo extends ReducerBase {
 
   typeChange(event) {
     let data = this.data;
-    data.type_id = event.target.value;
+    data.type_id = event.value;
     actions.product.setItem(data);
   }
 
@@ -84,47 +82,14 @@ export class BasicInfo extends ReducerBase {
     actions.product.setItem({data});
   }
 
-  infoListChange(index, event) {
-    let data = this.data;
-    data.information.list[index] = event.target.value;
-    actions.product.setItem(data);
-  }
-
-  onInfoListAdd() {
-    let data = this.data;
-    data.information.list.push('');
-    actions.product.setItem(data);
-  }
-
-  onInfoListDelete(index) {
-    let data = this.data;
-    data.information.list.splice(index, 1);
-    actions.product.setItem(data);
-  }
-
   render() {
     let product = store.getState().product;
     let ecommerce = product.ecommerce;
     let data = product.data;
     this.data = data;
-    let typeList = product.type_list.map(item => {
-      return {id: item._id, text: item.name};
-    });
 
-    let index = 0;
-    let infoList = data.information.list.map(item => {
-      return (
-        <div className="row" key={index} style={{marginTop:4}}>
-          <div className="col-sm-10 col-md-10">
-            <EnText
-              value={item}
-              onChange={this.infoListChange.bind(this, index)} />
-          </div>
-          <div className="col-sm-2 col-md-2">
-            <RemoveButton onClick={this.onInfoListDelete.bind(this, index++)}/>
-          </div>
-        </div>
-      );
+    let typeList = product.type_list.map(item => {
+      return {value: item._id, label: item.name, clearableValue: false};
     });
 
     return (
@@ -134,7 +99,7 @@ export class BasicInfo extends ReducerBase {
           <div className="row">
             <div className="col-sm-2 col-md-6">
               <div className="form-group">
-                <label>Code</label>
+                <label>รหัส</label>
                 <div className="form-group input-group">
                   <EnText
                     placeholder="Enter code..."
@@ -154,7 +119,7 @@ export class BasicInfo extends ReducerBase {
 
             <div className="col-sm-2 col-md-2">
               <div className="form-group">
-                <label>Price</label>
+                <label>ราคา</label>
                 <div className="form-group input-group">
                   <span className="input-group-addon">$</span>
                   <EnNumberText
@@ -167,7 +132,7 @@ export class BasicInfo extends ReducerBase {
 
             <div className="col-sm-2 col-md-2">
               <div className="form-group">
-                <label>Sale Price</label>
+                <label>ราคา Sale</label>
                 <div className="form-group input-group">
                   <span className="input-group-addon">$</span>
                   <EnNumberText
@@ -182,7 +147,7 @@ export class BasicInfo extends ReducerBase {
           <div className="row">
             <div className="col-sm-6 col-md-6">
               <div className={false? 'form-group has-error': 'form-group'} >
-                <label>Name</label>
+                <label>ชื่อ</label>
                 <EnText
                   placeholder="Enter Name..."
                   value={data.name}
@@ -190,7 +155,7 @@ export class BasicInfo extends ReducerBase {
               </div>
 
               <div className="form-group">
-                <label>Colors</label>
+                <label>สีสินค้า</label>
                 <TagsInput
                   ref="color_list"
                   value={data.color_list?data.color_list:[]}
@@ -201,11 +166,13 @@ export class BasicInfo extends ReducerBase {
 
             <div className="col-sm-6 col-md-6">
               <div className="form-group">
-                <label>Type</label>
-                <EnListBox
+                <label>ชนิดสินค้า</label>
+                <Select
+                  clearable={false}
+                  searchable={false}
                   value={data.type_id}
-                  data={typeList}
-                  onSelect={this.typeChange.bind(this)}/>
+                  options={typeList}
+                  onChange={this.typeChange.bind(this)} />
               </div>
 
               <div className="form-group">
@@ -233,10 +200,10 @@ export class BasicInfo extends ReducerBase {
           <div className="row">
             <div className="col-sm-6 col-md-6">
               <div className="form-group">
-                <label>Information</label>
+                <label>รายละเอียดสินค้า</label>
                 <EnTextArea
                   placeholder="Enter Information..."
-                  rows="4"
+                  rows="8"
                   value={data.information.value}
                   onChange={this.infoChange.bind(this)}/>
               </div>
@@ -244,20 +211,13 @@ export class BasicInfo extends ReducerBase {
 
             <div className="col-sm-6 col-md-6">
               <div className="form-group">
-                <label>Product in Box</label>
+                <label>สินค้าในกล่อง</label>
                 <EnTextArea
                   placeholder="Enter Content..."
                   rows="4"
                   value={data.information.package_content}
                   onChange={this.contentChange.bind(this)}/>
               </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-6 col-md-6">
-              <AddButton onClick={this.onInfoListAdd.bind(this)} style={{marginTop:4, width:100}}/>
-              {infoList}
             </div>
           </div>
         </div>

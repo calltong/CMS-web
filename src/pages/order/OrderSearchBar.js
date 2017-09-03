@@ -1,7 +1,7 @@
 import React from 'react';
+import Select from 'react-select';
 
 import {store} from '../../store';
-import EnListBox from '../../forms/EnListBox';
 import EnButton from '../../forms/button/EnButton';
 
 export class OrderSearchBar extends React.Component {
@@ -14,21 +14,16 @@ export class OrderSearchBar extends React.Component {
   }
 
   render() {
-
-    let data = ['Created', 'Planning', 'Quatation', 'Payment', 'Install', 'Completed'];
-    let index = 1;
-    let list = [{id: 0, text: 'เลือกสถานะ'}];
-    for (let item of data) {
-      list.push(
-        {id: index++, text: item}
-      );
-    }
+    let list = [{value: 0, label: 'เลือกสถานะ'}];
     return (
       <form className="form-inline">
-        <EnListBox
-          value={0}
-          data={list}
-          onSelect={this.typeChange.bind(this)}/>
+        <div className="col-md-2">
+          <Select
+            clearable={false}
+            searchable={false}
+            options={list}
+            onChange={this.typeChange.bind(this)} />
+        </div>
 
         <input className="form-control" placeholder="Enter Code" style={{marginLeft:'4px', marginRight:'4px'}}/>
 

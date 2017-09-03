@@ -36,7 +36,6 @@ export class ProductSquareImage extends React.Component {
 
   onRemove(index) {
     actions.product.removeSqImage(index);
-    //store.update('PRODUCT_REMOVE_SQ_IMAGE', {index});
   }
 
   render() {
@@ -65,6 +64,7 @@ export class ProductSquareImage extends React.Component {
       );
     });
 
+    let css = {border: '1px solid #ccc'};
     return (
       <div className="panel panel-info">
         <div className="panel-heading">Image 10x10</div>
@@ -72,7 +72,7 @@ export class ProductSquareImage extends React.Component {
           <div className="row">
             {list}
             <div className="col-md-2">
-              <div className="form-group">
+              <div className="form-group" style={css}>
                 <EnImageSelector height="180" width="180"
                   onDrop={this.onDropImage.bind(this)}/>
 

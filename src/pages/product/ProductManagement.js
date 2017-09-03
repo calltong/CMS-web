@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Select from 'react-select';
 
 import ProductSearchBar from './ProductSearchBar';
 import TableEditBtn from '../../forms/button/TableEditBtn';
@@ -8,7 +9,6 @@ import EnImage from '../../forms/EnImage';
 import Paginator from '../../forms/Paginator';
 import MessageThai from '../../common/Message';
 import MessageBox from '../../forms/EnMessageBox';
-import EnListBox from '../../forms/EnListBox';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
@@ -16,7 +16,7 @@ import {actions} from '../../actions/Action';
 
 export class ProductTable extends Component {
   sizeChange(event) {
-    let index = event.target.value;
+    let index = event.value;
     actions.product.selectSize(index);
   }
 
@@ -39,19 +39,21 @@ export class ProductTable extends Component {
     }
     let data_list = data.data_list;
     let sizes = data.size_list.slice(sizeStart, colsize);
-    let index = 0;
-    let sizeSelected = data.size_list.map(item => {
-      return {id: index++, text: item.code};
+
+    let sizeSelected = data.size_list.map((item, index) => {
+      return {value: index, label: item.code, clearableValue: false};
     });
 
     let sizeList = sizes.map((item, i) => {
       if (i === 0) {
         return (
           <th key={item._id} className="col-md-1" style={{textAlign: 'center'}}>
-            <EnListBox
+            <Select
+              clearable={false}
+              searchable={false}
               value={sizeStart}
-              data={sizeSelected}
-              onSelect={this.sizeChange.bind(this)}/>
+              options={sizeSelected}
+              onChange={this.sizeChange.bind(this)} />
           </th>);
       } else {
         return (<th key={item._id} style={{textAlign: 'center'}}>{item.code}</th>);

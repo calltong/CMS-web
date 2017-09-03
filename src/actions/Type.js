@@ -50,14 +50,14 @@ export class Type {
       let url = `${config.api.url}/protype/${id}/edit`;
       http.put(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
-          browserHistory.push('/TypeManager');
+          browserHistory.push('/type');
         }
       });
     } else {
       let url = `${config.api.url}/protype/create`;
       http.post(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusCreated) {
-          browserHistory.push('/TypeManager');
+          browserHistory.push('/type');
         }
       });
     }

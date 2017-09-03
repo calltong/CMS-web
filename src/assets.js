@@ -35,7 +35,3 @@ import 'font-awesome/css/font-awesome.css';
 import 'react-tagsinput/react-tagsinput.css';
 import 'sweetalert/dist/sweetalert.css';
 import 'react-select/dist/react-select.css';
-
-import 'react-select2-wrapper/css/select2.css';
-
-import 'react-notifications/lib/notifications.css';

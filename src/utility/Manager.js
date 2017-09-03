@@ -1,7 +1,7 @@
 //import {facebook} from './Facebook';
 import $ from 'jquery';
 import shortid from 'shortid';
-import {NotificationManager} from 'react-notifications';
+import swal from 'sweetalert';
 
 class Manager {
   DisplayPanel(id) {
@@ -45,11 +45,17 @@ class Manager {
   }
 
   MessageNotify(message) {
-    NotificationManager.success(message);
+    swal({
+      title: '',
+      text: message,
+    });
   }
 
   MessageErrorNotify(message) {
-    NotificationManager.error(message);
+    swal({
+      title: '',
+      text: message,
+    });
   }
 }
 
