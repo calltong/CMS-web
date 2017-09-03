@@ -30,7 +30,6 @@ export default class Product extends ReducerBase {
 
   selectImage(index) {
     actions.product.SetImage(index);
-
   }
 
   AddtoBag() {

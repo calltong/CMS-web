@@ -30,15 +30,15 @@ export class CheckoutPayment extends ReducerBase {
             image_list: [
               {
                 data: blank,
-              }
-            ]
+              },
+            ],
           },
           size: {
             name: 'small',
             code: 'small',
           },
           quantity: 10,
-        }
+        },
       ],
       summary: {
         total: 1900,
@@ -63,7 +63,7 @@ export class CheckoutPayment extends ReducerBase {
 
       <div className="row">
         <div className="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-          <OrderPanel disable data={order} />
+          <OrderPanel disable={true} data={order} />
         </div>
       </div>
     </div>

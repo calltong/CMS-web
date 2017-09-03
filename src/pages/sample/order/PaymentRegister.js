@@ -33,7 +33,7 @@ export class PaymentRegister extends ReducerBase {
       case 'bay':
         return 'กรุงศรีอยุธยา';
       default:
-
+        return '';
     }
   }
 
