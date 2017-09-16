@@ -74,7 +74,6 @@ class UserBar extends Component {
 }
 
 export class HeaderBar extends ReducerBase {
-
   render() {
     let user = store.getState().user;
     return (

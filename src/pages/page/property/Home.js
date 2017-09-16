@@ -25,6 +25,14 @@ export default class Home extends React.Component {
           let item = content.data.list[manage.level_2];
           return <Image selected={manage} item={item} />;
         }
+      case 'block-4':
+      case 'block-6':
+        if (manage.level_2 === undefined) {
+          return <Title index={manage.index} content={content} />;
+        } else {
+          let item = content.data.list[manage.level_2];
+          return <Image selected={manage} item={item} />;
+        }
       default:
     }
 

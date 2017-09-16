@@ -29,7 +29,6 @@ import PageInfo from './pages/page/PageInfo';
 config.setup(window.location.host);
 
 function checkAuthentication(state, replace) {
-  console.log('Authen state:', state);
   actions.user.verify(state);
 }
 
@@ -59,7 +58,7 @@ ReactDOM.render((
          <Route path="page/modify" component={PageInfo} />
 
          <Route path="order" component={OrderManager} />
-         <Route path="order/:id/info" component={OrderInfo} />
+         <Route path="order/:id" component={OrderInfo} />
 
       </Route>
    </Router>)

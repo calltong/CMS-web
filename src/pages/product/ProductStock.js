@@ -55,7 +55,7 @@ export class ProductStock extends Component {
   }
 
   quantityChange(index, event) {
-    let value = event.value;
+    let value = event.target.value;
     let data = this.props.data;
     let stock_list = data.stock_list;
     let val = parseInt(value, 10);

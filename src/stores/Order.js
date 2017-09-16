@@ -1,6 +1,5 @@
-//import {browserHistory} from 'react-router';
 import _ from 'lodash';
-import {Reducer} from '../../redux-manager';
+import {Reducer} from '../redux-manager';
 
 export const reducer = new Reducer({
   page: {
@@ -8,23 +7,28 @@ export const reducer = new Reducer({
     total: 1,
     limit: 10,
   },
-  data_list: [],
+  list: [],
   data: {
-    id: undefined,
-    items: [],
-    trackings: [],
-    account: {
-      email: '',
-    },
-    recipient: {
+    _id: undefined,
+    tracking_code: '',
+    product_list: [],
+    status_list: [],
+    shipping: {
       location: '',
       name: '',
-      phone: '',
+      mobile: '',
+      email: '',
       postcode: '',
-      province: '',
+      city: '',
+    },
+    summary: {
+      total: 0,
     },
   },
-  condition: 'Order',
+  condition: {
+    status: 'working',
+    code: '',
+  },
 });
 
 reducer.register('ORDER_RESET', (state, action) => {
@@ -38,8 +42,12 @@ reducer.register('ORDER_RESET_ITEM', (state, action) => {
 });
 
 reducer.register('ORDER_STORE_LIST', (state, action) => {
-  let {list} = action.params;
-  state.data_list = list?list:[];
+  let {data} = action.params;
+  if (data === undefined || data === null) {
+    state.list = [];
+  } else {
+    state.list = data;
+  }
 
   return state;
 });
@@ -48,5 +56,12 @@ reducer.register('ORDER_STORE_ITEM', (state, action) => {
   let {data} = action.params;
 
   state.data = data;
+  return state;
+});
+
+reducer.register('ORDER_STORE_CONDITION', (state, action) => {
+  let {data} = action.params;
+
+  state.condition = data;
   return state;
 });

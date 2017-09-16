@@ -1,0 +1,12 @@
+.order-header {
+  color: white;
+  background-color: #016895;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 14px 5px 5px 10px;
+  margin-bottom: 15px;
+}
+
+.order-header > p {
+  font-size: 16px;
+}

@@ -36,8 +36,8 @@ class TypeTable extends Component {
       <table className="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Name (Eng)</th>
+            <th>ชื่อ</th>
+            <th>ชื่อภาษา (Eng)</th>
             <th>Default Tags</th>
             <th className="col-md-1" />
             <th className="col-md-1" />
@@ -60,7 +60,7 @@ export class TypeManager extends ReducerBase {
     let data = store.getState().type;
     return (
       <div className="container-fluid">
-        <EnHeader name="Type Manager"/>
+        <EnHeader name="ชนิดสินค้า"/>
 
         <div className="row">
           <div className="col-md-8">

@@ -23,7 +23,7 @@ class SizeTable extends Component {
         <td>{item.code}</td>
         <td>{item.name}</td>
         <td style={{textAlign: 'center'}}>
-          <TableEditBtn to={`SizeManager/${item._id}/Edit`} />
+          <TableEditBtn to={`size/${item._id}/edit`} />
         </td>
         <td style={{textAlign: 'center'}}>
           <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
@@ -36,7 +36,7 @@ class SizeTable extends Component {
         <thead>
           <tr>
             <th>Code</th>
-            <th>Name</th>
+            <th>ชื่อ</th>
             <th className="col-md-1" />
             <th className="col-md-1" />
           </tr>
@@ -62,7 +62,7 @@ export class SizeManager extends ReducerBase {
     let size = store.getState().size;
     return (
       <div className="container-fluid">
-        <EnHeader name="Size Manager"/>
+        <EnHeader name="ขนาดสินค้า"/>
 
         <div className="row">
           <div className="col-md-12">

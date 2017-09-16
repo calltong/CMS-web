@@ -76,18 +76,18 @@
 
 .btn-add {
   color: black;
-  background-color: #F0FEEA;
+  background-color: #F5FCF4;
   border: 1px solid #555555;
 }
 
 .btn-add:hover {
-  background-color: #FFFFF2;
+  background-color: #F2FFF2;
   border: 1px solid black;
 }
 
 .btn-remove {
   color: black;
-  background-color: #FAB7B7;
+  background-color: #FFC9C8;
   border: 1px solid #555555;
 }
 

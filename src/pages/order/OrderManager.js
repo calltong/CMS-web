@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
 
+import {toMoney, toNumber, toDate, toOrderStatus} from '../../utility/Display';
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
@@ -10,19 +11,33 @@ import EnHeader from '../../forms/EnHeader';
 
 class OrderTable extends Component {
   render() {
-    let data_list = this.props.data.data_list;
-    let list = data_list.map(item => {
-      let index = item.trackings.length;
-      let tracking = item.trackings[index - 1];
+    let cssC = {
+      textAlign: 'center',
+    };
+    let cssR = {
+      textAlign: 'right',
+    };
+    let list = this.props.data.list;
+    let rows = list.map((item, i) => {
+      let index = item.status_list.length;
+      let order = item.status_list[0];
+      let tracking = item.status_list[index - 1];
+      let sum = 0;
+      for (let product of item.product_list) {
+        sum += product.quantity;
+      }
       return (
-      <tr key={item.id}>
-        <td>{item.created_at}</td>
-        <td>{tracking.created_at}</td>
-        <td>{tracking.status}</td>
-        <td style={{textAlign: 'center'}}>
+      <tr key={i}>
+        <td>{item.shipping.name}</td>
+        <td style={cssR}>{toMoney(item.summary.total)}</td>
+        <td style={cssR}>{toNumber(sum)}</td>
+        <td style={cssC}>{toDate(order.updated_at)}</td>
+        <td style={cssC}>{toDate(tracking.updated_at)}</td>
+        <td style={cssC}>{toOrderStatus(tracking.status)}</td>
+        <td style={cssC}>
           <div>
-            <Link to={`orders/${item.id}`} className="btn btn-table">
-              <i className="fa fa-pencil" data-tip="edit"/> View
+            <Link to={`order/${item._id}`} className="btn btn-normal">
+              <i className="fa fa-file-code-o" />
             </Link>
           </div>
         </td>
@@ -35,14 +50,17 @@ class OrderTable extends Component {
       <table className="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Created</th>
-            <th>Last Update</th>
-            <th>Status</th>
-            <th/>
+            <th style={cssC}>ชื่อลูกค้า</th>
+            <th style={cssC}>ยอดเงิน</th>
+            <th style={cssC}>จำนวนสินค้า</th>
+            <th style={cssC}>วันที่สั่งซื้อ</th>
+            <th style={cssC}>วันที่ update</th>
+            <th style={cssC}>สถานะการสั่งซื้อ</th>
+            <th style={cssC}>รายละเอียด</th>
           </tr>
         </thead>
         <tbody>
-          {list}
+          {rows}
         </tbody>
       </table>
     );
@@ -50,17 +68,15 @@ class OrderTable extends Component {
 }
 
 export class OrderManager extends ReducerBase {
-
   componentDidMount() {
     actions.order.getList();
-    //store.update('ORDER_GET_LIST', {index: 1});
   }
 
   render() {
     let order = store.getState().order;
     return (
       <div className="container-fluid">
-        <EnHeader name="Order Manager"/>
+        <EnHeader name="รายการสั่งซื้อ"/>
         <div className="row">
           <div className="col-md-10">
             <OrderSearchBar />
@@ -71,9 +87,7 @@ export class OrderManager extends ReducerBase {
         <div className="row">
           <div className="col-md-10">
             <div className="table-responsive">
-              <OrderTable
-                data={order}
-                />
+              <OrderTable data={order} />
             </div>
           </div>
         </div>

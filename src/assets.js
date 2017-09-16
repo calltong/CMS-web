@@ -10,6 +10,7 @@ import './css/header.css';
 import './css/button.css';
 import './css/layout.css';
 import './css/page.css';
+import './css/order.css';
 import './css/window.css';
 import './css/property.css';
 import './css/page-menu.css';
@@ -33,5 +34,4 @@ import './CSSstore/page/block-content.css';
 
 import 'font-awesome/css/font-awesome.css';
 import 'react-tagsinput/react-tagsinput.css';
-import 'sweetalert/dist/sweetalert.css';
 import 'react-select/dist/react-select.css';

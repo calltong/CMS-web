@@ -43,6 +43,10 @@ body {
   border: 1px solid #ccc;
 }
 
+.page-header {
+  font-size: 20px;
+}
+
 @media screen and (max-width: 1024px) {
   #page-wrapper {
     padding-left: 20px;

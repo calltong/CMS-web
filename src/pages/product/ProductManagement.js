@@ -30,6 +30,7 @@ export class ProductTable extends Component {
   }
 
   render() {
+    let cssCenter = {textAlign: 'center'};
     let data = this.props.data;
     let sizeStart = data.size.index;
     let sizeTotal = data.size.total;
@@ -47,7 +48,7 @@ export class ProductTable extends Component {
     let sizeList = sizes.map((item, i) => {
       if (i === 0) {
         return (
-          <th key={item._id} className="col-md-1" style={{textAlign: 'center'}}>
+          <th key={item._id} className="col-md-1" style={cssCenter}>
             <Select
               clearable={false}
               searchable={false}
@@ -56,7 +57,7 @@ export class ProductTable extends Component {
               onChange={this.sizeChange.bind(this)} />
           </th>);
       } else {
-        return (<th key={item._id} style={{textAlign: 'center'}}>{item.code}</th>);
+        return (<th key={item._id} style={cssCenter}>{item.code}</th>);
       }
     });
 
@@ -73,7 +74,7 @@ export class ProductTable extends Component {
           }
         });
 
-        sizeData.push((<td key={size._id} style={{textAlign: 'center'}}>{found === undefined ? '-': found.quantity}</td>));
+        sizeData.push((<td key={size._id} style={cssCenter}>{found === undefined ? '-': found.quantity}</td>));
       }
 
       let img = '';
@@ -83,13 +84,13 @@ export class ProductTable extends Component {
       return (
       <tr key={item._id}>
         <td>
-          <EnImage src={img} className="product-img"/>
+          <EnImage className="product-img" src={img} />
         </td>
         <td>{item.code}</td>
         <td>{item.price}</td>
         <td>{item.sale_price}</td>
         {sizeData}
-        <td style={{textAlign: 'center'}}>
+        <td style={cssCenter}>
           <TableEditBtn to={`product/${item._id}/edit`} />
           <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} style={{marginTop: '2px'}} />
         </td>
@@ -101,10 +102,10 @@ export class ProductTable extends Component {
       <table className="table table-bordered table-hover">
         <thead>
           <tr>
-            <th className="col-md-1">Pic.</th>
+            <th className="col-md-1">รูป.</th>
             <th>Code</th>
-            <th>Price</th>
-            <th>Sale</th>
+            <th>ราคา</th>
+            <th>ราคา Sale</th>
             {sizeList}
             <th className="col-md-1"/>
           </tr>
@@ -157,7 +158,7 @@ export class ProductManagement extends ReducerBase {
     }
     return (
       <div className="container-fluid">
-        <EnHeader name="Product Manager"/>
+        <EnHeader name="รายการสินค้า"/>
         <ProductSearchBar/>
         <hr/>
 

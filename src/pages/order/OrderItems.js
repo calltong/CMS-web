@@ -1,42 +1,60 @@
 import React from 'react';
 
-export default class OrderItems extends React.Component {
+import EnImage from '../../forms/EnImage';
+import {toMoney} from '../../utility/Display';
 
+export default class OrderItems extends React.Component {
   render() {
-    let items = this.props.items;
-    let index = 0;
-    let rows = items.map(item => {
-      let detail = item.variant.product.details[0];
+    let cssCenter = {textAlign: 'center'};
+    let data = this.props.data;
+    let quantity = 0;
+    let rows = data.product_list.map((item, index) => {
+      quantity += item.quantity;
+      let image;
+      if (item.product.image_list.length > 0) {
+        image = item.product.image_list[0].data;
+      }
       return (
-        <tr key={index++}>
-          <td>{detail.name}</td>
-          <td className="text-right">{item.amount}</td>
-          <td className="text-right">{item.variant.price.toFixed(2)}</td>
+        <tr key={index}>
+          <td>
+            <div style={cssCenter}>
+              <EnImage className="product-img" src={image} />
+            </div>
+          </td>
+          <td>{item.product.name}</td>
+          <td>{item.size.name}</td>
+          <td className="text-right">{item.quantity}</td>
+          <td className="text-right">{toMoney(item.price)}</td>
         </tr>
       );
     });
 
-    let total = 0;
-    items.forEach(item => total += item.variant.price);
-
     return (
-      <div className="panel panel-default">
-        <div className="panel-heading">รายการสั่งซื้อสินค้า</div>
-
+      <div>
+        <div className="order-header">
+          <p>รายการสินค้า</p>
+        </div>
         <table className="table">
           <thead>
             <tr>
-              <th>ชื่อสินค้า</th>
-              <th className="text-right">จำนวน</th>
-              <th className="text-right" width="120">ราคา</th>
+              <th style={cssCenter} width="90">สินค้า</th>
+              <th>ชื่อ</th>
+              <th width="80">ขนาด</th>
+              <th className="text-right" width="80">จำนวน</th>
+              <th className="text-right" width="80">ราคา</th>
             </tr>
           </thead>
-          <tbody>{rows}</tbody>
+          <tbody>
+            {rows}
+            <tr>
+              <td />
+              <td />
+              <td><strong>รวม</strong></td>
+              <td className="text-right">{quantity}</td>
+              <td className="text-right">{data.summary.total.toFixed(2)}</td>
+            </tr>
+          </tbody>
         </table>
-
-        <div className="panel-body text-right">
-          <strong>ราคารวม:</strong> {`${total.toFixed(2)}`}
-        </div>
       </div>
     );
   }

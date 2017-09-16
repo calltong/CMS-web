@@ -1,7 +1,8 @@
+import swal from 'sweetalert';
+
 import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
-import {browserHistory} from 'react-router';
 
 export class OrderAction {
   resetItem() {
@@ -9,11 +10,20 @@ export class OrderAction {
   }
 
   getList() {
-    let url = `${config.api.url}/order`;
+    let condition = store.getState().order.condition;
+    let q = '?page=1';
+    if (condition.code) {
+      q += `&&code=${condition.code}`;
+    }
+
+    if (condition.status) {
+      q += `&&status=${condition.status}`;
+    }
+    let url = `${config.api.url}/order${q}`;
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        let list = response.body.data;
-        store.update('ORDER_STORE_LIST', {list});
+        let list = response.body;
+        store.update('ORDER_STORE_LIST', {data: list});
       }
     });
   }
@@ -41,19 +51,41 @@ export class OrderAction {
       let url = `${config.api.url}/order/${id}/edit`;
       http.put(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
-          browserHistory.push('/order');
-        }
-      });
-    } else {
-      let url = `${config.api.url}/order/create`;
-      http.post(url, {json, authorization: true}).done(response => {
-        if (response.statusCode === http.StatusCreated) {
-          browserHistory.push('/order');
+          swal({
+            title: '',
+            text: 'บันทึกเรียบร้อย',
+          });
         }
       });
     }
   }
 
+  setOrderStatus(status) {
+    let data = store.getState().order.data;
+    let duplicated = data.status_list.find(item => {
+      return item.status === status;
+    });
+
+    if (duplicated === undefined) {
+      data.status = status;
+      data.status_list.push({status, updated_at: Date.now()});
+      this.setItem(data);
+    }
+
+    let url = `${config.api.url}/order/${data._id}/edit`;
+    http.put(url, {json: data, authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        swal({
+          title: '',
+          text: 'บันทึกเรียบร้อย',
+        });
+      }
+    });
+  }
+
+  setCondition(val) {
+    store.update('ORDER_STORE_CONDITION', {data: val});
+  }
 }
 
 export const action = new OrderAction();

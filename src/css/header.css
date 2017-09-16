@@ -24,6 +24,7 @@
 .navbar-nav > li > a:hover {
   color: #AB2505;
   background-color: #EFFCFD;
+  border: 0px solid #ccc;
 }
 
 .navbar-toggle .icon-bar {
@@ -33,11 +34,13 @@
 .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
   color: black;
   background-color: #EFFCFD;
+  border: 0px solid #ccc;
 }
 
 .nav > li > a, .nav > li > a:focus, .nav > li > a:hover {
   color: black;
   background-color: #EFFCFD;
+  border: 0px solid #ccc;
 }
 
 .navbar-toggle {
