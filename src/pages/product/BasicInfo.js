@@ -12,8 +12,7 @@ import EnNumberText from '../../forms/EnNumberText';
 import EnTextArea from '../../forms/EnTextArea';
 import EnButton from '../../forms/button/EnButton';
 
-export class BasicInfo extends ReducerBase {
-
+export default class BasicInfo extends ReducerBase {
   codeGenerate() {
     let data = this.data;
     data.code = manager.GenerateId();
@@ -70,12 +69,6 @@ export class BasicInfo extends ReducerBase {
     actions.product.setItem(data);
   }
 
-  colorsChange(list) {
-    let data = this.data;
-    data.color_list = list;
-    actions.product.setItem(data);
-  }
-
   videoChange(event) {
     let data = this.data;
     data.video = event.target.value;
@@ -83,141 +76,138 @@ export class BasicInfo extends ReducerBase {
   }
 
   render() {
-    let product = store.getState().product;
-    let ecommerce = product.ecommerce;
-    let data = product.data;
+    let state = store.getState();
+    let ecommerce = state.product.ecommerce;
+    let data = state.product.data;
     this.data = data;
 
-    let typeList = product.type_list.map(item => {
-      return {value: item._id, label: item.name, clearableValue: false};
-    });
-
+    let typeList = state.type.select_list;
     return (
-      <div className="panel panel-default">
-        <div className="panel-body">
-
-          <div className="row">
-            <div className="col-sm-2 col-md-6">
-              <div className="form-group">
-                <label>รหัส</label>
-                <div className="form-group input-group">
-                  <EnText
-                    placeholder="Enter code..."
-                    value={data.code || ''}
-                    readOnly={ecommerce.lazada || ecommerce.street}
-                    onChange={this.codeChange.bind(this)} />
-                  <span className="input-group-btn">
-                    <EnButton
-                      className="btn btn-default" type="button"
-                      onClick={this.codeGenerate.bind(this)} >
-                      <i className="fa fa-search"> Generate</i>
-                    </EnButton>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-sm-2 col-md-2">
-              <div className="form-group">
-                <label>ราคา</label>
-                <div className="form-group input-group">
-                  <span className="input-group-addon">$</span>
-                  <EnNumberText
-                    placeholder="Enter price..."
-                    value={data.price}
-                    onChange={this.priceChange.bind(this)} />
-                </div>
-              </div>
-            </div>
-
-            <div className="col-sm-2 col-md-2">
-              <div className="form-group">
-                <label>ราคา Sale</label>
-                <div className="form-group input-group">
-                  <span className="input-group-addon">$</span>
-                  <EnNumberText
-                    placeholder="Enter price..."
-                    value={data.sale_price}
-                    onChange={this.salePriceChange.bind(this)} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-6 col-md-6">
-              <div className={false? 'form-group has-error': 'form-group'} >
-                <label>ชื่อ</label>
+      <div>
+        <div className="row">
+          <div className="col-sm-2 col-md-6">
+            <div className="form-group">
+              <label>รหัส</label>
+              <div className="form-group input-group">
                 <EnText
-                  placeholder="Enter Name..."
-                  value={data.name}
-                  onChange={this.nameChange.bind(this)} />
-              </div>
-
-              <div className="form-group">
-                <label>สีสินค้า</label>
-                <TagsInput
-                  ref="color_list"
-                  value={data.color_list?data.color_list:[]}
-                  onChange={this.colorsChange.bind(this)} />
-              </div>
-
-            </div>
-
-            <div className="col-sm-6 col-md-6">
-              <div className="form-group">
-                <label>ชนิดสินค้า</label>
-                <Select
-                  clearable={false}
-                  searchable={false}
-                  value={data.type_id}
-                  options={typeList}
-                  onChange={this.typeChange.bind(this)} />
-              </div>
-
-              <div className="form-group">
-                <label>Tags</label>
-                <TagsInput
-                  ref="tag_list"
-                  value={data.tag_list?data.tag_list:[]}
-                  onChange={this.tagsChange.bind(this)} />
+                  placeholder="Enter code..."
+                  value={data.code || ''}
+                  readOnly={ecommerce.lazada || ecommerce.street}
+                  onChange={this.codeChange.bind(this)} />
+                <span className="input-group-btn">
+                  <EnButton
+                    className="btn btn-default" type="button"
+                    onClick={this.codeGenerate.bind(this)} >
+                    <i className="fa fa-search"> Generate</i>
+                  </EnButton>
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-sm-12 col-md-12">
-              <div className="form-group">
-                <label>Video Link</label>
-                <EnText
-                  value={data.video}
-                  placeholder="Youtube Link..."
-                  onChange={this.videoChange.bind(this)} />
+          <div className="col-sm-2 col-md-2">
+            <div className="form-group">
+              <label>ราคา</label>
+              <div className="form-group input-group">
+                <span className="input-group-addon">$</span>
+                <EnNumberText
+                  placeholder="Enter price..."
+                  value={data.price}
+                  onChange={this.priceChange.bind(this)} />
               </div>
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-sm-6 col-md-6">
-              <div className="form-group">
-                <label>รายละเอียดสินค้า</label>
-                <EnTextArea
-                  placeholder="Enter Information..."
-                  rows="8"
-                  value={data.information.value}
-                  onChange={this.infoChange.bind(this)}/>
+          <div className="col-sm-2 col-md-2">
+            <div className="form-group">
+              <label>ราคา Sale</label>
+              <div className="form-group input-group">
+                <span className="input-group-addon">$</span>
+                <EnNumberText
+                  placeholder="Enter price..."
+                  value={data.sale_price}
+                  onChange={this.salePriceChange.bind(this)} />
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className="col-sm-6 col-md-6">
-              <div className="form-group">
-                <label>สินค้าในกล่อง</label>
-                <EnTextArea
-                  placeholder="Enter Content..."
-                  rows="4"
-                  value={data.information.package_content}
-                  onChange={this.contentChange.bind(this)}/>
-              </div>
+        <div className="row">
+          <div className="col-sm-6 col-md-3">
+            <div className={false? 'form-group has-error': 'form-group'} >
+              <label>ชื่อ</label>
+              <EnText
+                placeholder="Name..."
+                value={data.content.main.name}
+                onChange={this.nameChange.bind(this)} />
+            </div>
+          </div>
+
+          <div className="col-sm-6 col-md-3">
+            <div className="form-group">
+              <label>ชนิดสินค้า</label>
+              <Select
+                clearable={false}
+                searchable={false}
+                value={data.type_id}
+                options={typeList}
+                onChange={this.typeChange.bind(this)} />
+            </div>
+          </div>
+
+          <div className="col-sm-6 col-md-6">
+            <div className="form-group">
+              <label>Tags</label>
+              <TagsInput
+                ref="tag_list"
+                value={data.tag_list?data.tag_list:[]}
+                onChange={this.tagsChange.bind(this)} />
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-sm-6 col-md-6">
+            <div className="form-group">
+              <label>รายละเอียดสินค้า</label>
+              <EnTextArea
+                placeholder="รายละเอียดสินค้า..."
+                rows="8"
+                value={data.content.main.description}
+                onChange={this.infoChange.bind(this)}/>
+            </div>
+          </div>
+
+          <div className="col-sm-6 col-md-6">
+            <div className="form-group">
+              <label>เงื่อนไข</label>
+              <EnTextArea
+                placeholder="เงื่อนไข..."
+                rows="4"
+                value={data.content.main.package_content}
+                onChange={this.contentChange.bind(this)}/>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-sm-6 col-md-6">
+            <div className="form-group">
+              <label>สินค้าในกล่อง</label>
+              <EnTextArea
+                placeholder="สินค้าในกล่อง..."
+                rows="4"
+                value={data.content.main.package_content}
+                onChange={this.contentChange.bind(this)}/>
+            </div>
+          </div>
+          <div className="col-sm-6 col-md-6">
+            <div className="form-group">
+              <label>Video Link</label>
+              <EnText
+                value={data.video}
+                placeholder="Youtube Link..."
+                onChange={this.videoChange.bind(this)} />
             </div>
           </div>
         </div>
@@ -225,5 +215,3 @@ export class BasicInfo extends ReducerBase {
     );
   }
 }
-
-export default BasicInfo;

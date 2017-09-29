@@ -50,7 +50,6 @@ class Information extends Component {
 }
 
 class InformationEnglish extends Component {
-
   nameChange(event) {
     let data = this.props.data;
     data.lang_eng.name = event.target.value;

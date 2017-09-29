@@ -10,26 +10,27 @@ import SaveButton from '../../forms/button/SaveButton';
 import CloseButton from '../../forms/button/CloseButton';
 
 import BasicInfo from './BasicInfo';
-import ProductImage from './ProductImage';
-import ProductSquareImage from './ProductSquareImage';
-import BasicEngInfo from './BasicEngInfo';
 import ProductStock from './ProductStock';
 import LoadingWindow from '../../forms/LoadingWindow';
 
 export class ProductInfo extends ReducerBase {
   componentDidMount() {
+    actions.size.getList(false);
+    actions.type.getList(false);
     let id = this.props.params.id;
     if (id) {
       actions.product.getItem(id);
+      actions.stock.getItem(id);
       actions.ecommerce.checkOnLazada(id);
     } else {
       actions.product.resetItem();
+      actions.stock.resetItem();
     }
   }
 
   onSave() {
-    let ob = store.getState().product;
-    if (ob.data.name === '' || ob.data.type_id === 0) {
+    let product = store.getState().product;
+    if (product.data.name === '' || product.data.type_id === 0) {
       this.setState(this.state);
     } else {
       manager.DisplayPanel('#Loading');
@@ -54,14 +55,12 @@ export class ProductInfo extends ReducerBase {
 
   render() {
     let product = store.getState().product;
-
     let ecommerce = product.ecommerce;
     let cssLazadaAction = ecommerce.lazada ? 'btn btn-menu btn-action dropdown-toggle' : 'btn btn-menu btn-action-alert dropdown-toggle';
     return (
-      <div className="container">
-        <EnHeader name="Product Information"/>
+      <div>
+        <EnHeader name="รายละเอียดสินค้า"/>
         <form className="form-inline">
-          <SaveButton onClick={this.onSave.bind(this)} />
           <CloseButton to={`/product?page=${product.page.index}`} />
 
           <div className="form-group">
@@ -78,11 +77,12 @@ export class ProductInfo extends ReducerBase {
                 <li><a onClick={this.onLazadaQuantityUpdate.bind(this)}>Update Quantity&Price</a></li>
                 <li><a onClick={this.onLazadaImageUpdate.bind(this)}>Update Images</a></li>
                 <li role="separator" className="divider"/>
-                <li><a href="#">Active/Unactive</a></li>
+                <li><a href="#">Active/Inactive</a></li>
               </ul>
             </div>
           </div>
 
+          <SaveButton onClick={this.onSave.bind(this)} />
        </form>
 
       <hr/>
@@ -90,43 +90,26 @@ export class ProductInfo extends ReducerBase {
       <div className="row">
         <ul className="nav product-nav nav-pills">
           <li className="active">
-            <a href="#Information" data-toggle="tab">Information</a>
+            <a href="#Information" data-toggle="tab">รายละเอียด</a>
           </li>
           <li>
-            <a href="#InformationEng" data-toggle="tab">English Information</a>
-          </li>
-          <li>
-            <a href="#Stock" data-toggle="tab">Stock</a>
+            <a href="#Stock" data-toggle="tab">สต๊อกสินค้า</a>
           </li>
         </ul>
-
-        <hr/>
 
         <div className="tab-content">
           <div id="Information" className="tab-pane in active">
             <BasicInfo/>
           </div>
 
-          <div id="InformationEng" className="tab-pane" style={{paddingBottom: 10}}>
-            <BasicEngInfo data={product.data} />
-          </div>
-
           <div id="Stock" className="tab-pane">
-            <ProductStock data={product.data} size_list={product.size_list} />
+            <ProductStock />
           </div>
-       </div>
-     </div>
+        </div>
+      </div>
 
-    <div className="row">
-      <ProductImage data={product.data} />
+      <LoadingWindow/>
     </div>
-
-    <div className="row">
-      <ProductSquareImage data={product.data} />
-    </div>
-
-    <LoadingWindow/>
-  </div>
     );
   }
 }

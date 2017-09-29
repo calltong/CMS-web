@@ -25,12 +25,20 @@ export const reducer = new Reducer({
   },
   data: {
     _id: '',
-    name: '',
     type_id: 0,
-    information: {
-      package_content: '',
-      value: '',
-      list: [],
+    content: {
+      main: {
+        name: '',
+        description: '',
+        condition: '',
+        package_content: '',
+      },
+      english: {
+        name: '',
+        description: '',
+        condition: '',
+        package_content: '',
+      },
     },
     price: 990,
     sale_price:690,
@@ -38,20 +46,11 @@ export const reducer = new Reducer({
     status: '',
     video: '',
     last_update: 0,
-    image_list: [],
-    image_square_list: [],
-    color_list: [],
     tag_list: [],
-    stock_list: [],
-    connected_list: [],
-    lang_eng: {
-      name: '',
-      information: {
-        package_content: '',
-        value: '',
-        list: [],
-      },
-    },
+  },
+  stock: {
+    _id: '',
+    variant_list: [],
   },
   ecommerce: {
     lazada: false,

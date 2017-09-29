@@ -1,6 +1,8 @@
 import {action as product} from './Product';
+import {action as stock} from './Stock';
 import {action as type} from './Type';
 import {action as size} from './Size';
+import {action as color} from './Color';
 import {action as order} from './OrderAction';
 import {action as ecommerce} from './EcommerceAction';
 import {action as user} from './User';
@@ -19,8 +21,10 @@ import {action as dialog} from './DialogAction';
 export const actions = {
   user,
   product,
+  stock,
   type,
   size,
+  color,
   order,
   ecommerce,
   dialog,

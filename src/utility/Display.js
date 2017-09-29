@@ -31,7 +31,7 @@ export function toOrderStatus(val) {
     case 'order':
       return 'สั่งซื้อสินค้า';
     case 'payment':
-      return 'รอชำระเงิน';
+      return 'ชำระเงินแล้ว';
     case 'working':
       return 'รอดำเนิดการ';
     case 'shipping':

@@ -35,16 +35,53 @@ body {
 	background-color: #F2FCFE;
 }
 
-.panel-login > .panel-heading {
-
-}
-
 .product-nav > li > a, .nav > li > a:focus, .nav > li > a:hover {
   border: 1px solid #ccc;
 }
 
 .page-header {
   font-size: 20px;
+}
+
+.display-print {
+  display: none;
+}
+
+.no-print {
+
+}
+
+.no-print-column {
+  visibility: visible;
+}
+
+@media print {
+  body {
+    margin-top: 0px;
+  }
+
+  #wrapper {
+    padding-left: 0;
+  }
+
+  #page-wrapper {
+    width: 100%;
+    padding: 0px;
+    background-color: #fff;
+    margin-top: 10px;
+  }
+
+  .display-print {
+    display: inherit;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  .no-print-column {
+    visibility: hidden;
+  }
 }
 
 @media screen and (max-width: 1024px) {

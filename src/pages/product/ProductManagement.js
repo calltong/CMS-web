@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
 
 import ProductSearchBar from './ProductSearchBar';
 import TableEditBtn from '../../forms/button/TableEditBtn';
@@ -7,96 +6,135 @@ import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
 import EnImage from '../../forms/EnImage';
 import Paginator from '../../forms/Paginator';
-import MessageThai from '../../common/Message';
-import MessageBox from '../../forms/EnMessageBox';
+import {messageBox} from '../../utility/MessageBox';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
-export class ProductTable extends Component {
-  sizeChange(event) {
-    let index = event.value;
-    actions.product.selectSize(index);
+class Blank extends Component {
+  onDelete(id) {
+    this.props.onDelete(id);
   }
 
+  render() {
+    let cssCenter = {textAlign: 'center'};
+    let product = this.props.product;
+    return (
+      <tr>
+        <td>
+          <EnImage className="product-img" src={product.image} />
+        </td>
+        <td>{product.code}</td>
+        <td>{product.price}</td>
+        <td>{product.sale_price}</td>
+        {this.props.blank}
+        <td style={cssCenter}>
+          <TableEditBtn to={`product/${product._id}/edit`} />
+          <TableRemoveBtn onClick={this.onDelete.bind(this, product._id)} style={{marginTop: '2px'}} />
+        </td>
+      </tr>
+    );
+  }
+}
+
+class RowItem extends Component {
   onDelete(id) {
-    MessageBox.displayConfirm(
-      MessageThai.title.confirm,
-      MessageThai.confirm.remove,
-      function() {
-        actions.product.remove(id);
+    this.props.onDelete(id);
+  }
+
+  render() {
+    let cssCenter = {textAlign: 'center'};
+    let product = this.props.product;
+    let variant = this.props.variant;
+    let img = product.image;
+    if (variant.image_list.length > 0) {
+      img = variant.image_list[0];
+    }
+
+    let index = 0;
+    let stock = [];
+    for (let item of this.props.sizes) {
+      let found = variant.list.find(it => {
+        if (it.size._id === item._id) {
+          return it;
+        } else {
+          return undefined;
+        }
+      });
+      if (found) {
+        stock.push(<td key={++index}>{found.quantity}</td>);
+      } else {
+        stock.push(<td key={++index}>0</td>);
+      }
+    }
+
+    return (
+      <tr>
+        <td>
+          <EnImage className="product-img" src={img} />
+        </td>
+        <td>{product.code}</td>
+        <td>{product.price}</td>
+        <td>{product.sale_price}</td>
+        {stock}
+        <td style={cssCenter}>
+          <TableEditBtn to={`product/${product._id}/edit`} />
+          <TableRemoveBtn onClick={this.onDelete.bind(this, product._id)} style={{marginTop: '2px'}} />
+        </td>
+      </tr>
+    );
+  }
+}
+
+export class ProductTable extends Component {
+  onDelete(id) {
+    messageBox.DisplayConfirm(
+      'ยืนยันลบข้อมูล',
+      function(confirm) {
+        if (confirm === true) {
+          actions.product.remove(id);
+        }
       });
   }
 
   render() {
     let cssCenter = {textAlign: 'center'};
+    let size = this.props.size;
     let data = this.props.data;
-    let sizeStart = data.size.index;
-    let sizeTotal = data.size.total;
-    let colsize = data.size.limit + sizeStart;
-    if (colsize > sizeTotal) {
-      colsize = sizeTotal;
-    }
     let data_list = data.data_list;
-    let sizes = data.size_list.slice(sizeStart, colsize);
-
-    let sizeSelected = data.size_list.map((item, index) => {
-      return {value: index, label: item.code, clearableValue: false};
+    let blank = [];
+    let sizeList = size.data_list.map((item, i) => {
+      blank.push(<td key={item._id} />);
+      return (<th key={item._id} style={cssCenter}>{item.code}</th>);
     });
 
-    let sizeList = sizes.map((item, i) => {
-      if (i === 0) {
-        return (
-          <th key={item._id} className="col-md-1" style={cssCenter}>
-            <Select
-              clearable={false}
-              searchable={false}
-              value={sizeStart}
-              options={sizeSelected}
-              onChange={this.sizeChange.bind(this)} />
-          </th>);
+    let list = [];
+    let index = 0;
+    for (let item of data_list) {
+      let product = item.product;
+      let stock = item.stock;
+      let variant_list = stock.variant_list ? stock.variant_list : [];
+      if (variant_list.length > 0) {
+        for (let variant of stock.variant_list) {
+          list.push(
+            <RowItem
+              key={index++}
+              product={product}
+              variant={variant}
+              sizes={size.data_list}
+              blank={blank}
+              onDelete={this.onDelete} />);
+        }
       } else {
-        return (<th key={item._id} style={cssCenter}>{item.code}</th>);
+        list.push(
+          <Blank
+            key={index++}
+            product={product}
+            blank={blank}
+            onDelete={this.onDelete} />);
       }
-    });
-
-    let list = data_list.map(item => {
-      let stock_list = item.stock_list;
-      let sizeData = [];
-
-      for (let size of sizes) {
-        let found = stock_list.find(stock => {
-          if (stock.size._id === size._id) {
-            return stock;
-          } else {
-            return undefined;
-          }
-        });
-
-        sizeData.push((<td key={size._id} style={cssCenter}>{found === undefined ? '-': found.quantity}</td>));
-      }
-
-      let img = '';
-      if (item.image_list.length > 0) {
-        img = item.image_list[0].data;
-      }
-      return (
-      <tr key={item._id}>
-        <td>
-          <EnImage className="product-img" src={img} />
-        </td>
-        <td>{item.code}</td>
-        <td>{item.price}</td>
-        <td>{item.sale_price}</td>
-        {sizeData}
-        <td style={cssCenter}>
-          <TableEditBtn to={`product/${item._id}/edit`} />
-          <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} style={{marginTop: '2px'}} />
-        </td>
-      </tr>
-    );
-    });
+    }
 
     return (
       <table className="table table-bordered table-hover">
@@ -118,8 +156,10 @@ export class ProductTable extends Component {
   }
 }
 
-export class ProductManagement extends ReducerBase {
+export default class ProductManagement extends ReducerBase {
   componentDidMount() {
+    actions.size.getList(false);
+    actions.type.getList(false);
     let page = this.props.location.query.page;
     if (page) {
       actions.product.getList(page);
@@ -149,7 +189,9 @@ export class ProductManagement extends ReducerBase {
   }
 
   render() {
-    let product = store.getState().product;
+    let state = store.getState();
+    let size = state.size;
+    let product = state.product;
     let page = product.page;
     let num = page.total / page.limit;
     let total = Math.ceil(num);
@@ -163,16 +205,14 @@ export class ProductManagement extends ReducerBase {
         <hr/>
 
         <div className="table-responsive">
-          <ProductTable data={product}/>
+          <ProductTable data={product} size={size} />
 
           <Paginator display={5} pages={total} current={page.index}
             onNext={this.handleNext.bind(this)}
             onPrev={this.handlePrev.bind(this)}
             onJump={this.handleJump.bind(this)} />
-          </div>
+        </div>
       </div>
     );
   }
 }
-
-export default ProductManagement;

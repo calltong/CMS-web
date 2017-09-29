@@ -8,7 +8,7 @@ export default class WindowDialog extends React.Component {
     };
     return (
       <div className="modal" id={setting.id} tabIndex="-1" role="dialog">
-        <div className="modal-dialog choose-product-body" role="document">
+        <div className="modal-dialog choose-window" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title">{setting.title}</h4>

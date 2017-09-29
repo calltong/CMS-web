@@ -8,14 +8,17 @@ export class Size {
     store.update('SIZE_RESET_ITEM');
   }
 
-  getList() {
-    let url = `${config.api.url}/prosize`;
-    http.get(url, {authorization: true}).done(response => {
-      if (response.statusCode === http.StatusOK) {
-        let list = response.body;
-        store.update('SIZE_STORE_LIST', {list});
-      }
-    });
+  getList(check) {
+    let len = store.getState().size.data_list.length;
+    if (check === undefined || len === 0) {
+      let url = `${config.api.url}/prosize`;
+      http.get(url, {authorization: true}).done(response => {
+        if (response.statusCode === http.StatusOK) {
+          let list = response.body;
+          store.update('SIZE_STORE_LIST', {list});
+        }
+      });
+    }
   }
 
   setItem(data) {
@@ -40,8 +43,7 @@ export class Size {
   }
 
   saveItem() {
-    let type = store.getState().size;
-    let data = type.data;
+    let data = store.getState().size.data;
     let json = data;
     let id = data._id;
 
@@ -65,6 +67,15 @@ export class Size {
   remove(id) {
     let url = `${config.api.url}/prosize/${id}/delete`;
     http.delete(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        this.getList();
+      }
+    });
+  }
+
+  updateData() {
+    let url = `${config.api.url}/prosize/update`;
+    http.put(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         this.getList();
       }

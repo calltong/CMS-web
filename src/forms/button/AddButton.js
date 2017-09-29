@@ -9,7 +9,7 @@ export default class AddButton extends React.Component {
         disabled={this.props.disabled}
         style={this.props.style}
         onClick={this.props.onClick}>
-        <i className="fa fa-plus"/>
+        <i className="fa fa-plus"/> {this.props.children}
       </button>
     );
   }

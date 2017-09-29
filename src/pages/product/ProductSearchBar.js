@@ -12,13 +12,17 @@ export default class ProductSearchBar extends ReducerBase {
     actions.product.selectType(val.value);
   }
 
+  updateData() {
+    actions.product.updateData();
+  }
+
   render() {
-    let product = store.getState().product;
+    let state = store.getState();
+    let product = state.product;
+    let select = state.type.select_list;
     let list = [{value: 0, label: 'สินค้าทั้งหมด'}];
-    for (let item of product.type_list) {
-      list.push(
-        {value: item._id, label: item.name}
-      );
+    for (let item of select) {
+      list.push(item);
     }
 
     return (
@@ -34,7 +38,7 @@ export default class ProductSearchBar extends ReducerBase {
           </div>
           <input className="form-control" placeholder="Enter Code" style={{marginLeft:'4px', marginRight:'4px'}}/>
 
-          <FindButton />
+          <FindButton onClick={this.updateData.bind(this)} />
           <CreateButton to={'/product/create'} />
         </form>
       </div>

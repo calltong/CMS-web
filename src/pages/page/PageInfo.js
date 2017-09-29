@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ChooseProductDialog from '../dialog/ChooseProductDialog';
+import ProductDialog from '../../dialog/ProductDialog';
 import {ReducerBase} from '../../ReducerBase';
 import PageMenu from './PageMenu';
 import Property from './Property';
@@ -29,7 +29,7 @@ export class PageInfo extends ReducerBase {
         <PageInfoMenu/>
         <hr style={{borderTop: '1px solid #555555'}}/>
         <Home />
-        <ChooseProductDialog />
+        <ProductDialog />
       </div>
     );
   }

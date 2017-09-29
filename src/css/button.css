@@ -4,7 +4,7 @@
   height: 40px;
   color: black;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #787878;
 }
 
 .btn-login:hover {
@@ -14,7 +14,7 @@
 .btn-action {
   color: black;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #787878;
 }
 
 .btn-action:hover {
@@ -31,69 +31,73 @@
 .btn-normal {
   color: black;
   background-color: white;
-  border: 1px solid #555555;
+  border: 1px solid #929292;
 }
 
 .btn-normal:hover {
   background-color: #FFFFF2;
-  border: 1px solid black;
+  border: 1px solid #787878;
+}
+
+.btn-normal:disabled {
+  background-color: #717171;
 }
 
 .btn-save {
   color: black;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #787878;
   width: 100px;
 }
 
 .btn-save:hover {
   background-color: #FFFFF2;
-  border: 1px solid black;
+  border: 1px solid #787878;
 }
 
 .btn-close {
   color: black;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #787878;
   width: 100px;
 }
 
 .btn-close:hover {
   background-color: #FFFFF2;
-  border: 1px solid black;
+  border: 1px solid #787878;
 }
 
 .btn-create {
   color: black;
   background-color: #EAFBFE;
-  border: 1px solid #555555;
+  border: 1px solid #929292;
 }
 
 .btn-create:hover {
   background-color: #FFFFF2;
-  border: 1px solid black;
+  border: 1px solid #787878;
 }
 
 .btn-add {
   color: black;
   background-color: #F5FCF4;
-  border: 1px solid #555555;
+  border: 1px solid #929292;
 }
 
 .btn-add:hover {
   background-color: #F2FFF2;
-  border: 1px solid black;
+  border: 1px solid #787878;
 }
 
 .btn-remove {
   color: black;
-  background-color: #FFC9C8;
-  border: 1px solid #555555;
+  background-color: #FDD0D0;
+  border: 1px solid #929292;
 }
 
 .btn-remove:hover {
-  background-color: #FFFFF2;
-  border: 1px solid black;
+  background-color: #FD7A7A;
+  border: 1px solid #787878;
 }
 
 .btn-edit {
@@ -104,7 +108,19 @@
 
 .btn-edit:hover {
   background-color: #FFFFF2;
-  border: 1px solid black;
+  border: 1px solid #787878;
+}
+
+.btn-select, .btn-select:focus {
+  color: white;
+  background-color: #01559B;
+  border: 1px solid #787878;
+}
+
+.btn-select:hover {
+  color: white;
+  background-color: #2382A3;
+  border: 1px solid #787878;
 }
 
 .btn-fullsize {
@@ -122,6 +138,13 @@
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-    color: #555555;
-    background-color: #A9CED3;
+  color: white;
+  background-color: #01659F;
+  border: 1px solid #6C6C6C;
+}
+
+.nav-pills>li>a, .nav-pills>li>a:focus, .nav-pills>li>a:hover {
+  color: #555555;
+  background-color: white;
+  border: 1px solid #CBCBCB;
 }

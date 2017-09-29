@@ -2,43 +2,54 @@ import React, { Component } from 'react';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import CreateButton from '../../forms/button/CreateButton';
 import TableEditBtn from '../../forms/button/TableEditBtn';
 import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
+import HeaderTable from '../../forms/HeaderTable';
 import EnHeader from '../../forms/EnHeader';
 
 
 class ColorTable extends Component {
   onDelete(id) {
-    store.update('COLOR_REMOVE_ITEM', {id});
+    actions.color.remove(id);
   }
 
   render() {
+    let css = {textAlign: 'center'};
     let data_list = this.props.data.data_list;
     let list = data_list.map(item => {
+      let cssColor = {
+        backgroundColor: item.code,
+      };
       return (
-      <tr key={item._id}>
-        <td>{item.name}</td>
-        <td style={{textAlign: 'center'}}>
-          <TableEditBtn to={`ColorManager/${item._id}/Edit`} />
-        </td>
-        <td style={{textAlign: 'center'}}>
-          <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
-        </td>
-      </tr>
-    );
+        <tr key={item._id}>
+          <td style={cssColor} />
+          <td>{item.content.main.name}</td>
+          <td>{item.content.english.name}</td>
+          <td style={css}>
+            <TableEditBtn to={`color/${item._id}/edit`} />
+          </td>
+          <td style={css}>
+            <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
+          </td>
+        </tr>
+      );
     });
 
+    let header = [
+      {name: 'รหัสสี', width: 80},
+      {name: 'ชื่อ', width: 150},
+      {name: 'ชื่อ Eng', width: 150},
+      {name: ' ', width: 60, printHide: true},
+      {name: ' ', width: 60, printHide: true},
+    ];
 
     return (
       <table className="table table-bordered table-hover">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th className="col-md-1"/>
-            <th className="col-md-1"/>
-          </tr>
+          <HeaderTable list={header} />
         </thead>
         <tbody>
           {list}
@@ -49,25 +60,24 @@ class ColorTable extends Component {
 }
 
 export class ColorManager extends ReducerBase {
-
   componentDidMount() {
-    store.update('COLOR_GET_LIST', {index: 1});
+    actions.color.getList();
   }
 
   render() {
     let data = store.getState().color;
     return (
       <div className="container-fluid">
-        <EnHeader name="Color Manager"/>
+        <EnHeader name="รายการสีของสินค้า"/>
 
         <div className="row">
-          <div className="col-md-5">
-            <CreateButton to={'/ColorManager/Create'} />
+          <div className="col-md-6">
+            <CreateButton to={'/color/create'} />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-lg-5">
+          <div className="col-md-6">
             <div className="table-responsive" style={{marginTop: 4}}>
               <ColorTable data={data} />
             </div>

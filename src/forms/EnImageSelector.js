@@ -3,11 +3,12 @@ import DropZone from 'react-dropzone';
 
 export default class EnImageSelector extends Component {
   render() {
+    let lineHeight = this.props.lineHeight !== undefined ? `${this.props.lineHeight}px` : '150px';
     let width = this.props.width || '100%';
     let height = this.props.height || '100%';
     let maxWidth = this.props.maxWidth;
     let maxHeight = this.props.maxHeight;
-    let lineHeight = this.props.lineHeight || '100px';
+
     let style = {
       width,
       height,
@@ -24,9 +25,18 @@ export default class EnImageSelector extends Component {
     if (this.props.src) {
       preview = <img style={style} role="presentation" src={this.props.src} />;
     } else {
-      preview = <div style={{height: '100%', textAlign: 'center', lineHeight: lineHeight}}>
-                  {this.props.placeholder || 'เลือกรูป'}
-                </div>;
+      let css = {
+        border: '1px solid #ccc',
+        height: '100%',
+        textAlign: 'center',
+        lineHeight: lineHeight,
+      };
+    
+      preview = (
+        <div style={css}>
+          {this.props.placeholder || 'เลือกรูป'}
+        </div>
+      );
     }
     return (
       <DropZone style={style} accept={this.props.accept} multiple={false} onDrop={this.props.onDrop}>

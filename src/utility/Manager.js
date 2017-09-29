@@ -1,7 +1,6 @@
 //import {facebook} from './Facebook';
 import $ from 'jquery';
 import shortid from 'shortid';
-import swal from 'sweetalert';
 
 class Manager {
   DisplayPanel(id) {
@@ -42,20 +41,6 @@ class Manager {
 
   GenerateId() {
     return shortid.generate();
-  }
-
-  MessageNotify(message) {
-    swal({
-      title: '',
-      text: message,
-    });
-  }
-
-  MessageErrorNotify(message) {
-    swal({
-      title: '',
-      text: message,
-    });
   }
 }
 

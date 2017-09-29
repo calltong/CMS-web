@@ -5,8 +5,9 @@ import {actions} from '../../actions/Action';
 import EnImageSelector from '../../forms/EnImageSelector';
 import EnButton from '../../forms/button/EnButton';
 
-export class ProductImage extends React.Component {
+export default class ProductImage extends React.Component {
   onDropImage(files) {
+    let inVariant = this.props.index;
     let reader = new FileReader();
     reader.onload = function(event) {
       let image = new Image();
@@ -14,66 +15,69 @@ export class ProductImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.product.addImage(data, this.width, this.height);
+        actions.stock.addImage(inVariant, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
   }
 
   onIndexDropImage(index, files) {
+    let inVariant = this.props.index;
     let reader = new FileReader();
-
     reader.onload = function(event) {
       let image = new Image();
       image.src = event.target.result;
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.product.editImage(index, data, this.width, this.height);
+        actions.stock.editImage(inVariant, index, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
   }
 
   onRemove(index) {
-    actions.product.removeImage(index);
+    actions.stock.removeImage(this.props.index, index);
   }
 
   render() {
-    let data = this.props.data;
-    let list = data.image_list.map((item, index) => {
+    let list = this.props.data.map((item, index) => {
       let note = '';
       if (item.width && item.height) {
         note = `note: ${item.height} x ${item.width}`;
       }
-
+      let css = {
+        marginTop: '10px',
+        textAlign: 'center',
+      };
       return (
         <div className="col-md-2" key={index}>
-          <EnImageSelector height="224" width="160"
-            src={item.data}
+          <EnImageSelector height="255px" width="170px"
+            src={item}
             onDrop={this.onIndexDropImage.bind(this, index)} />
 
-          <EnButton
-            className="btn btn-remove"
-            onClick={this.onRemove.bind(this, index)}
-            style={{marginTop: 4, marginBottom: 4}} >
-            <i className="fa fa-close" data-tip="delete"/> Remove
-          </EnButton>
-          <p>{note}</p>
+          <div style={css}>
+            <EnButton
+              className="btn btn-remove"
+              onClick={this.onRemove.bind(this, index)}
+              style={{marginTop: 4, marginBottom: 4}} >
+              <i className="fa fa-close" data-tip="delete"/> Remove
+            </EnButton>
+            <p>{note}</p>
+          </div>
         </div>
       );
     });
 
-    let css = {border: '1px solid #ccc'};
     return (
       <div className="panel panel-info">
-        <div className="panel-heading">Image 14x10</div>
+        <div className="panel-heading">Image 15x10</div>
         <div className="panel-body">
           <div className="row">
             {list}
             <div className="col-md-2">
-              <div className="form-group" style={css} >
-                <EnImageSelector height="224" width="160"
+              <div className="form-group">
+                <EnImageSelector height="255px" width="170px"
                   onDrop={this.onDropImage.bind(this)} />
               </div>
             </div>
@@ -83,5 +87,3 @@ export class ProductImage extends React.Component {
     );
   }
 }
-
-export default ProductImage;

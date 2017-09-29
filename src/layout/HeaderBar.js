@@ -11,28 +11,31 @@ class MenuBar extends Component {
     return (
       <ul className="nav navbar-nav">
         <li><Link to={'/home'} ><i className="fa fa-fw fa-dashboard" /> Dashboard</Link></li>
-        <li><Link to={'/order'} ><i className="fa fa-fw fa-usd" /> Order</Link></li>
+        <li><Link to={'/order'} ><i className="fa fa-fw fa-usd" /> คำสั่งซื้อ</Link></li>
         <li className="dropdown">
           <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-            <i className="fa fa-fw fa-product-hunt"/> Product Setting <b className="caret"/>
+            <i className="fa fa-fw fa-product-hunt"/> ตั้งค่าสินค้า <b className="caret"/>
           </a>
           <ul className="dropdown-menu">
             <li>
-              <Link to={'/product/create'} ><i className="fa fa-plus-circle" /> Create Product</Link>
+              <Link to={'/product/create'} ><i className="fa fa-plus-circle" /> สร้างสินค้า</Link>
             </li>
             <li className="divider"/>
             <li>
-              <Link to={'/product'} ><i className="fa fa-list-ul" /> Product List</Link>
+              <Link to={'/product'} ><i className="fa fa-list-ul" /> รายการสินค้า</Link>
             </li>
             <li>
-              <Link to={'/size'} ><i className="fa fa-list-ul" /> Product Size</Link>
+              <Link to={'/color'} ><i className="fa fa-list-ul" /> สีสินค้า</Link>
             </li>
             <li>
-              <Link to={'/type'} ><i className="fa fa-list-ul" /> Product Type</Link>
+              <Link to={'/size'} ><i className="fa fa-list-ul" /> ขนาดสินค้า</Link>
+            </li>
+            <li>
+              <Link to={'/type'} ><i className="fa fa-list-ul" /> ชนิดสินค้า</Link>
             </li>
           </ul>
         </li>
-        <li><Link to={'/page/modify'} ><i className="fa fa-columns" /> Page</Link></li>
+        <li><Link to={'/page/modify'} ><i className="fa fa-columns" /> หน้าเวป</Link></li>
       </ul>
     );
   }

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Reducer} from '../../redux-manager';
+import {Reducer} from '../redux-manager';
 
 export const reducer = new Reducer({
   page: {
@@ -19,6 +19,7 @@ export const reducer = new Reducer({
       },
     },
   },
+  select_list: [],
 });
 
 reducer.register('SIZE_RESET', (state, action) => {
@@ -33,7 +34,12 @@ reducer.register('SIZE_RESET_ITEM', (state, action) => {
 
 reducer.register('SIZE_STORE_LIST', (state, action) => {
   let {list} = action.params;
-  state.data_list = list?list:[];
+  list = list !== undefined ? list : [];
+  let select = list.map(item => {
+    return {value: item._id, label: item.content.main.name, clearableValue: false};
+  });
+  state.data_list = list;
+  state.select_list = select;
   return state;
 });
 

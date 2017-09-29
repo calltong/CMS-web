@@ -1,9 +1,7 @@
 import React from 'react';
 
 import {actions} from '../../../../actions/Action';
-
-import MessageThai from '../../../../common/Message';
-import MessageBox from '../../../../forms/EnMessageBox';
+import {messageBox} from '../../../../utility/MessageBox';
 import EnText from '../../../../forms/EnText';
 import EnImageSelector from '../../../../forms/EnImageSelector';
 import LinkSetting from '../LinkSetting';
@@ -33,23 +31,21 @@ export default class Image extends React.Component {
   }
 
   selectProduct(product, data) {
+    console.log('product:', product);
     let index = data.index;
     let item = data.item;
     let l2 = index.level_2;
     item.value = product._id;
-    if (product.image_list.length > 0) {
-      MessageBox.displayConfirm(
-        MessageThai.title.confirm,
-        MessageThai.confirm.use_image,
-        function(isConfirm) {
-          if (isConfirm === true) {
-            item.preview = product.image_list[0].data;
-          }
-          actions.page.home.setItem(l2, item);
-        });
-    } else {
-      actions.page.home.setItem(l2, item);
-    }
+
+    messageBox.DisplayConfirm(
+      'ต้องการใช้รูปสินค้าใช่มัยค่ะ',
+      function(confirm) {
+        if (confirm === true) {
+          item.preview = product.image;
+        }
+        actions.page.home.setItem(l2, item);
+      }
+    );
   }
 
   titleChange(event) {
@@ -89,7 +85,7 @@ export default class Image extends React.Component {
             <EnImageSelector maxWidth="150px" maxHeight="210px" lineHeight="210px"
               onDrop={this.selectImage.bind(this)}
               src={item.preview} />
-            <p className="help-block">ขนาดรูปแนะนำ 1000x1400, 1000x1000</p>
+            <p className="help-block">ขนาดรูปแนะนำ 1000x1500, 1000x1000</p>
           </div>
         </div>
 

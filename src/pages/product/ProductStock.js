@@ -1,147 +1,41 @@
-import React, { Component } from 'react';
-import Select from 'react-select';
+import React from 'react';
+//import Select from 'react-select';
 
-import {actions} from '../../actions/Action';
-import MessageThai from '../../common/Message';
-import MessageBox from '../../forms/EnMessageBox';
-import EnNumberText from '../../forms/EnNumberText';
-import EnButton from '../../forms/button/EnButton';
+import {store} from '../../store';
+import {ReducerBase} from '../../ReducerBase';
+import ProductVariant from './ProductVariant';
+//import EnText from '../../forms/EnText';
 
-export class ProductStock extends Component {
-
-  async sizeAdd(event) {
-    let value = event.value;
-    let data = this.props.data;
-
-    let size = this.props.size_list.find(item => {
-      return item._id === value;
-    });
-
-    let found = await data.stock_list.find(item => {
-      return item.size._id === value;
-    });
-
-    if (found) {
-      MessageBox.display(
-        MessageThai.title.warning,
-        MessageThai.warning.duplicate);
-      actions.product.refresh();
-    } else {
-      data.stock_list.push({size: size, quantity: 0});
-      actions.product.setItem(data);
-    }
-  }
-
-  async sizeChange(index, event) {
-    let value = event.value;
-    let data = this.props.data;
-
-    let size = this.props.size_list.find(item => {
-      return item._id === value;
-    });
-
-    let found = await data.stock_list.find(item => {
-      return item.size._id === value;
-    });
-    if (found) {
-      MessageBox.display(
-        MessageThai.title.warning,
-        MessageThai.warning.duplicate);
-      actions.product.refresh();
-    } else {
-      data.stock_list[index].size = size;
-      actions.product.setItem(data);
-    }
-  }
-
-  quantityChange(index, event) {
-    let value = event.target.value;
-    let data = this.props.data;
-    let stock_list = data.stock_list;
-    let val = parseInt(value, 10);
-    stock_list[index].quantity = val? val: 0;
-    data.stock_list = stock_list;
-    actions.product.setItem(data);
-  }
-
-  onDelete(index) {
-    let data = this.props.data;
-    MessageBox.displayConfirm(
-      MessageThai.title.confirm,
-      MessageThai.confirm.remove,
-      function() {
-        data.stock_list.splice(index, 1);
-        actions.product.setItem(data);
-      });
-  }
-
+export default class ProductStock extends ReducerBase {
   render() {
-    let data = this.props.data;
-    let sizeList = this.props.size_list.map(item => {
-      return {value: item._id, label: item.name, clearableValue: false};
-    });
+    let state = store.getState();
+    let stock = state.stock.data;
+    let index = state.stock.index;
+    let section = <div />;
+    if (stock.variant_list.length > 0) {
+      let colors = stock.variant_list.map(item => {
+        return {value: item.color._id, label: item.color.content.main.name, clearableValue: false};
+      });
 
-    let list = data.stock_list.map((item, index) => {
-      let id = item.size._id;
-      return (
-      <tr key={id}>
-        <td>
-          <Select
-            clearable={false}
-            searchable={false}
-            value={id}
-            options={sizeList}
-            onChange={this.sizeChange.bind(this, index)} />
-        </td>
-        <td>
-          <EnNumberText
-            value={item.quantity}
-            onChange={this.quantityChange.bind(this, index)}/>
-        </td>
-        <td style={{textAlign: 'center'}}>
-            <EnButton onClick={this.onDelete.bind(this, index)} className="btn btn-default">
-              <i className="fa fa-close" data-tip="delete"/> Delete
-            </EnButton>
-        </td>
-      </tr>);
-    });
+      let variant = stock.variant_list[index];
+      section = (
+        <ProductVariant
+          index={index}
+          size_list={state.size.data_list}
+          sizes={state.size.select_list}
+          colors={colors}
+          variant={variant} />
+        );
+    }
 
     return (
-      <div className="panel panel-default">
-        <div className="panel-body">
-          <div className="row">
-          <div className="col-md-6">
-          <div className="table-responsive">
-            <table width="100%" className="table table-striped table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th className="col-md-3">ขนาด</th>
-                  <th className="col-md-2">จำนวนสินค้า</th>
-                  <th/>
-                </tr>
-              </thead>
-              <tbody>
-                {list}
-                <tr>
-                  <td>
-                    <Select
-                      clearable={false}
-                      searchable={false}
-                      options={sizeList}
-                      onChange={this.sizeAdd.bind(this)} />
-                  </td>
-                  <td/>
-                  <td/>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          </div>
+      <div>
+        <div className="row">
+          <div className="col-md-12">
+            {section}
           </div>
         </div>
       </div>
     );
   }
 }
-
-export default ProductStock;

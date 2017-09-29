@@ -9,6 +9,7 @@ import CreateButton from '../../forms/button/CreateButton';
 import TableEditBtn from '../../forms/button/TableEditBtn';
 import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
+import HeaderTable from '../../forms/HeaderTable';
 
 class SizeTable extends Component {
   onDelete(id) {
@@ -16,30 +17,32 @@ class SizeTable extends Component {
   }
 
   render() {
-
+    let css = {textAlign: 'center'};
     let list = this.props.data.data_list.map(item => {
       return (
       <tr key={item._id}>
         <td>{item.code}</td>
-        <td>{item.name}</td>
-        <td style={{textAlign: 'center'}}>
+        <td>{item.content.main.name}</td>
+        <td style={css}>
           <TableEditBtn to={`size/${item._id}/edit`} />
         </td>
-        <td style={{textAlign: 'center'}}>
+        <td style={css}>
           <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
         </td>
       </tr>);
     });
 
+    let header = [
+      {name: 'Code', width: 80},
+      {name: 'ชื่อ', width: 150},
+      {name: ' ', width: 60, printHide: true},
+      {name: ' ', width: 60, printHide: true},
+    ];
+
     return (
       <table className="table table-bordered table-hover">
         <thead>
-          <tr>
-            <th>Code</th>
-            <th>ชื่อ</th>
-            <th className="col-md-1" />
-            <th className="col-md-1" />
-          </tr>
+          <HeaderTable list={header} />
         </thead>
         <tbody>
           {list}
@@ -55,7 +58,7 @@ export class SizeManager extends ReducerBase {
   }
 
   updateSize() {
-    actions.product.updateSize();
+    actions.size.updateData();
   }
 
   render() {
@@ -65,19 +68,19 @@ export class SizeManager extends ReducerBase {
         <EnHeader name="ขนาดสินค้า"/>
 
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-6">
             <EnButton
               className="btn btn-normal"
               onClick={this.updateSize.bind(this)}
               style={{marginRight:'2px'}}>
-              Update Size on Product
+              Update Size
             </EnButton>
             <CreateButton to={'/size/create'} />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-lg-8">
+          <div className="col-md-6">
             <div className="table-responsive" style={{marginTop: 4}}>
               <SizeTable data={size}/>
             </div>

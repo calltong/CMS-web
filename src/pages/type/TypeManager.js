@@ -7,6 +7,7 @@ import {actions} from '../../actions/Action';
 import TableEditBtn from '../../forms/button/TableEditBtn';
 import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
 import CreateButton from '../../forms/button/CreateButton';
+import SaveButton from '../../forms/button/SaveButton';
 import EnHeader from '../../forms/EnHeader';
 
 class TypeTable extends Component {
@@ -15,17 +16,17 @@ class TypeTable extends Component {
   }
 
   render() {
+    let css = {textAlign: 'center'};
     let data_list = this.props.data.data_list;
     let list = data_list.map(item => {
       return (
         <tr key={item._id}>
-          <td>{item.name}</td>
-          <td>{item.lang_eng.name}</td>
-          <td>{item.tag_list}</td>
-          <td style={{textAlign: 'center'}}>
+          <td>{item.content.main.name}</td>
+          <td>{item.content.english.name}</td>
+          <td style={css}>
             <TableEditBtn to={`type/${item._id}/edit`} />
           </td>
-          <td style={{textAlign: 'center'}}>
+          <td style={css}>
             <TableRemoveBtn onClick={this.onDelete.bind(this, item._id)} />
           </td>
         </tr>
@@ -37,8 +38,7 @@ class TypeTable extends Component {
         <thead>
           <tr>
             <th>ชื่อ</th>
-            <th>ชื่อภาษา (Eng)</th>
-            <th>Default Tags</th>
+            <th>ชื่อ(Eng)</th>
             <th className="col-md-1" />
             <th className="col-md-1" />
           </tr>
@@ -56,6 +56,10 @@ export class TypeManager extends ReducerBase {
     actions.type.getList();
   }
 
+  updateData() {
+    actions.type.updateData();
+  }
+
   render() {
     let data = store.getState().type;
     return (
@@ -65,6 +69,7 @@ export class TypeManager extends ReducerBase {
         <div className="row">
           <div className="col-md-8">
             <CreateButton to={'/type/create'} />
+            <SaveButton onClick={this.updateData.bind(this)} />
           </div>
         </div>
 

@@ -14,11 +14,11 @@ export default class LoadingWindow extends Component {
           <div className="modal-content">
 
             <div className="window-body">
-              <ReactLoading type="spinningBubbles" color="#444" height={100} width={100} />
+              <ReactLoading type="spinningBubbles" color="#02E0F6" height={100} width={100} />
 
               <p>Processing</p>
 
-              <button type="button" className="btn window-btn-close"
+              <button type="button" className="btn btn-normal"
                 onClick={this.onClose.bind(this)}>
                 Close
               </button>

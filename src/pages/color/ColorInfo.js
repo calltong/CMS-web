@@ -1,18 +1,79 @@
 import React from 'react';
 
+import PickerColor from '../../forms/PickerColor';
 import CompleteSection from '../../forms/CompleteSection';
 import EnText from '../../forms/EnText';
 import EnHeader from '../../forms/EnHeader';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
-class Information extends React.Component {
+class MainInformation extends React.Component {
+  codeChange(color) {
+    let data = this.props.data;
+    data.code = color;
+    actions.color.setItem(data);
+  }
 
   nameChange(event) {
     let data = this.props.data;
-    data.name = event.target.value;
-    store.update('COLOR_STORE_ITEM', {data: data});
+    data.content.main.name = event.target.value;
+    actions.color.setItem(data);
+  }
+
+  render() {
+    let data = this.props.data;
+    let check = this.props.check;
+    let css = {
+      width: '100%',
+    };
+
+    let cssColor = {
+      height: '34px',
+      width: '100%',
+      backgroundColor: data.code,
+      border: '1px solid #ccc',
+      borderRadius: '5px',
+    };
+
+    return (
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group">
+            <label>รหัสสี</label>
+            <div className="row">
+              <div className="col-md-4">
+                <div style={cssColor}/>
+              </div>
+              <div className="col-md-8">
+                <PickerColor
+                  value={data.code}
+                  css={css}
+                  onChange={this.codeChange.bind(this)} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className={check ? 'form-group has-error': 'form-group'}>
+            <label>ชื่อ</label>
+            <EnText
+              placeholder="ชื่อ..."
+              value={data.name}
+              onChange={this.nameChange.bind(this)} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class EnglishInformation extends React.Component {
+  nameChange(event) {
+    let data = this.props.data;
+    data.content.english.name = event.target.value;
+    actions.color.setItem(data);
   }
 
   render() {
@@ -20,62 +81,56 @@ class Information extends React.Component {
     let check = this.props.check;
 
     return (
-    <div>
-      <div className={check? 'form-group has-error': 'form-group'}>
-        <label>Name</label>
-        <EnText
-          placeholder="Enter name..."
-          value={data.name}
-          onChange={this.nameChange.bind(this)} />
+      <div>
+        <div className={check? 'form-group has-error': 'form-group'}>
+          <label>Name</label>
+          <EnText
+            placeholder="name..."
+            value={data.name}
+            onChange={this.nameChange.bind(this)} />
+        </div>
       </div>
-    </div>
-  );
+    );
   }
 }
 
 export class ColorInfo extends ReducerBase {
-  constructor(props) {
-    super(props);
-    this.state = {
-      check: false,
-    };
-  }
-
   componentDidMount() {
     let id = this.props.params.id;
     if (id) {
-      store.update('COLOR_GET_ITEM', {id});
+      actions.color.getItem(id);
     } else {
-      store.update('COLOR_RESET_ITEM');
+      actions.color.resetItem();
     }
   }
 
   onSave() {
-    let ob = store.getState().color;
-    if (ob.data.name === '') {
-      this.state.check = true;
-      this.setState(this.state);
-    } else {
-      store.update('COLOR_SAVE_ITEM');
-    }
+    //let ob = store.getState().color;
+    actions.color.saveItem();
   }
 
   render() {
-    let state = this.state;
-    let data = store.getState().color;
+    let data = store.getState().color.data;
 
     return (
       <div className="container-fluid">
-        <EnHeader name="Color Information"/>
-        <CompleteSection close={'/ColorManager'} save={this.onSave.bind(this)} />
+        <EnHeader name="รายละเอียดของสี"/>
+        <CompleteSection close={'/color'} save={this.onSave.bind(this)} />
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-md-6">
             <div className="panel panel-default">
-              <div className="panel-heading">Information</div>
+              <div className="panel-heading">รายละเอียด</div>
               <div className="panel-body">
-                <Information
-                  data={data.data}
-                  check={state.check} />
+                <MainInformation data={data} />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-6">
+            <div className="panel panel-default">
+              <div className="panel-heading">ภาษาอังกฤษ</div>
+              <div className="panel-body">
+                <EnglishInformation data={data} />
               </div>
             </div>
           </div>

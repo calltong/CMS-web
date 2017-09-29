@@ -9,9 +9,9 @@ export class CompleteSection extends React.Component {
     return (
     <div>
       <div className="row">
-        <div className="col-md-4">
-          <SaveButton onClick={this.props.save} />
+        <div className="col-md-6">
           <CloseButton to={this.props.close} />
+          <SaveButton onClick={this.props.save} />
         </div>
       </div>
       <hr/>

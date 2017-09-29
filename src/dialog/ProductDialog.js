@@ -1,13 +1,14 @@
 import React from 'react';
 import Select from 'react-select';
 
-import blank from '../../image/blank.png';
-import WindowDialog from '../../forms/WindowDialog';
-import EnImage from '../../forms/EnImage';
-import FindButton from '../../forms/button/FindButton';
+import {ReducerBase} from '../ReducerBase';
 
-import {actions} from '../../actions/Action';
-import {store} from '../../store';
+import WindowDialog from '../forms/WindowDialog';
+import EnImage from '../forms/EnImage';
+import FindButton from '../forms/button/FindButton';
+
+import {actions} from '../actions/Action';
+import {store} from '../store';
 
 class Menu extends React.Component {
   typeChange(val) {
@@ -15,12 +16,12 @@ class Menu extends React.Component {
   }
 
   render() {
-    let product = store.getState().product;
+    let state = store.getState();
+    let type = state.type;
+    let product = state.product;
     let list = [{value: 0, label: 'สินค้าทั้งหมด'}];
-    for (let item of product.type_list) {
-      list.push(
-        {value: item._id, label: item.name}
-      );
+    for (let item of type.select_list) {
+      list.push(item);
     }
 
     return (
@@ -44,7 +45,7 @@ class Menu extends React.Component {
   }
 }
 
-export default class ChooseProductDialog extends React.Component {
+export default class ProductDialog extends ReducerBase {
   componentDidMount() {
     actions.product.getCountAndList(1);
   }
@@ -57,6 +58,7 @@ export default class ChooseProductDialog extends React.Component {
     let dialog = store.getState().dialog;
     if (dialog.product.confirm) {
       dialog.product.confirm(dialog.product.value, dialog.product.item);
+      actions.dialog.resetProduct();
     }
   }
 
@@ -89,17 +91,14 @@ export default class ChooseProductDialog extends React.Component {
     };
     let data_list = product.data_list;
     let list = data_list.map((item, index) => {
-      let img = blank;
-      if (item.image_list.length > 0) {
-        img = item.image_list[0].data;
-      } else if (item.image_square_list.length > 0) {
-        img = item.image_square_list[0].data;
-      }
-
-      let cssCol = selected === item._id ? 'col-md-2 choose-product-selected' : 'col-md-2 choose-product';
+      let pd = item.product;
+      let cssCol = selected === pd._id ? 'col-md-2 choose-product-selected' : 'col-md-2 choose-product';
       return (
         <div className={cssCol} key={index}>
-          <EnImage onClick={this.selectProduct.bind(this, item)} style={css} src={img} />
+          <EnImage
+            style={css}
+            src={pd.image}
+            onClick={this.selectProduct.bind(this, pd)} />
         </div>
       );
     });

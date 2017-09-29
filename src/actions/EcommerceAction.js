@@ -2,6 +2,7 @@ import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
 import {manager} from '../utility/Manager';
+import {messageBox} from '../utility/MessageBox';
 //import {actions} from './Action';
 
 export class EcommerceAction {
@@ -10,9 +11,9 @@ export class EcommerceAction {
     http.put(url, {authorization: true}).done(response => {
       manager.ClosePanel('#Loading');
       if (response.statusCode === http.StatusOK) {
-        manager.MessageNotify('Completed');
+        messageBox.Display('Completed');
       } else {
-        manager.MessageErrorNotify(response.body.result);
+        messageBox.Display(response.body.result);
       }
     });
   }
@@ -22,9 +23,9 @@ export class EcommerceAction {
     http.put(url, {authorization: true}).done(response => {
       manager.ClosePanel('#Loading');
       if (response.statusCode === http.StatusOK) {
-        manager.MessageNotify('Completed');
+        messageBox.Display('Completed');
       } else {
-        manager.MessageErrorNotify(response.body.result);
+        messageBox.Display(response.body.result);
       }
     });
   }
@@ -33,9 +34,9 @@ export class EcommerceAction {
     let url = `${config.api.url}/ecommerce/lazada/${id}/image`;
     http.put(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        manager.MessageNotify('Completed');
+        messageBox.Display('Completed');
       } else {
-        manager.MessageErrorNotify(response.body.result);
+        messageBox.Display(response.body.result);
       }
     });
   }
