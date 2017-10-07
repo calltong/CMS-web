@@ -1,7 +1,6 @@
 import {Store} from './redux-manager';
 
 import {reducer as product} from './stores/Product';
-import {reducer as stock} from './stores/Stock';
 import {reducer as size} from './stores/Size';
 import {reducer as type} from './stores/Type';
 import {reducer as color} from './stores/Color';
@@ -20,7 +19,6 @@ import {reducer as page} from './stores/Page';
 
 export const store = new Store({
   product: product.combine(),
-  stock: stock.combine(),
   size: size.combine(),
   type: type.combine(),
   color: color.combine(),

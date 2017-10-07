@@ -10,8 +10,8 @@ export default class OrderStatus extends React.Component {
       if (index === len) {
         return (
           <tr key={index}>
-            <td><strong>{toOrderStatus(item.status)}</strong></td>
-            <td><strong>{toDate(item.updated_at)}</strong></td>
+            <td><strong className="focus-text">{toOrderStatus(item.status)}</strong></td>
+            <td><strong className="focus-text">{toDate(item.updated_at)}</strong></td>
           </tr>
         );
       } else {

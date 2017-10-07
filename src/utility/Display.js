@@ -28,10 +28,8 @@ export function toDate(val) {
 
 export function toOrderStatus(val) {
   switch (val) {
-    case 'order':
+    case 'created':
       return 'สั่งซื้อสินค้า';
-    case 'payment':
-      return 'ชำระเงินแล้ว';
     case 'working':
       return 'รอดำเนิดการ';
     case 'shipping':

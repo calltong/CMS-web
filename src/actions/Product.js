@@ -1,10 +1,8 @@
-import {browserHistory} from 'react-router';
-
 import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
 import {manager} from '../utility/Manager';
-import {messageBox} from '../utility/MessageBox';
+import {box} from '../utility/MessageBox';
 
 export class Product {
   refresh() {
@@ -22,7 +20,6 @@ export class Product {
       url = `${url}?type=${product.page.condition.type_id}`;
     }
 
-    console.log('product c url:', url);
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
@@ -39,7 +36,7 @@ export class Product {
     store.update('PRODUCT_STORE_PAGE', {data: product.page});
 
     let limit = product.page.limit;
-    let url = `${config.api.url}/product/full?page=${index}&&limit=${limit}`;
+    let url = `${config.api.url}/product?page=${index}&&limit=${limit}`;
     if (product.page.condition.type_id !== 0) {
       url = `${url}&type=${product.page.condition.type_id}`;
     }
@@ -77,9 +74,9 @@ export class Product {
       http.put(url, {json, authorization: true}).done(response => {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusOK) {
-          messageBox.Display('บันทึกเรียบร้อย');
+
         } else {
-          messageBox.Display('ไม่สามารถบันทึกได้');
+          box.Display('ไม่สามารถบันทึกได้');
         }
       });
     } else {
@@ -87,11 +84,10 @@ export class Product {
       http.post(url, {json, authorization: true}).done(response => {
         manager.ClosePanel('#Loading');
         if (response.statusCode === http.StatusCreated) {
-          messageBox.Display('บันทึกเรียบร้อย');
-          id = response.body._id;
-          browserHistory.push(`/ProductManager?page=${product.page.index}`);
+          data._id = response.body._id;
+          this.setItem(data);
         } else {
-          messageBox.Display('ไม่สามารถบันทึกได้');
+          box.Display('ไม่สามารถบันทึกได้');
         }
       });
     }
@@ -107,10 +103,6 @@ export class Product {
     });
   }
 
-  selectSize(index) {
-    store.update('PRODUCT_SET_SIZE', {index: +index});
-  }
-
   selectType(id) {
     store.update('PRODUCT_SET_TYPE', {id: id});
     this.getCountAndList(1);
@@ -123,6 +115,86 @@ export class Product {
         this.getList();
       }
     });
+  }
+
+  selectVariant(index) {
+    store.update('PRODUCT_VARIANT_INDEX', {index: +index});
+  }
+
+  setVariant(index, variant) {
+    store.update('PRODUCT_SET_VARIANT', {index, data: variant});
+  }
+
+  addVariant(color) {
+    let variant = {
+      color,
+      list: [],
+      image_list: [],
+      image_sq_list: [],
+    };
+    let data = store.getState().product.data;
+    data.variant_list.push(variant);
+    store.update('PRODUCT_STORE_ITEM', {data: data});
+    this.selectVariant(data.variant_list.length - 1);
+  }
+
+  editVariant(inVariant, color) {
+    let data = store.getState().product.data;
+    data.variant_list[inVariant].color = color;
+    store.update('PRODUCT_STORE_ITEM', {data: data});
+  }
+
+  removeVariant(inVariant) {
+    let data = store.getState().product.data;
+    data.variant_list.splice(inVariant, 1);
+
+    store.update('PRODUCT_STORE_ITEM', {data: data});
+    let index = data.variant_list.length - 1;
+    this.selectVariant(index > 0 ? index : undefined);
+  }
+
+  addImage(inVariant, img) {
+    let data = store.getState().product.data;
+    let variant = data.variant_list[inVariant];
+    variant.image_list.push(img);
+    store.update('PRODUCT_SET_IMAGE', {list: variant.image_list});
+  }
+
+  editImage(inVariant, index, img, width, height) {
+    let data = store.getState().product.data;
+    let variant = data.variant_list[inVariant];
+    variant.image_list[index] = img;
+    store.update('PRODUCT_SET_IMAGE', {list: variant.image_list});
+  }
+
+  removeImage(inVariant, index) {
+    let data = store.getState().product.data;
+    let variant = data.variant_list[inVariant];
+    let list = variant.image_list;
+    list.splice(index, 1);
+    store.update('PRODUCT_SET_IMAGE', {list: list});
+  }
+
+  addSqImage(inVariant, img, width, height) {
+    let data = store.getState().product.data;
+    let variant = data.variant_list[inVariant];
+    variant.image_sq_list.push(img);
+    store.update('PRODUCT_SET_SQIMAGE', {list: variant.image_sq_list});
+  }
+
+  editSqImage(inVariant, index, img, width, height) {
+    let data = store.getState().product.data;
+    let variant = data.variant_list[inVariant];
+    variant.image_sq_list[index] = img;
+    store.update('PRODUCT_SET_SQIMAGE', {list: variant.image_sq_list});
+  }
+
+  removeSqImage(inVariant, index) {
+    let data = store.getState().product.data;
+    let variant = data.variant_list[inVariant];
+    let list = variant.image_sq_list;
+    list.splice(index, 1);
+    store.update('PRODUCT_SET_SQIMAGE', {list: list});
   }
 }
 

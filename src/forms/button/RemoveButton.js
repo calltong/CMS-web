@@ -9,7 +9,7 @@ export default class RemoveButton extends React.Component {
         disabled={this.props.disabled}
         style={this.props.style}
         onClick={this.props.onClick}>
-        <i className="fa fa-times"/>
+        <i className="fa fa-times"/> {this.props.children}
       </button>
     );
   }

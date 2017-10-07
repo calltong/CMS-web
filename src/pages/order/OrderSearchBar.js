@@ -23,8 +23,7 @@ export class OrderSearchBar extends React.Component {
   render() {
     let list = [
       {value: '', label: 'ทั้งหมด'},
-      {value: 'order', label: 'สั่งซื้อสินค้า'},
-      {value: 'payment', label: 'ชำระเงินแล้ว'},
+      {value: 'created', label: 'สั่งซื้อสินค้า'},
       {value: 'working', label: 'รอดำเนิดการ'},
       {value: 'shipping', label: 'จัดส่งสินค้า'},
       {value: 'completed', label: 'ลูกค้าได้รับสินค้า'},

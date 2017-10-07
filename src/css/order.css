@@ -3,10 +3,15 @@
   background-color: #016895;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 14px 5px 5px 10px;
-  margin-bottom: 15px;
+  padding: 10px 10px 5px 10px;
+  margin-bottom: 10px;
 }
 
 .order-header > p {
-  font-size: 16px;
+  font-size: 14px;
+}
+
+.focus-text {
+  font-weight: 700;
+  font-size: 18px;
 }

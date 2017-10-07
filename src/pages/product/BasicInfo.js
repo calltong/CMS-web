@@ -27,19 +27,25 @@ export default class BasicInfo extends ReducerBase {
 
   nameChange(event) {
     let data = this.data;
-    data.name = event.target.value;
+    data.content.main.name = event.target.value;
     actions.product.setItem(data);
   }
 
   infoChange(event) {
     let data = this.data;
-    data.information.value = event.target.value;
+    data.content.main.description = event.target.value;
     actions.product.setItem(data);
   }
 
   contentChange(event) {
     let data = this.data;
-    data.information.package_content = event.target.value;
+    data.content.main.package_content = event.target.value;
+    actions.product.setItem(data);
+  }
+
+  conditionChange(event) {
+    let data = this.data;
+    data.content.main.condition = event.target.value;
     actions.product.setItem(data);
   }
 
@@ -160,7 +166,7 @@ export default class BasicInfo extends ReducerBase {
               <label>Tags</label>
               <TagsInput
                 ref="tag_list"
-                value={data.tag_list?data.tag_list:[]}
+                value={data.tag_list? data.tag_list: []}
                 onChange={this.tagsChange.bind(this)} />
             </div>
           </div>
@@ -184,8 +190,8 @@ export default class BasicInfo extends ReducerBase {
               <EnTextArea
                 placeholder="เงื่อนไข..."
                 rows="4"
-                value={data.content.main.package_content}
-                onChange={this.contentChange.bind(this)}/>
+                value={data.content.main.condition}
+                onChange={this.conditionChange.bind(this)}/>
             </div>
           </div>
         </div>

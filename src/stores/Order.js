@@ -11,7 +11,7 @@ export const reducer = new Reducer({
   data: {
     _id: undefined,
     tracking_code: '',
-    product_list: [],
+    list: [],
     status_list: [],
     shipping: {
       location: '',

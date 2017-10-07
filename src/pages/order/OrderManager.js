@@ -20,18 +20,18 @@ class OrderTable extends Component {
     let list = this.props.data.list;
     let rows = list.map((item, i) => {
       let index = item.status_list.length;
-      let order = item.status_list[0];
+      let created = item.status_list[0];
       let tracking = item.status_list[index - 1];
       let sum = 0;
-      for (let product of item.product_list) {
-        sum += product.quantity;
+      for (let order of item.list) {
+        sum += order.quantity;
       }
       return (
       <tr key={i}>
         <td>{item.shipping.name}</td>
         <td style={cssR}>{toMoney(item.summary.total)}</td>
         <td style={cssR}>{toNumber(sum)}</td>
-        <td style={cssC}>{toDate(order.updated_at)}</td>
+        <td style={cssC}>{toDate(created.updated_at)}</td>
         <td style={cssC}>{toDate(tracking.updated_at)}</td>
         <td style={cssC}>{toOrderStatus(tracking.status)}</td>
         <td style={cssC}>

@@ -1,5 +1,4 @@
 import {action as product} from './Product';
-import {action as stock} from './Stock';
 import {action as type} from './Type';
 import {action as size} from './Size';
 import {action as color} from './Color';
@@ -21,7 +20,6 @@ import {action as dialog} from './DialogAction';
 export const actions = {
   user,
   product,
-  stock,
   type,
   size,
   color,

@@ -2,7 +2,7 @@ import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
 import {manager} from '../utility/Manager';
-import {messageBox} from '../utility/MessageBox';
+import {box} from '../utility/MessageBox';
 //import {actions} from './Action';
 
 export class EcommerceAction {
@@ -11,9 +11,9 @@ export class EcommerceAction {
     http.put(url, {authorization: true}).done(response => {
       manager.ClosePanel('#Loading');
       if (response.statusCode === http.StatusOK) {
-        messageBox.Display('Completed');
+        box.Display('Completed');
       } else {
-        messageBox.Display(response.body.result);
+        box.Display(response.body.result);
       }
     });
   }
@@ -23,9 +23,9 @@ export class EcommerceAction {
     http.put(url, {authorization: true}).done(response => {
       manager.ClosePanel('#Loading');
       if (response.statusCode === http.StatusOK) {
-        messageBox.Display('Completed');
+        box.Display('Completed');
       } else {
-        messageBox.Display(response.body.result);
+        box.Display(response.body.result);
       }
     });
   }
@@ -34,9 +34,9 @@ export class EcommerceAction {
     let url = `${config.api.url}/ecommerce/lazada/${id}/image`;
     http.put(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        messageBox.Display('Completed');
+        box.Display('Completed');
       } else {
-        messageBox.Display(response.body.result);
+        box.Display(response.body.result);
       }
     });
   }
@@ -51,7 +51,6 @@ export class EcommerceAction {
       store.update('PRODUCT_CHECK_LAZADA', {lazada: found});
     });
   }
-
 }
 
 export const action = new EcommerceAction();

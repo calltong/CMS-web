@@ -11,14 +11,7 @@ export const reducer = new Reducer({
       size_id: 0,
     },
   },
-  size: {
-    index: 0,
-    total: 1,
-    limit: 10,
-  },
   data_list: [],
-  type_list: [],
-  size_list: [],
   message: {
     type: '',
     text: '',
@@ -47,10 +40,10 @@ export const reducer = new Reducer({
     video: '',
     last_update: 0,
     tag_list: [],
-  },
-  stock: {
-    _id: '',
     variant_list: [],
+  },
+  variant: {
+    index: 0,
   },
   ecommerce: {
     lazada: false,
@@ -64,6 +57,7 @@ reducer.register('PRODUCT_RESET', (state, action) => {
 });
 
 reducer.register('PRODUCT_RESET_ITEM', (state, action) => {
+  console.log('test:', reducer.initial.data);
   state.data = _.cloneDeep(reducer.initial.data);
   state.ecommerce = _.cloneDeep(reducer.initial.ecommerce);
   state.message = _.cloneDeep(reducer.initial.message);
@@ -78,21 +72,7 @@ reducer.register('PRODUCT_STORE_PAGE', (state, action) => {
 
 reducer.register('PRODUCT_STORE_LIST', (state, action) => {
   let {list} = action.params;
-  state.data_list = list?list:[];
-
-  return state;
-});
-
-reducer.register('PRODUCT_SET_IMAGE', (state, action) => {
-  let {list} = action.params;
-  state.data.image_list = list;
-
-  return state;
-});
-
-reducer.register('PRODUCT_SET_SQIMAGE', (state, action) => {
-  let {list} = action.params;
-  state.data.image_square_list = list;
+  state.data_list = list? list: [];
 
   return state;
 });
@@ -100,19 +80,6 @@ reducer.register('PRODUCT_SET_SQIMAGE', (state, action) => {
 reducer.register('PRODUCT_STORE_ITEM', (state, action) => {
   let {data} = action.params;
   state.data = data;
-  return state;
-});
-
-reducer.register('PRODUCT_STORE_TYPE', (state, action) => {
-  let {list} = action.params;
-  state.type_list = list?list:[];
-  return state;
-});
-
-reducer.register('PRODUCT_STORE_SIZE', (state, action) => {
-  let {list} = action.params;
-  state.size_list = list?list:[];
-  state.size.total = state.size_list.length;
   return state;
 });
 
@@ -133,16 +100,35 @@ reducer.register('PRODUCT_CHECK_LAZADA', (state, action) => {
   return state;
 });
 
-reducer.register('PRODUCT_SET_SIZE', (state, action) => {
-  let {index} = action.params;
-  state.size.index = index;
-
-  return state;
-});
-
 reducer.register('PRODUCT_SET_TYPE', (state, action) => {
   let {id} = action.params;
   state.page.condition.type_id = id;
 
+  return state;
+});
+
+reducer.register('PRODUCT_SET_VARIANT', (state, action) => {
+  let {index, data} = action.params;
+  state.data.variant_list[index] = data;
+  return state;
+});
+
+reducer.register('PRODUCT_SET_IMAGE', (state, action) => {
+  let {list} = action.params;
+  state.data.image_list = list;
+
+  return state;
+});
+
+reducer.register('PRODUCT_SET_SQIMAGE', (state, action) => {
+  let {list} = action.params;
+  state.data.image_sq_list = list;
+
+  return state;
+});
+
+reducer.register('PRODUCT_VARIANT_INDEX', (state, action) => {
+  let {index} = action.params;
+  state.variant.index = index;
   return state;
 });

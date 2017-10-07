@@ -20,11 +20,19 @@ export class ProductInfo extends ReducerBase {
     let id = this.props.params.id;
     if (id) {
       actions.product.getItem(id);
-      actions.stock.getItem(id);
       actions.ecommerce.checkOnLazada(id);
     } else {
       actions.product.resetItem();
-      actions.stock.resetItem();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let id = nextProps.params.id;
+    if (id) {
+      actions.product.getItem(id);
+      actions.ecommerce.checkOnLazada(id);
+    } else {
+      actions.product.resetItem();
     }
   }
 

@@ -1,7 +1,7 @@
 import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
-import {messageBox} from '../utility/MessageBox';
+import {box} from '../utility/MessageBox';
 
 export class OrderAction {
   resetItem() {
@@ -50,7 +50,7 @@ export class OrderAction {
       let url = `${config.api.url}/order/${id}/edit`;
       http.put(url, {json, authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
-          messageBox.Display('บันทึกเรียบร้อย');
+          box.Display('บันทึกเรียบร้อย');
         }
       });
     }
@@ -71,7 +71,7 @@ export class OrderAction {
     let url = `${config.api.url}/order/${data._id}/edit`;
     http.put(url, {json: data, authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
-        messageBox.Display('บันทึกเรียบร้อย');
+        box.Display('บันทึกเรียบร้อย');
       }
     });
   }

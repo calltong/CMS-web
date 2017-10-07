@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {actions} from '../../../../actions/Action';
-import {messageBox} from '../../../../utility/MessageBox';
+import {box} from '../../../../utility/MessageBox';
 import EnText from '../../../../forms/EnText';
 import EnImageSelector from '../../../../forms/EnImageSelector';
 import LinkSetting from '../LinkSetting';
@@ -37,7 +37,7 @@ export default class Image extends React.Component {
     let l2 = index.level_2;
     item.value = product._id;
 
-    messageBox.DisplayConfirm(
+    box.DisplayConfirm(
       'ต้องการใช้รูปสินค้าใช่มัยค่ะ',
       function(confirm) {
         if (confirm === true) {

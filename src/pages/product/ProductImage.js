@@ -15,7 +15,7 @@ export default class ProductImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.stock.addImage(inVariant, data, this.width, this.height);
+        actions.product.addImage(inVariant, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
@@ -30,14 +30,14 @@ export default class ProductImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.stock.editImage(inVariant, index, data, this.width, this.height);
+        actions.product.editImage(inVariant, index, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
   }
 
   onRemove(index) {
-    actions.stock.removeImage(this.props.index, index);
+    actions.product.removeImage(this.props.index, index);
   }
 
   render() {

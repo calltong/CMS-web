@@ -6,7 +6,7 @@ import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
 import EnHeader from '../../forms/EnHeader';
 import EnImage from '../../forms/EnImage';
 import Paginator from '../../forms/Paginator';
-import {messageBox} from '../../utility/MessageBox';
+import {box} from '../../utility/MessageBox';
 
 import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
@@ -89,7 +89,7 @@ class RowItem extends Component {
 
 export class ProductTable extends Component {
   onDelete(id) {
-    messageBox.DisplayConfirm(
+    box.DisplayConfirm(
       'ยืนยันลบข้อมูล',
       function(confirm) {
         if (confirm === true) {
@@ -112,15 +112,13 @@ export class ProductTable extends Component {
     let list = [];
     let index = 0;
     for (let item of data_list) {
-      let product = item.product;
-      let stock = item.stock;
-      let variant_list = stock.variant_list ? stock.variant_list : [];
+      let variant_list = item.variant_list ? item.variant_list : [];
       if (variant_list.length > 0) {
-        for (let variant of stock.variant_list) {
+        for (let variant of item.variant_list) {
           list.push(
             <RowItem
               key={index++}
-              product={product}
+              product={item}
               variant={variant}
               sizes={size.data_list}
               blank={blank}
@@ -130,7 +128,7 @@ export class ProductTable extends Component {
         list.push(
           <Blank
             key={index++}
-            product={product}
+            product={item}
             blank={blank}
             onDelete={this.onDelete} />);
       }

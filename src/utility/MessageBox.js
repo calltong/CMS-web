@@ -24,4 +24,4 @@ class MessageBox {
   }
 }
 
-export const messageBox = new MessageBox();
+export const box = new MessageBox();

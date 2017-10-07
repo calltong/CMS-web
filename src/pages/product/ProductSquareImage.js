@@ -14,7 +14,7 @@ export default class ProductSquareImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.stock.addSqImage(inVariant, data, this.width, this.height);
+        actions.product.addSqImage(inVariant, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
@@ -29,14 +29,14 @@ export default class ProductSquareImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.stock.editSqImage(inVariant, index, data, this.width, this.height);
+        actions.product.editSqImage(inVariant, index, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
   }
 
   onRemove(index) {
-    actions.stock.removeSqImage(this.props.index, index);
+    actions.product.removeSqImage(this.props.index, index);
   }
 
   render() {
@@ -79,7 +79,7 @@ export default class ProductSquareImage extends React.Component {
             <div className="col-md-2">
               <div className="form-group">
                 <EnImageSelector height="170px" width="170px"
-                  onDrop={this.onDropImage.bind(this)}/>
+                  onDrop={this.onDropImage.bind(this)} />
 
               </div>
             </div>

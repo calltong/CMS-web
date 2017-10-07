@@ -4,8 +4,7 @@ import Select from 'react-select';
 import {actions} from '../../actions/Action';
 import EnNumberText from '../../forms/EnNumberText';
 import RemoveButton from '../../forms/button/RemoveButton';
-import ColorDialog from '../../dialog/ColorDialog';
-import {messageBox} from '../../utility/MessageBox';
+import {box} from '../../utility/MessageBox';
 
 import ProductImage from './ProductImage';
 import ProductSquareImage from './ProductSquareImage';
@@ -24,11 +23,11 @@ class ProductSize extends React.Component {
     });
 
     if (found) {
-      messageBox.Display('ขนาดสินที่ท่านเลือกมีอยู่แล้ว');
-      actions.stock.refresh();
+      box.Display('ขนาดสินที่ท่านเลือกมีอยู่แล้ว');
+      actions.product.refresh();
     } else {
       variant.list.push({size: size, quantity: 0});
-      actions.stock.setVariant(this.props.index, variant);
+      actions.product.setVariant(this.props.index, variant);
     }
   }
 
@@ -44,11 +43,11 @@ class ProductSize extends React.Component {
     });
 
     if (found) {
-      messageBox.Display('ขนาดสินที่ท่านเลือกมีอยู่แล้ว');
-      actions.stock.refresh();
+      box.Display('ขนาดสินที่ท่านเลือกมีอยู่แล้ว');
+      actions.product.refresh();
     } else {
       variant.list[index].size = size;
-      actions.stock.setVariant(this.props.index, variant);
+      actions.product.setVariant(this.props.index, variant);
     }
   }
 
@@ -57,17 +56,17 @@ class ProductSize extends React.Component {
     let val = parseInt(value, 10);
     let variant = this.props.variant;
     variant.list[index].quantity = val? val: 0;
-    actions.stock.setVariant(this.props.index, variant);
+    actions.product.setVariant(this.props.index, variant);
   }
 
   onDelete(index) {
     let variant = this.props.variant;
     let varIndex = this.props.index;
-    messageBox.DisplayConfirm(
+    box.DisplayConfirm(
       'ยืนยันการลบ!',
       function() {
         variant.list.splice(index, 1);
-        actions.stock.setVariant(varIndex, variant);
+        actions.product.setVariant(varIndex, variant);
       }
     );
   }
@@ -76,15 +75,25 @@ class ProductSize extends React.Component {
     let index = this.props.colors.findIndex(item => {
       return item.value === val.value;
     });
-    actions.stock.selectVariant(index);
+    actions.product.selectVariant(index);
   }
 
-  onAddColor(color, item) {
-    actions.stock.addVariant(color);
+  onEditColor(color, item) {
+    actions.product.editVariant(item, color);
   }
 
-  getColor() {
-    actions.dialog.setConfirmColor(this.onAddColor, this.props.index, this.props.colors);
+  getColorToEdit() {
+    actions.dialog.resetColor();
+    actions.dialog.setConfirmColor(this.onEditColor, this.props.index, this.props.colors);
+  }
+
+  removeColor() {
+    box.DisplayConfirm(
+      'ยืนยันการลบ!',
+      function() {
+        actions.product.removeVariant(this.props.index);
+      }
+    );
   }
 
   render() {
@@ -127,25 +136,37 @@ class ProductSize extends React.Component {
                 onChange={this.colorChange.bind(this)} />
             </div>
           </div>
-          <div className="col-md-3">
+
+          <div className="col-md-2">
             <div className="form-group" >
               <button
                 className="btn btn-normal"
                 style={{width: '100%', marginTop: '25px'}}
                 data-toggle="modal" data-target="#choose_color"
-                onClick={this.getColor.bind(this)}>
-                <i className="fa fa-external-link" /> เพิ่มสีสินค้า
+                onClick={this.getColorToEdit.bind(this)}>
+                <i className="fa fa-pencil" /> แก้ไขสี
               </button>
             </div>
           </div>
+
+          <div className="col-md-2">
+            <div className="form-group" >
+              <RemoveButton
+                style={{width: '100%', marginTop: '25px'}}
+                onClick={this.removeColor.bind(this)}>
+                 ลบสี
+              </RemoveButton>
+            </div>
+          </div>
+
         </div>
         <div className="row">
-          <div className="col-md-5">
+          <div className="col-md-6">
             <table className="table table-size">
               <thead className="thead-default">
                 <tr>
-                  <th className="col-md-5">ขนาด</th>
-                  <th className="col-md-5">จำนวนสินค้า</th>
+                  <th className="col-md-4">ขนาด</th>
+                  <th className="col-md-4">จำนวนสินค้า</th>
                   <th/>
                 </tr>
               </thead>
@@ -180,7 +201,6 @@ export default class ProductVariant extends React.Component {
         <br />
         <ProductImage index={this.props.index} data={variant.image_list} />
         <ProductSquareImage index={this.props.index} data={variant.image_sq_list} />
-        <ColorDialog />
       </div>
     );
   }

@@ -22,10 +22,13 @@ class ColorTable extends Component {
     let list = data_list.map(item => {
       let cssColor = {
         backgroundColor: item.code,
+        border: '1px solid #ccc',
+        width: '90%',
+        height: '25px',
       };
       return (
         <tr key={item._id}>
-          <td style={cssColor} />
+          <td><button className="btn" style={cssColor} /></td>
           <td>{item.content.main.name}</td>
           <td>{item.content.english.name}</td>
           <td style={css}>

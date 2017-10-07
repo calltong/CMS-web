@@ -8,21 +8,18 @@ export default class OrderItems extends React.Component {
     let cssCenter = {textAlign: 'center'};
     let data = this.props.data;
     let quantity = 0;
-    let rows = data.product_list.map((item, index) => {
+    let rows = data.list.map((item, index) => {
       quantity += item.quantity;
-      let image;
-      if (item.product.image_list.length > 0) {
-        image = item.product.image_list[0].data;
-      }
       return (
         <tr key={index}>
           <td>
             <div style={cssCenter}>
-              <EnImage className="product-img" src={image} />
+              <EnImage className="product-img" src={item.image} />
             </div>
           </td>
-          <td>{item.product.name}</td>
-          <td>{item.size.name}</td>
+          <td>{item.name}</td>
+          <td>{item.color}</td>
+          <td>{item.size}</td>
           <td className="text-right">{item.quantity}</td>
           <td className="text-right">{toMoney(item.price)}</td>
         </tr>
@@ -39,9 +36,10 @@ export default class OrderItems extends React.Component {
             <tr>
               <th style={cssCenter} width="90">สินค้า</th>
               <th>ชื่อ</th>
+              <th width="80">สี</th>
               <th width="80">ขนาด</th>
               <th className="text-right" width="80">จำนวน</th>
-              <th className="text-right" width="80">ราคา</th>
+              <th className="text-right" width="120">ราคา</th>
             </tr>
           </thead>
           <tbody>
@@ -49,9 +47,10 @@ export default class OrderItems extends React.Component {
             <tr>
               <td />
               <td />
-              <td><strong>รวม</strong></td>
-              <td className="text-right">{quantity}</td>
-              <td className="text-right">{data.summary.total.toFixed(2)}</td>
+              <td />
+              <td><strong className="focus-text">รวม</strong></td>
+              <td className="text-right"><strong className="focus-text">{quantity}</strong></td>
+              <td className="text-right"><strong className="focus-text">{data.summary.total.toFixed(2)}</strong></td>
             </tr>
           </tbody>
         </table>
