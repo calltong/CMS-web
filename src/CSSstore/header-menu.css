@@ -1,3 +1,20 @@
 .menu-header {
   float: left;
 }
+
+.menu-bag i {
+  font-size: 22px;
+}
+
+.menu-bag-number {
+  font-size: 16px;
+  position: relative;
+  top: -8px;
+  left: -8px;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.menu-help i {
+  font-size: 22px;
+}

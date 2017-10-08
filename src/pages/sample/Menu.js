@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router';
 
 export class Menu extends React.Component {
-
   render() {
     let menu = this.props.content;
     let css = {
@@ -18,6 +17,20 @@ export class Menu extends React.Component {
       fontSize: menu.brand.css.size,
     };
 
+    let cssBag = {
+      color: 'black',
+      backgroundColor: 'white',
+    };
+
+    let cssMobileMenu = {
+      border: `1px solid ${menu.css.color}`,
+      backgroundColor: menu.css.bg_color,
+    };
+
+    let cssMobileItem = {
+      backgroundColor: menu.css.color,
+    };
+
     let list = menu.list.map((item, index) => {
       return (
         <li key={index}>
@@ -30,15 +43,18 @@ export class Menu extends React.Component {
 
     return (
       <nav style={css} className="navbar" role="navigation">
-        <div className="container">
+        <div className="container" >
           <div className="menu-header">
-            <button type="button" className="navbar-toggle" style={css}>
+            <button
+              type="button"
+              style={cssMobileMenu}
+              className="navbar-toggle" >
               <span className="sr-only">Menu</span>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
+              <span style={cssMobileItem} className="icon-bar"/>
+              <span style={cssMobileItem} className="icon-bar"/>
+              <span style={cssMobileItem} className="icon-bar"/>
             </button>
-            <Link className="navbar-brand" style={cssBrand}>{menu.brand.name}</Link>
+            <Link to="/home" className="navbar-brand" style={cssBrand}>{menu.brand.name}</Link>
           </div>
 
           <div className="collapse navbar-collapse" id="header-bar">
@@ -48,11 +64,20 @@ export class Menu extends React.Component {
 
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a style={css}><i className="fa fa-shopping-bag"> {10}</i></a>
+                <a
+                  style={css}
+                  className="menu-bag">
+                  <i className="fa fa-shopping-bag" />
+                  <span style={cssBag} className="menu-bag-number">{4}</span>
+                </a>
               </li>
 
               <li>
-                <a style={css}><i className="fa fa-question-circle-o"> Help</i></a>
+                <a
+                  style={css}
+                  className="menu-help">
+                  <i className="fa fa-question-circle-o"/>
+                </a>
               </li>
             </ul>
           </div>

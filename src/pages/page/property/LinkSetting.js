@@ -8,20 +8,10 @@ import {store} from '../../../store';
 export default class LinkSetting extends React.Component {
   constructor() {
     super();
-    let product = store.getState().product;
-    let type_list = product.type_list;
-    let types = type_list.map(type => {
-      return {value: type._id, label: type.name, clearableValue: false};
-    });
-
-    let size_list = product.size_list;
-    let sizes = size_list.map(type => {
-      return {value: type._id, label: type.name, clearableValue: false};
-    });
-
+    let state = store.getState();
     this.state = {
-      types,
-      sizes,
+      types: state.type.select_list,
+      sizes: state.size.select_list,
     };
   }
 
@@ -87,7 +77,12 @@ export default class LinkSetting extends React.Component {
             value={item.value || ''}
             onChange={this.tagChange.bind(this)} />);
       default:
-        return (<EnText readOnly={true} />);
+        return (
+          <EnText
+            readOnly={true}
+            value={item.value}
+            onChange={this.tagChange.bind(this)} />
+        );
     }
   }
 

@@ -7,7 +7,6 @@ import {actions} from '../../actions/Action';
 import TableEditBtn from '../../forms/button/TableEditBtn';
 import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
 import CreateButton from '../../forms/button/CreateButton';
-import SaveButton from '../../forms/button/SaveButton';
 import EnHeader from '../../forms/EnHeader';
 
 class TypeTable extends Component {
@@ -56,10 +55,6 @@ export class TypeManager extends ReducerBase {
     actions.type.getList();
   }
 
-  updateData() {
-    actions.type.updateData();
-  }
-
   render() {
     let data = store.getState().type;
     return (
@@ -69,7 +64,6 @@ export class TypeManager extends ReducerBase {
         <div className="row">
           <div className="col-md-8">
             <CreateButton to={'/type/create'} />
-            <SaveButton onClick={this.updateData.bind(this)} />
           </div>
         </div>
 

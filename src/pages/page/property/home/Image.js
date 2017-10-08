@@ -7,7 +7,6 @@ import EnImageSelector from '../../../../forms/EnImageSelector';
 import LinkSetting from '../LinkSetting';
 
 export default class Image extends React.Component {
-
   selectImage(files) {
     let l2 = this.props.selected.level_2;
     let item = this.props.item;
@@ -31,7 +30,6 @@ export default class Image extends React.Component {
   }
 
   selectProduct(product, data) {
-    console.log('product:', product);
     let index = data.index;
     let item = data.item;
     let l2 = index.level_2;
@@ -43,6 +41,8 @@ export default class Image extends React.Component {
         if (confirm === true) {
           item.preview = product.image;
         }
+        item.name = product.content.main.name;
+        console.log(confirm, ' item:', item);
         actions.page.home.setItem(l2, item);
       }
     );

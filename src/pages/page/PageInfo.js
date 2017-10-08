@@ -9,8 +9,14 @@ import Home from '../sample/Home';
 import PageInfoMenu from './PageInfoMenu';
 
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
-export class PageInfo extends ReducerBase {
+export default class PageInfo extends ReducerBase {
+  componentDidMount() {
+    actions.type.getList();
+    actions.size.getList();
+  }
+
   OnDisplaySample() {
     window.open('http://www.facebook.com');
   }
@@ -34,5 +40,3 @@ export class PageInfo extends ReducerBase {
     );
   }
 }
-
-export default PageInfo;

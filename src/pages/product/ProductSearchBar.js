@@ -12,8 +12,8 @@ export default class ProductSearchBar extends ReducerBase {
     actions.product.selectType(val.value);
   }
 
-  updateData() {
-    actions.product.updateData();
+  find() {
+    actions.product.getList();
   }
 
   render() {
@@ -38,7 +38,7 @@ export default class ProductSearchBar extends ReducerBase {
           </div>
           <input className="form-control" placeholder="Enter Code" style={{marginLeft:'4px', marginRight:'4px'}}/>
 
-          <FindButton onClick={this.updateData.bind(this)} />
+          <FindButton onClick={this.find.bind(this)} />
           <CreateButton to={'/product/create'} />
         </form>
       </div>

@@ -91,14 +91,13 @@ export default class ProductDialog extends ReducerBase {
     };
     let data_list = product.data_list;
     let list = data_list.map((item, index) => {
-      let pd = item.product;
-      let cssCol = selected === pd._id ? 'col-md-2 choose-product-selected' : 'col-md-2 choose-product';
+      let cssCol = selected === item._id ? 'col-md-2 choose-product-selected' : 'col-md-2 choose-product';
       return (
         <div className={cssCol} key={index}>
           <EnImage
             style={css}
-            src={pd.image}
-            onClick={this.selectProduct.bind(this, pd)} />
+            src={item.image}
+            onClick={this.selectProduct.bind(this, item)} />
         </div>
       );
     });

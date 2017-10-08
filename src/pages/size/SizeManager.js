@@ -4,7 +4,6 @@ import {ReducerBase} from '../../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 
-import EnButton from '../../forms/button/EnButton';
 import CreateButton from '../../forms/button/CreateButton';
 import TableEditBtn from '../../forms/button/TableEditBtn';
 import TableRemoveBtn from '../../forms/button/TableRemoveBtn';
@@ -57,10 +56,6 @@ export class SizeManager extends ReducerBase {
     actions.size.getList();
   }
 
-  updateSize() {
-    actions.size.updateData();
-  }
-
   render() {
     let size = store.getState().size;
     return (
@@ -69,12 +64,6 @@ export class SizeManager extends ReducerBase {
 
         <div className="row">
           <div className="col-md-6">
-            <EnButton
-              className="btn btn-normal"
-              onClick={this.updateSize.bind(this)}
-              style={{marginRight:'2px'}}>
-              Update Size
-            </EnButton>
             <CreateButton to={'/size/create'} />
           </div>
         </div>
