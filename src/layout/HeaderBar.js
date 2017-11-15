@@ -36,6 +36,7 @@ class MenuBar extends Component {
           </ul>
         </li>
         <li><Link to={'/page/modify'} ><i className="fa fa-columns" /> หน้าเวป</Link></li>
+        <li><Link to={'/live'} ><i className="fa fa-camera" /> Go Live</Link></li>
       </ul>
     );
   }
@@ -76,7 +77,7 @@ class UserBar extends Component {
   }
 }
 
-export class HeaderBar extends ReducerBase {
+export default class HeaderBar extends ReducerBase {
   render() {
     let user = store.getState().user;
     return (
@@ -99,5 +100,3 @@ export class HeaderBar extends ReducerBase {
     );
   }
 }
-
-export default HeaderBar;

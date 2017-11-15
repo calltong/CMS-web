@@ -26,6 +26,8 @@ import OrderManager from './pages/order/OrderManager';
 import OrderInfo from './pages/order/OrderInfo';
 import PageInfo from './pages/page/PageInfo';
 
+import LiveManager from './pages/live/LiveManager';
+
 config.setup(window.location.host);
 
 function checkAuthentication(state, replace) {
@@ -60,6 +62,7 @@ ReactDOM.render((
          <Route path="order" component={OrderManager} />
          <Route path="order/:id" component={OrderInfo} />
 
+         <Route path="live" component={LiveManager} />
       </Route>
    </Router>)
    , document.getElementById('root'));

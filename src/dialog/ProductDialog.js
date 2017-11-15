@@ -36,7 +36,7 @@ class Menu extends React.Component {
         </div>
         <input
           className="form-control"
-          placeholder="Enter Color.."
+          placeholder="Enter Code.."
           style={{marginLeft:'4px', marginRight:'4px'}}/>
 
         <FindButton />
@@ -87,11 +87,11 @@ export default class ProductDialog extends ReducerBase {
     }
     let css = {
       width: '100%',
-      height: '100%',
+
     };
     let data_list = product.data_list;
     let list = data_list.map((item, index) => {
-      let cssCol = selected === item._id ? 'col-md-2 choose-product-selected' : 'col-md-2 choose-product';
+      let cssCol = selected === item._id ? 'col-xs-3 col-sm-2 col-md-2 choose-product-selected' : 'col-xs-3 col-sm-2 col-md-2 choose-product';
       return (
         <div className={cssCol} key={index}>
           <EnImage

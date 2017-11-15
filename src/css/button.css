@@ -35,7 +35,8 @@
 }
 
 .btn-normal:hover {
-  background-color: #FFFFF2;
+  color: white;
+  background-color: #6EAFD5;
   border: 1px solid #787878;
 }
 
@@ -51,7 +52,8 @@
 }
 
 .btn-save:hover {
-  background-color: #FFFFF2;
+  color: black;
+  background-color: #D2FAC1;
   border: 1px solid #787878;
 }
 
@@ -63,7 +65,8 @@
 }
 
 .btn-close:hover {
-  background-color: #FFFFF2;
+  color: white;
+  background-color: #6EAFD5;
   border: 1px solid #787878;
 }
 

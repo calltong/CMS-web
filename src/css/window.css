@@ -70,7 +70,7 @@
   padding: 4px;
   border-radius: 4px;
   margin: 4px;
-  height: '140px';
+  max-height: 180px;
 }
 
 .choose-product-selected {
@@ -78,7 +78,7 @@
   padding: 4px;
   border-radius: 4px;
   margin: 4px;
-  height: '140px';
+  max-height: 180px;
 }
 
 .choose-window {

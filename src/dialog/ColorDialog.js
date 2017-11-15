@@ -57,7 +57,7 @@ export default class ColorDialog extends ReducerBase {
         cssBtn = 'btn btn-select';
       }
       return (
-        <div className="col-md-2" key={index}>
+        <div className="col-md-2" style={{marginBottom: '5px'}} key={index}>
           <EnButton
             disabled={have !== undefined}
             style={css}

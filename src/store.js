@@ -16,6 +16,7 @@ import {reducer as orderCondition} from './stores/page/OrderCondition';
 import {reducer as productInfo} from './stores/page/Product';
 import {reducer as payment} from './stores/page/Payment';
 import {reducer as page} from './stores/Page';
+import {reducer as live} from './stores/Live';
 
 export const store = new Store({
   product: product.combine(),
@@ -33,4 +34,5 @@ export const store = new Store({
   product_info: productInfo.combine(),
   order_condition: orderCondition.combine(),
   dialog: dialog.combine(),
+  live: live.combine(),
 });

@@ -75,8 +75,7 @@ export class SideBar extends Component {
             icon={item.icon}
             menus={item.menus}
             active={this.state.active}
-            onClick={this.handleClick.bind(this, item.title)}
-          />
+            onClick={this.handleClick.bind(this, item.title)} />
         );
       } else {
         return (
@@ -85,8 +84,7 @@ export class SideBar extends Component {
             icon={item.icon}
             route={item.route}
             active={item.title === this.state.active}
-            onClick={this.handleClick.bind(this, item.title)}
-          />
+            onClick={this.handleClick.bind(this, item.title)} />
         );
       }
     });
