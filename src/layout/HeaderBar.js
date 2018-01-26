@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../store';
-import {actions} from '../actions/Action';
+import UserBar from './UserBar';
 
 class MenuBar extends Component {
   render() {
@@ -42,44 +40,8 @@ class MenuBar extends Component {
   }
 }
 
-class UserBar extends Component {
-  logout() {
-    actions.user.logout();
-  }
-
+export default class HeaderBar extends Component {
   render() {
-    let data = this.props.data;
-    let css = {visibility: 'none'};
-    return (
-      <ul className="nav navbar-right">
-        <li className="dropdown">
-          <a className="dropdown-toggle" data-toggle="dropdown">
-            <i className="fa fa-user"/> {data.name}<b className="caret" />
-          </a>
-          <ul className="dropdown-menu">
-            <li>
-              <a style={css} ><i className="fa fa-fw fa-user"/> Profile</a>
-            </li>
-            <li>
-              <a style={css} ><i className="fa fa-fw fa-envelope"/> Inbox</a>
-            </li>
-            <li>
-              <a style={css} ><i className="fa fa-fw fa-gear"/> Settings</a>
-            </li>
-            <li className="divider"/>
-            <li>
-              <a onClick={this.logout.bind(this)}><i className="fa fa-fw fa-power-off"/> Log Out</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    );
-  }
-}
-
-export default class HeaderBar extends ReducerBase {
-  render() {
-    let user = store.getState().user;
     return (
       <nav className="navbar navbar-fixed-top" role="navigation">
         <div className="navbar-header">
@@ -94,7 +56,7 @@ export default class HeaderBar extends ReducerBase {
 
         <div className="collapse navbar-collapse" id="header-bar">
           <MenuBar />
-          <UserBar data={user.data} />
+          <UserBar />
         </div>
       </nav>
     );

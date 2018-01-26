@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export default class Home extends Component {
   render() {
+    console.log('home');
     return (
       <div className="container-fluid">
          <div className="row">

@@ -1,43 +1,22 @@
 import React from 'react';
+import {observer, inject} from 'mobx-react';
 
-import {actions} from '../../actions/Action';
-import {store} from '../../store';
-import {ReducerBase} from '../../ReducerBase';
 import ProductVariant from './ProductVariant';
 import ColorDialog from '../../dialog/ColorDialog';
 
-export default class ProductStock extends ReducerBase {
-  onAddColor(color, item) {
-    actions.product.addVariant(color);
-  }
-
-  getColorToAdd() {
-    actions.dialog.resetColor();
-    actions.dialog.setConfirmColor(this.onAddColor, this.props.index, this.colors);
+export class ProductStock extends React.Component {
+  onAddColor(item) {
+    this.props.ma_product.addVariant(item);
   }
 
   render() {
-    let state = store.getState();
-    let product = state.product.data;
-    let index = state.product.variant.index;
-    let section = <div />;
-    this.colors = [];
-    if (product.variant_list.length > 0) {
-      this.colors = product.variant_list.map(item => {
-        return {value: item.color._id, label: item.color.content.main.name, clearableValue: false};
-      });
-
-      let variant = product.variant_list[index];
-      section = (
-        <ProductVariant
-          index={index}
-          size_list={state.size.data_list}
-          sizes={state.size.select_list}
-          colors={this.colors}
-          variant={variant} />
-        );
+    let product = this.props.ma_product.toJS();
+    let edit = product.edit;
+    let data = product.data;
+    let section;
+    if (edit.variant.index >= 0) {
+      section = (<ProductVariant />);
     }
-
     return (
       <div>
         <div className="row">
@@ -45,8 +24,7 @@ export default class ProductStock extends ReducerBase {
             <button
               className="btn btn-normal"
               style={{width: '100%'}}
-              data-toggle="modal" data-target="#choose_color"
-              onClick={this.getColorToAdd.bind(this)}>
+              data-toggle="modal" data-target="#choose_color">
               <i className="fa fa-plus" /> เพิ่มสี
             </button>
           </div>
@@ -57,8 +35,13 @@ export default class ProductStock extends ReducerBase {
             {section}
           </div>
         </div>
-        <ColorDialog />
+        <ColorDialog
+          id="choose_color"
+          list={edit.colors}
+          onSelected={this.onAddColor.bind(this)} />
       </div>
     );
   }
 }
+
+export default inject('ma_product')(observer(ProductStock));

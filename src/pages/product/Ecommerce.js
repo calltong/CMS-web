@@ -1,11 +1,8 @@
 import React from 'react';
 
-import {ReducerBase} from '../../ReducerBase';
-import {store} from '../../store';
-
 import EnText from '../../forms/EnText';
 
-export class Ecommerce extends ReducerBase {
+export class Ecommerce extends React.Component {
   nameChange(event) {
     let data = this.props.data;
     data.lang_eng.name = event.target.value;

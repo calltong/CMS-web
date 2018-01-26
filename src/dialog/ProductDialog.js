@@ -1,14 +1,9 @@
 import React from 'react';
 import Select from 'react-select';
 
-import {ReducerBase} from '../ReducerBase';
-
-import WindowDialog from '../forms/WindowDialog';
+import WindowDialog from './WindowDialog';
 import EnImage from '../forms/EnImage';
 import FindButton from '../forms/button/FindButton';
-
-import {actions} from '../actions/Action';
-import {store} from '../store';
 
 class Menu extends React.Component {
   typeChange(val) {
@@ -45,7 +40,7 @@ class Menu extends React.Component {
   }
 }
 
-export default class ProductDialog extends ReducerBase {
+export default class ProductDialog extends React.Component {
   componentDidMount() {
     actions.product.getCountAndList(1);
   }

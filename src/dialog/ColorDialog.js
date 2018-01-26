@@ -1,68 +1,58 @@
 import React from 'react';
+import {observer, inject} from 'mobx-react';
 
-import {ReducerBase} from '../ReducerBase';
-import WindowDialog from '../forms/WindowDialog';
+import WindowDialog from './WindowDialog';
 import EnButton from '../forms/button/EnButton';
 
-import {actions} from '../actions/Action';
-import {store} from '../store';
-
-export default class ColorDialog extends ReducerBase {
-  componentDidMount() {
-    actions.color.getList();
+export class ColorDialog extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      index: -1,
+      selected: undefined,
+    };
   }
 
-  select(item) {
-    actions.dialog.selectColor(item);
+  componentDidMount() {
+    this.props.ma_color.getList();
+  }
+
+  select(item, index) {
+    this.setState({index: index, selected: item});
   }
 
   onConfirm() {
-    let dialog = store.getState().dialog;
-    if (dialog.color.confirm) {
-      dialog.color.confirm(dialog.color.value, dialog.color.item);
-      actions.dialog.resetColor();
-    }
+    this.setState({index: -1, selected: undefined});
+    if (this.props.onSelected) this.props.onSelected(this.state.selected);
   }
 
   render() {
     let setting = {
-      id: 'choose_color',
+      id: this.props.id,
       title: 'เลือกสีสินค้า',
       confirm: 'ตกลง',
       close: 'ปิด',
-      confirmDisabled: true,
+      confirmDisabled: this.state.selected === undefined,
     };
-    let state = store.getState();
-    let color = state.color;
-    let verify = state.dialog.color.verify;
-    let colorSelected = state.dialog.color;
-    let selected = undefined;
-    if (colorSelected.value) {
-      selected = colorSelected.value._id;
-      setting.confirmDisabled = false;
-    }
-
+    let color = this.props.ma_color.toJS();
+    let hides = this.props.list || [];
     let css = {
       width: '100%',
       height: '100%',
     };
-    let data_list = color.data_list;
-    let list = data_list.map((item, index) => {
-      let have = verify.find(it => {
-        return it.value === item._id;
+
+    let list = color.list.map((item, index) => {
+      let hide = hides.find(ob => {
+        return ob.value === item._id;
       });
 
-      let cssBtn = 'btn btn-normal';
-      if (have === undefined && selected === item._id) {
-        cssBtn = 'btn btn-select';
-      }
       return (
         <div className="col-md-2" style={{marginBottom: '5px'}} key={index}>
           <EnButton
-            disabled={have !== undefined}
+            disabled={hide}
             style={css}
-            className={cssBtn}
-            onClick={this.select.bind(this, item)}>
+            className={this.state.index === index ? 'btn btn-select' : 'btn btn-normal'}
+            onClick={this.select.bind(this, item, index)}>
             {item.content.main.name}
           </EnButton>
         </div>
@@ -77,3 +67,5 @@ export default class ColorDialog extends ReducerBase {
     );
   }
 }
+
+export default inject('ma_color')(observer(ColorDialog));

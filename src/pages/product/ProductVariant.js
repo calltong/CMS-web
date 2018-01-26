@@ -1,127 +1,49 @@
 import React from 'react';
+import {observer, inject} from 'mobx-react';
 import Select from 'react-select';
 
-import {actions} from '../../actions/Action';
-import EnNumberText from '../../forms/EnNumberText';
-import RemoveButton from '../../forms/button/RemoveButton';
-import {box} from '../../utility/MessageBox';
-
+import ProductSize from './ProductSize';
 import ProductImage from './ProductImage';
 import ProductSquareImage from './ProductSquareImage';
+import {box} from '../../utility/MessageBox';
+import RemoveButton from '../../forms/button/RemoveButton';
 
-class ProductSize extends React.Component {
-  async sizeAdd(event) {
-    let value = event.value;
-    let variant = this.props.variant;
-
-    let size = this.props.size_list.find(item => {
-      return item._id === value;
-    });
-
-    let found = await variant.list.find(item => {
-      return item.size._id === value;
-    });
-
-    if (found) {
-      box.Display('ขนาดสินที่ท่านเลือกมีอยู่แล้ว');
-      actions.product.refresh();
-    } else {
-      variant.list.push({size: size, quantity: 0});
-      actions.product.setVariant(this.props.index, variant);
-    }
-  }
-
-  async sizeChange(index, event) {
-    let value = event.value;
-    let variant = this.props.variant;
-    let size = this.props.size_list.find(item => {
-      return item._id === value;
-    });
-
-    let found = await variant.list.find(item => {
-      return item.size._id === value;
-    });
-
-    if (found) {
-      box.Display('ขนาดสินที่ท่านเลือกมีอยู่แล้ว');
-      actions.product.refresh();
-    } else {
-      variant.list[index].size = size;
-      actions.product.setVariant(this.props.index, variant);
-    }
-  }
-
-  quantityChange(index, event) {
-    let value = event.target.value;
-    let val = parseInt(value, 10);
-    let variant = this.props.variant;
-    variant.list[index].quantity = val? val: 0;
-    actions.product.setVariant(this.props.index, variant);
-  }
-
-  onDelete(index) {
-    let variant = this.props.variant;
-    let varIndex = this.props.index;
-    box.DisplayConfirm(
-      'ยืนยันการลบ!',
-      function() {
-        variant.list.splice(index, 1);
-        actions.product.setVariant(varIndex, variant);
-      }
-    );
-  }
-
+export class ProductVariant extends React.Component {
   colorChange(val) {
-    let index = this.props.colors.findIndex(item => {
+    let index = this.colors.findIndex(item => {
       return item.value === val.value;
     });
-    actions.product.selectVariant(index);
+    this.props.ma_product.selectVariant(index);
   }
 
-  onEditColor(color, item) {
-    actions.product.editVariant(item, color);
+  onEditColor(item) {
+    //this.props.ma_product.editVariant(this.state.index, item);
   }
 
-  getColorToEdit() {
-    actions.dialog.resetColor();
-    actions.dialog.setConfirmColor(this.onEditColor, this.props.index, this.props.colors);
-  }
-
-  removeColor() {
+  removeColor(index) {
+    let store = this.props.ma_product;
     box.DisplayConfirm(
       'ยืนยันการลบ!',
       function() {
-        actions.product.removeVariant(this.props.index);
+        store.removeVariant(index);
       }
     );
   }
 
   render() {
-    let sizes = this.props.sizes;
-    let colors = this.props.colors;
-    let variant = this.props.variant;
-    let list = variant.list.map((item, index) => {
-      let id = item.size._id;
-      return (
-      <tr key={id}>
-        <td>
-          <Select
-            clearable={false}
-            searchable={false}
-            value={id}
-            options={sizes}
-            onChange={this.sizeChange.bind(this, index)} />
-        </td>
-        <td>
-          <EnNumberText
-            value={item.quantity}
-            onChange={this.quantityChange.bind(this, index)}/>
-        </td>
-        <td style={{textAlign: 'center'}}>
-          <RemoveButton onClick={this.onDelete.bind(this, index)} />
-        </td>
-      </tr>);
-    });
+    let product = this.props.ma_product.toJS();
+    let edit = product.edit;
+    let index = edit.variant.index;
+    this.colors = edit.colors;
+    let variant = {
+      color: {},
+      list: [],
+      image_list: [],
+      image_sq_list: [],
+    };
+    if (index >= 0) {
+      variant = edit.variant.data;
+    }
     return (
       <div>
         <div className="row">
@@ -132,7 +54,7 @@ class ProductSize extends React.Component {
                 clearable={false}
                 searchable={false}
                 value={variant.color._id}
-                options={colors}
+                options={edit.colors}
                 onChange={this.colorChange.bind(this)} />
             </div>
           </div>
@@ -142,8 +64,7 @@ class ProductSize extends React.Component {
               <button
                 className="btn btn-normal"
                 style={{width: '100%', marginTop: '25px'}}
-                data-toggle="modal" data-target="#choose_color"
-                onClick={this.getColorToEdit.bind(this)}>
+                data-toggle="modal" data-target="#choose_color">
                 <i className="fa fa-pencil" /> แก้ไขสี
               </button>
             </div>
@@ -153,55 +74,27 @@ class ProductSize extends React.Component {
             <div className="form-group" >
               <RemoveButton
                 style={{width: '100%', marginTop: '25px'}}
-                onClick={this.removeColor.bind(this)}>
+                onClick={this.removeColor.bind(this, index)}>
                  ลบสี
               </RemoveButton>
             </div>
           </div>
 
         </div>
-        <div className="row">
-          <div className="col-md-6">
-            <table className="table table-size">
-              <thead className="thead-default">
-                <tr>
-                  <th className="col-md-4">ขนาด</th>
-                  <th className="col-md-4">จำนวนสินค้า</th>
-                  <th/>
-                </tr>
-              </thead>
-              <tbody>
-                {list}
-                <tr>
-                  <td>
-                    <Select
-                      clearable={false}
-                      searchable={false}
-                      options={sizes}
-                      onChange={this.sizeAdd.bind(this)} />
-                  </td>
-                  <td/>
-                  <td/>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <ProductSize
+          index={index}
+          variant={variant} />
+        <br />
+        <ProductImage
+          index={index}
+          size={{title: '15x10', height: '255px', width: '170px'}}
+          list={variant.image_list} />
+        <ProductSquareImage
+          index={index}
+          list={variant.image_sq_list} />
       </div>
     );
   }
 }
 
-export default class ProductVariant extends React.Component {
-  render() {
-    let variant = this.props.variant;
-    return (
-      <div>
-        <ProductSize {...this.props} />
-        <br />
-        <ProductImage index={this.props.index} data={variant.image_list} />
-        <ProductSquareImage index={this.props.index} data={variant.image_sq_list} />
-      </div>
-    );
-  }
-}
+export default inject('ma_product')(observer(ProductVariant));

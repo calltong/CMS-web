@@ -1,70 +1,82 @@
-import _ from 'lodash';
-import {Reducer} from '../../redux-manager';
+import {store} from '../../store';
+import {config} from '../../config';
+import {http} from '../../utility/http';
 
-let css = {
-  font: '',
-  size: 12,
-  color: '#ffffff',
-  bg_color: '#ffffff',
-};
+export class Menu {
+  save() {
+    let doc = store.getState().menu.doc;
+    let id = doc._id;
+    if (id !== '' && id !== undefined) {
+      let url = `${config.api.url}/page/${id}/edit`;
+      http.put(url, {json: doc, authorization: true}).done(response => {
+        if (response.statusCode === http.StatusOK) {
 
-let page_data = {
-  _id: undefined,
-  page: '',
-  name: '',
-  status: '',
-  data: {
-    css: _.cloneDeep(css),
-    menu: {
-      brand: {
-        type: 'text',
-        name: '',
-        css: _.cloneDeep(css),
-      },
-      css: _.cloneDeep(css),
-      list: [],
-    },
-    footer: {
-      type: '',
-      css: _.cloneDeep(css),
-      list: [],
-    },
-  },
-};
+        }
+      });
+    }
+  }
 
-export const reducer = new Reducer({
-  doc: _.cloneDeep(page_data),
-  manage: {
-    index: undefined,
-    level_2: undefined,
-  },
-});
+  setMain(data) {
+    store.update('MENU_DATA', {data: data});
+  }
 
-reducer.register('MENU_RESET', (state, action) => {
-  state = reducer.initial;
-  return state;
-});
+  setData(data) {
+    store.update('MENU_TOP', {data: data});
+  }
 
-reducer.register('MENU_DATA', (state, action) => {
-  let {data} = action.params;
-  state.doc = data;
-  return state;
-});
+  selectMenu(index) {
+    let manage = store.getState().menu.manage;
+    manage.index = index;
+    store.update('MENU_SELECTED', {data: manage});
+  }
 
-reducer.register('MENU_SELECTED', (state, action) => {
-  let {data} = action.params;
-  state.manage = data;
-  return state;
-});
+  resetSelectMenu() {
+    let manage = store.getState().menu.manage;
+    manage.index = undefined;
+    manage.level_2 = undefined;
+    store.update('MENU_SELECTED', {data: manage});
 
-reducer.register('MENU_TOP', (state, action) => {
-  let {data} = action.params;
-  state.doc.data.menu = data;
-  return state;
-});
+    return false;
+  }
 
-reducer.register('MENU_FOOTER', (state, action) => {
-  let {data} = action.params;
-  state.doc.data.footer = data;
-  return state;
-});
+  addItem() {
+    let doc = store.getState().menu.doc;
+    let item = {
+      name: 'ชื่อเมนู',
+      type: 'category',
+      value: '',
+    };
+    doc.data.menu.list.push(item);
+    store.update('MENU_DATA', {data: doc});
+  }
+
+  upItem(index) {
+    if (index > 0) {
+      let doc = store.getState().menu.doc;
+      let upItem = doc.data.menu.list[index];
+      let downItem = doc.data.menu.list[index - 1];
+
+      doc.data.menu.list[index - 1] = upItem;
+      doc.data.menu.list[index] = downItem;
+      store.update('MENU_DATA', {data: doc});
+
+      this.selectMenu(index - 1);
+    }
+  }
+
+  removeItem(index) {
+    let doc = store.getState().menu.doc;
+    doc.data.menu.list.splice(index, 1);
+    store.update('MENU_DATA', {data: doc});
+
+    this.selectMenu(undefined);
+  }
+
+  setItem(index, item) {
+    let doc = store.getState().menu.doc;
+    doc.data.menu.list[index] = item;
+    store.update('MENU_DATA', {data: doc});
+  }
+}
+
+export const action = new Menu();

@@ -2,6 +2,21 @@ import './assets.js';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'mobx-react';
+
+import history from './utils/history';
+import mobx from './stores/store.js';
+
+import ScrollToTop from './forms/ScrollToTop';
+
+import App from './pages/App';
+import NotFound from './pages/support/404';
+import Forbidden from './pages/support/403';
+import Login from './pages/support/Login';
+/*
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 import {config} from './config';
@@ -26,14 +41,27 @@ import OrderManager from './pages/order/OrderManager';
 import OrderInfo from './pages/order/OrderInfo';
 import PageInfo from './pages/page/PageInfo';
 
-import LiveManager from './pages/live/LiveManager';
-
 config.setup(window.location.host);
 
 function checkAuthentication(state, replace) {
   actions.user.verify(state);
-}
+}*/
 
+ReactDOM.render((
+  <Provider {...mobx}>
+    <Router history={history}>
+      <ScrollToTop>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/403" component={Forbidden} />
+          <Route path="/404" component={NotFound} />
+          <Route path="/" component={App} />
+        </Switch>
+      </ScrollToTop>
+    </Router>
+  </Provider>
+), document.getElementById('root'));
+/*
 ReactDOM.render((
    <Router history={browserHistory}>
       <Route path="Login" component={Login} />
@@ -61,8 +89,7 @@ ReactDOM.render((
 
          <Route path="order" component={OrderManager} />
          <Route path="order/:id" component={OrderInfo} />
-
-         <Route path="live" component={LiveManager} />
       </Route>
    </Router>)
    , document.getElementById('root'));
+   */

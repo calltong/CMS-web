@@ -1,10 +1,8 @@
 import React from 'react';
+import {observer, inject} from 'mobx-react';
 import TagsInput from 'react-tagsinput';
 import Select from 'react-select';
 
-import {ReducerBase} from '../../ReducerBase';
-import {store} from '../../store';
-import {actions} from '../../actions/Action';
 import {manager} from '../../utility/Manager';
 
 import EnText from '../../forms/EnText';
@@ -12,82 +10,87 @@ import EnNumberText from '../../forms/EnNumberText';
 import EnTextArea from '../../forms/EnTextArea';
 import EnButton from '../../forms/button/EnButton';
 
-export default class BasicInfo extends ReducerBase {
+export class BasicInfo extends React.Component {
+  componentDidMount() {
+    this.props.ma_type.getList(false);
+  }
+
   codeGenerate() {
     let data = this.data;
     data.code = manager.GenerateId();
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   codeChange(event) {
     let data = this.data;
     data.code = event.target.value;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   nameChange(event) {
     let data = this.data;
     data.content.main.name = event.target.value;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   infoChange(event) {
     let data = this.data;
     data.content.main.description = event.target.value;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   contentChange(event) {
     let data = this.data;
     data.content.main.package_content = event.target.value;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   conditionChange(event) {
     let data = this.data;
     data.content.main.condition = event.target.value;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   priceChange(event) {
     let data = this.data;
     let val = parseInt(event.target.value, 10);
     data.price = val? val: 0;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   salePriceChange(event) {
     let data = this.data;
     let val = parseInt(event.target.value, 10);
     data.sale_price = val? val: 0;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   typeChange(event) {
     let data = this.data;
     data.type_id = event.value;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   tagsChange(list) {
     let data = this.data;
     data.tag_list = list;
-    actions.product.setItem(data);
+    this.props.ma_product.setItem(data);
   }
 
   videoChange(event) {
     let data = this.data;
     data.video = event.target.value;
-    actions.product.setItem({data});
+    this.props.ma_product.setItem({data});
   }
 
   render() {
-    let state = store.getState();
-    let ecommerce = state.product.ecommerce;
-    let data = state.product.data;
+    let product = this.props.ma_product.toJS();
+    let ecommerce = product.ecommerce;
+    let data = product.data;
     this.data = data;
 
-    let typeList = state.type.select_list;
+    let type = this.props.ma_type.toJS();
+    let typeList = type.select_list;
     return (
       <div>
         <div className="row">
@@ -221,3 +224,5 @@ export default class BasicInfo extends ReducerBase {
     );
   }
 }
+
+export default inject('ma_product', 'ma_type')(observer(BasicInfo));

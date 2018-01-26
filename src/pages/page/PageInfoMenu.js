@@ -20,6 +20,10 @@ export default class PageInfoMenu extends React.Component {
   onReset() {
   }
 
+  onToken() {
+    actions.page.main.buildToken();
+  }
+
   onDisplayMenu() {
     let form = store.getState().page.form;
     form.menu.display = form.menu.display === 'block' ? 'none' : 'block';
@@ -55,6 +59,12 @@ export default class PageInfoMenu extends React.Component {
         className="btn btn-normal"
         style={css}>
         <i className="fa fa-tasks" /> Properties
+      </EnButton>
+      <EnButton
+        onClick={this.onToken.bind(this)}
+        className="btn btn-normal"
+        style={css}>
+        <i className="fa fa-dot-circle-o" /> Token
       </EnButton>
     </div>
     );

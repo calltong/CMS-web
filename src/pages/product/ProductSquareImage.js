@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {actions} from '../../actions/Action';
 import EnImageSelector from '../../forms/EnImageSelector';
 import EnButton from '../../forms/button/EnButton';
 
@@ -14,7 +13,7 @@ export default class ProductSquareImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.product.addSqImage(inVariant, data, this.width, this.height);
+        this.props.ma_product.addSqImage(inVariant, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
@@ -29,18 +28,18 @@ export default class ProductSquareImage extends React.Component {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.product.editSqImage(inVariant, index, data, this.width, this.height);
+        this.props.ma_product.editSqImage(inVariant, index, data, this.width, this.height);
       };
     };
     reader.readAsDataURL(files[0]);
   }
 
   onRemove(index) {
-    actions.product.removeSqImage(this.props.index, index);
+    this.props.ma_product.removeSqImage(this.props.index, index);
   }
 
   render() {
-    let list = this.props.data.map((item, index) => {
+    let list = this.props.list.map((item, index) => {
       let note = '';
       if (item.width && item.height) {
         note = `note: ${item.height} x ${item.width}`;

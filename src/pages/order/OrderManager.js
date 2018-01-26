@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {Link} from 'react-router';
 
 import {toMoney, toNumber, toDate, toOrderStatus} from '../../utility/Display';
-import {ReducerBase} from '../../ReducerBase';
-import {store} from '../../store';
-import {actions} from '../../actions/Action';
 
 import OrderSearchBar from './OrderSearchBar';
 import EnHeader from '../../forms/EnHeader';
@@ -67,7 +64,7 @@ class OrderTable extends Component {
   }
 }
 
-export class OrderManager extends ReducerBase {
+export class OrderManager extends Component {
   componentDidMount() {
     actions.order.getList();
   }
@@ -79,7 +76,7 @@ export class OrderManager extends ReducerBase {
         <EnHeader name="รายการสั่งซื้อ"/>
         <div className="row">
           <div className="col-md-10">
-            <OrderSearchBar />
+            <SearchBar />
           </div>
         </div>
         <hr/>
